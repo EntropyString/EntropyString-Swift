@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
+    <pages>
+        <page name='Table of Contents'/>
+        <page name='Overview'/>
+        <page name='Real Need'/>
+        <page name='More Examples'/>
+        <page name='Character Bases'/>
+        <page name='Custom Characters'/>
+        <page name='Unique Characters'/>
+        <page name='Efficiency'/>
+        <page name='Secure Bytes'/>
+        <page name='Custom Bytes'/>
+    </pages>
+</playground>
