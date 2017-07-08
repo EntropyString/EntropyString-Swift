@@ -29,6 +29,8 @@
 import Foundation
 
 public struct Entropy {
+  
+  /// Powers of ten
   public enum Power: UInt {
     case ten01 =  1
     case ten02 =  2
@@ -66,7 +68,15 @@ public struct Entropy {
     }
   }
   
-  public static func bits(total: UInt, risk: Power) -> Float {
+  // MARK: - Public API (Static)
+  //
+  /// Calculates bits of entropy
+  ///
+  /// - parameter total: Number of items in the universal set express as a `UInt`
+  /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
+  ///
+  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
+  public static func bits(for total: UInt, risk: Power) -> Float {
     let tPower = log10(Float(total))
     var N: Float
     if UInt(tPower) < Power.ten09.rawValue {
@@ -79,7 +89,13 @@ public struct Entropy {
     return N
   }
   
-  public static func bits(total: Power, risk: Power) -> Float {
+  /// Calculates bits of entropy
+  ///
+  /// - parameter total: Number of items in the universal set expressed a power of ten
+  /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
+  ///
+  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
+  public static func bits(for total: Power, risk: Power) -> Float {
     let n = 2 * total.rawValue + risk.rawValue
     let N = Float(n) * log2(10) - 1
     return N

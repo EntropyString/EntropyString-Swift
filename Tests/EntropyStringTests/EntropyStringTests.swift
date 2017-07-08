@@ -282,7 +282,7 @@ class EntropyStringTests: XCTestCase {
   
   func testTotalEntropy() {
     for risk in powers {
-      _ = Entropy.bits(total: 10000, risk: risk)
+      _ = Entropy.bits(for: 10000, risk: risk)
     }
     
     entropyBits(    30,   .ten06,   29)
@@ -312,12 +312,12 @@ class EntropyStringTests: XCTestCase {
   }
   
   func entropyBits(_ total: UInt, _ risk: Entropy.Power, _ expected: UInt) {
-    let bits = Entropy.bits(total: total, risk: risk)
+    let bits = Entropy.bits(for: total, risk: risk)
     XCTAssertEqual(UInt(ceil(bits)), expected)
   }
 
   func stringLength(_ total: UInt, _ risk: Entropy.Power, _ base: RandomString.CharBase, _ expected: UInt) {
-    let bits = Entropy.bits(total: total, risk: risk)
+    let bits = Entropy.bits(for: total, risk: risk)
     let len = UInt(ceil(bits / Float(base.entropyPerChar)))
     XCTAssertEqual(len,  expected)
   }
@@ -325,7 +325,7 @@ class EntropyStringTests: XCTestCase {
   func testPowerEntropy() {
     for total in powers {
       for risk in powers {
-        _ = Entropy.bits(total: total, risk: risk)
+        _ = Entropy.bits(for: total, risk: risk)
       }
     }
     
@@ -345,7 +345,7 @@ class EntropyStringTests: XCTestCase {
   }
   
   func stringLength(_ power: Entropy.Power, _ risk: Entropy.Power, _ base: RandomString.CharBase, _ expected: UInt) {
-    let bits = Entropy.bits(total: power, risk: risk)
+    let bits = Entropy.bits(for: power, risk: risk)
     let len = UInt(ceil(bits / Float(base.entropyPerChar)))
     XCTAssertEqual(len,  expected)
   }
