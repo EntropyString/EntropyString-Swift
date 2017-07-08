@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-xcodebuild test
-  -scheme EntropyString-iOS
-  -destination "platform=iOS Simulator,name=iPhone 7,OS=10.0"
-  
