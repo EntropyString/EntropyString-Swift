@@ -2,13 +2,7 @@
 
 set -e -o pipefail
 
-if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    for version in $SWIFT_VERSIONS; do
-        swiftenv global "$version"
-        swiftenv version
-        swift test
-    done
-elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     xcodebuild -version
 
     xcodebuild \
@@ -20,4 +14,12 @@ elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         test | xcpretty
 
 #    pod lib lint --quick
+fi
+
+if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    for version in $SWIFT_VERSIONS; do
+        swiftenv global "$version"
+        swiftenv version
+        swift test
+    done
 fi
