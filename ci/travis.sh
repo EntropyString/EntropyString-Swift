@@ -16,7 +16,7 @@ elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         -project $FRAMEWORK_NAME.xcodeproj \
         -scheme "$FRAMEWORK_NAME-iOS" \
         -sdk iphonesimulator \
-        -destination "platform=iOS Simulator,name=iPhone 7,OS=10.0" \
+        -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3.1" \
         ONLY_ACTIVE_ARCH=NO \
         test | xcpretty
 
