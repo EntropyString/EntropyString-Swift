@@ -22,13 +22,13 @@ print("String: \(string)\n")
 //:
 //: Now let's suppose we need to ensure the names of a handful of items are unique.  Let's say 30
 //: items. And let's decide we can live with a 1 in 100,000 probability of collision (we're just
-//: futzing with some code ideas). Using hex characters we get:
+//: futzing with some code ideas). Using hex characters:
 bits = Entropy.bits(total: 30, risk: .ten05)
 string = RandomString.entropy(of: bits, using: .charSet16)
 print("String: \(string)\n")
 //: * callout(string): 766923a
 //:
-//: Using 4 characters we get:
+//: Using the CharSet 4 characters:
 string = RandomString.entropy(of: bits, using: .charSet4)
 print("String: \(string)\n")
 //: * callout(string): GCGTCGGGTTTTA
