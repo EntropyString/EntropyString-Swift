@@ -2,6 +2,7 @@
 <playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
         <page name='Table of Contents'/>
+        <page name='Basic Usage'/>
         <page name='Overview'/>
         <page name='Real Need'/>
         <page name='More Examples'/>
