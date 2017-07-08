@@ -10,4 +10,5 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     done
 elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     gem install xcpretty -N
+    rvm get stable --auto-dotfiles
 fi
