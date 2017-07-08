@@ -56,7 +56,7 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-  public static func entropy(of bits: Float, using base: CharBase) -> String {
+  public static func entropy(of bits: Float, using base: CharSet) -> String {
     return RandomString.instance.entropy(of: bits, using: base)
   }
   
@@ -74,7 +74,7 @@ public class RandomString {
   ///
   ///     If _secure_ is passed in as `true`, the value of _secure_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
-  public static func entropy(of bits: Float, using base: CharBase, secure: inout Bool) -> String {
+  public static func entropy(of bits: Float, using base: CharSet, secure: inout Bool) -> String {
     return RandomString.instance.entropy(of: bits, using: base, secure: &secure)
   }
 
@@ -89,7 +89,7 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-  public static func entropy(of bits: Float, using base: CharBase, bytes: Bytes) throws -> String {
+  public static func entropy(of bits: Float, using base: CharSet, bytes: Bytes) throws -> String {
     return try RandomString.instance.entropy(of: bits, using: base, bytes: bytes)
   }
 
@@ -99,7 +99,7 @@ public class RandomString {
   /// - parameter: base: Character base to inspect
   ///
   /// - return: String of characters
-  public static func characters(for base: CharBase) -> String {
+  public static func characters(for base: CharSet) -> String {
     return RandomString.instance.characters(for: base)
   }
   
@@ -117,7 +117,7 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-    public func entropy(of bits: Float, using base: CharBase) -> String {
+    public func entropy(of bits: Float, using base: CharSet) -> String {
     var secure = true
     return entropy(of: bits, using: base, secure: &secure)
   }
@@ -136,7 +136,7 @@ public class RandomString {
   ///
   ///     If _secure_ is passed in as `true`, the value of _secure_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
-  public func entropy(of bits: Float, using base: CharBase, secure: inout Bool) -> String {
+  public func entropy(of bits: Float, using base: CharSet, secure: inout Bool) -> String {
     let count: UInt = UInt(ceil(bits / Float(base.entropyPerChar)))
     guard 0 < count else { return "" }
     
@@ -158,7 +158,7 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-  public func entropy(of bits: Float, using base: CharBase, bytes: Bytes) throws -> String {
+  public func entropy(of bits: Float, using base: CharSet, bytes: Bytes) throws -> String {
     let count: UInt = UInt(ceil(bits / Float(base.entropyPerChar)))
     guard 0 < count else { return "" }
 
@@ -212,7 +212,7 @@ public class RandomString {
   /// - parameter: base: Character base to inspect
   ///
   /// - return: String of characters
-  public func characters(for base: CharBase) -> String {
+  public func characters(for base: CharSet) -> String {
     switch base {
     case .base64:
       return chars.base64
@@ -235,7 +235,7 @@ public class RandomString {
   /// - parameter base: The character base to set
   ///
   /// - throws `invalidCharCount` if not the exact number of characters expected for the base.
-  public func use(_ characters: String, for base: CharBase, force: Bool = false) throws {
+  public func use(_ characters: String, for base: CharSet, force: Bool = false) throws {
     switch base {
     case .base64:
       try chars.set(base64: characters, force: force)
@@ -267,7 +267,7 @@ public class RandomString {
   /// - return: Random __Bytes__. If _secure_ is passed in as `true`, the value of _secure_ on
   ///     return indicates whether `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`)
   ///     was used.
-  private static func genBytes(_ count: UInt, _ base: CharBase, _ secure: inout Bool) -> Bytes {
+  private static func genBytes(_ count: UInt, _ base: CharSet, _ secure: inout Bool) -> Bytes {
     // Each slice forms a chars and requires entropy per char bits
     let bytesPerSlice = Double(base.entropyPerChar)/8;
     
@@ -522,7 +522,7 @@ public class RandomString {
       return _base64 ?? Chars.default64
     }
     mutating func set(base64: String, force: Bool) throws {
-      guard base64.characters.count == Int(CharBase.base64.rawValue) else { throw RandomStringError.invalidCharCount }
+      guard base64.characters.count == Int(CharSet.base64.rawValue) else { throw RandomStringError.invalidCharCount }
       guard force || unique(string: base64) else { throw RandomStringError.charsNotUnique }
       _base64 = base64
     }
@@ -532,7 +532,7 @@ public class RandomString {
       return _base32 ?? Chars.default32
     }
     mutating func set(base32: String, force: Bool) throws {
-      guard base32.characters.count == Int(CharBase.base32.rawValue) else { throw RandomStringError.invalidCharCount }
+      guard base32.characters.count == Int(CharSet.base32.rawValue) else { throw RandomStringError.invalidCharCount }
       guard force || unique(string: base32) else { throw RandomStringError.charsNotUnique }
       _base32 = base32
     }
@@ -542,7 +542,7 @@ public class RandomString {
       return _base16 ?? Chars.default16
     }
     mutating func set(base16: String, force: Bool) throws {
-      guard base16.characters.count == Int(CharBase.base16.rawValue) else { throw RandomStringError.invalidCharCount }
+      guard base16.characters.count == Int(CharSet.base16.rawValue) else { throw RandomStringError.invalidCharCount }
       guard force || unique(string: base16) else { throw RandomStringError.charsNotUnique }
       _base16 = base16
     }
@@ -552,7 +552,7 @@ public class RandomString {
       return _base8 ?? Chars.default8
     }
     mutating func set(base8: String, force: Bool) throws {
-      guard base8.characters.count == Int(CharBase.base8.rawValue) else { throw RandomStringError.invalidCharCount }
+      guard base8.characters.count == Int(CharSet.base8.rawValue) else { throw RandomStringError.invalidCharCount }
       guard force || unique(string: base8) else { throw RandomStringError.charsNotUnique }
       _base8 = base8
     }
@@ -562,7 +562,7 @@ public class RandomString {
       return _base4 ?? Chars.default4
     }
     mutating func set(base4: String, force: Bool) throws {
-      guard base4.characters.count == Int(CharBase.base4.rawValue) else { throw RandomStringError.invalidCharCount }
+      guard base4.characters.count == Int(CharSet.base4.rawValue) else { throw RandomStringError.invalidCharCount }
       guard force || unique(string: base4) else { throw RandomStringError.charsNotUnique }
       _base4 = base4
     }
@@ -572,7 +572,7 @@ public class RandomString {
       return _base2 ?? Chars.default2
     }
     mutating func set(base2: String, force: Bool) throws {
-      guard base2.characters.count == Int(CharBase.base2.rawValue) else { throw RandomStringError.invalidCharCount }
+      guard base2.characters.count == Int(CharSet.base2.rawValue) else { throw RandomStringError.invalidCharCount }
       guard force || unique(string: base2) else { throw RandomStringError.charsNotUnique }
       _base2 = base2
     }
@@ -591,7 +591,7 @@ public class RandomString {
     }
   }
   
-  public enum CharBase: UInt {
+  public enum CharSet: UInt {
     // Supported character bases
     case base64 = 64
     case base32 = 32

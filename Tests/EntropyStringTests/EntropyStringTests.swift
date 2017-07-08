@@ -11,20 +11,20 @@ import XCTest
 
 class EntropyStringTests: XCTestCase {
   var randomString: RandomString!
-  var bases: [RandomString.CharBase]!
+  var bases: [RandomString.CharSet]!
   var powers: [Entropy.Power]!
   
   override func setUp() {
     super.setUp()
     
     randomString = RandomString()
-    bases = [.base64, .base32, .base16, .base8, .base4, .base2] as [RandomString.CharBase]
+    bases = [.base64, .base32, .base16, .base8, .base4, .base2] as [RandomString.CharSet]
     powers = [.ten01, .ten02, .ten03, .ten04, .ten05, .ten06, .ten07, .ten08, .ten09, .ten10,
               .ten11, .ten12, .ten13, .ten14, .ten15, .ten16, .ten17, .ten18, .ten19, .ten10,
               .ten21, .ten22, .ten23, .ten24, .ten25, .ten26, .ten27, .ten28, .ten29, .ten30] as [Entropy.Power]
   }
   
-  func testCharBaseLengths() {
+  func testCharSetLengths() {
     for base in bases {
       var count = RandomString.characters(for: base).characters.count
       XCTAssertEqual(count, String.CharacterView.IndexDistance(base.rawValue))
@@ -167,7 +167,7 @@ class EntropyStringTests: XCTestCase {
     forceNotUnique(.base2,  "aa")
   }
   
-  func invalidCharCount(_ base: RandomString.CharBase, _ chars: String) {
+  func invalidCharCount(_ base: RandomString.CharSet, _ chars: String) {
     do {
       try randomString.use(chars, for: base)
       XCTFail("Should have thrown")
@@ -182,7 +182,7 @@ class EntropyStringTests: XCTestCase {
     }
   }
   
-  func notUniqueChars(_ base: RandomString.CharBase, _ chars: String) {
+  func notUniqueChars(_ base: RandomString.CharSet, _ chars: String) {
     do {
       try randomString.use(chars, for: base)
       XCTFail("Should have thrown")
@@ -197,7 +197,7 @@ class EntropyStringTests: XCTestCase {
     }
   }
   
-  func forceNotUnique(_ base: RandomString.CharBase, _ chars: String) {
+  func forceNotUnique(_ base: RandomString.CharSet, _ chars: String) {
     do {
       try randomString.use(chars, for: base, force: true)
     }
@@ -275,7 +275,7 @@ class EntropyStringTests: XCTestCase {
     entropy(.base2, 128, 128)
   }
   
-  func entropy(_ base: RandomString.CharBase, _ bits: Float, _ expected: Int) {
+  func entropy(_ base: RandomString.CharSet, _ bits: Float, _ expected: Int) {
     var string = RandomString.entropy(of: bits, using: base)
     XCTAssertEqual(string.characters.count, expected)
   }
@@ -316,7 +316,7 @@ class EntropyStringTests: XCTestCase {
     XCTAssertEqual(UInt(ceil(bits)), expected)
   }
 
-  func stringLength(_ total: UInt, _ risk: Entropy.Power, _ base: RandomString.CharBase, _ expected: UInt) {
+  func stringLength(_ total: UInt, _ risk: Entropy.Power, _ base: RandomString.CharSet, _ expected: UInt) {
     let bits = Entropy.bits(for: total, risk: risk)
     let len = UInt(ceil(bits / Float(base.entropyPerChar)))
     XCTAssertEqual(len,  expected)
@@ -344,7 +344,7 @@ class EntropyStringTests: XCTestCase {
     stringLength(.ten10, .ten09, .base2,  96)
   }
   
-  func stringLength(_ power: Entropy.Power, _ risk: Entropy.Power, _ base: RandomString.CharBase, _ expected: UInt) {
+  func stringLength(_ power: Entropy.Power, _ risk: Entropy.Power, _ base: RandomString.CharSet, _ expected: UInt) {
     let bits = Entropy.bits(for: power, risk: risk)
     let len = UInt(ceil(bits / Float(base.entropyPerChar)))
     XCTAssertEqual(len,  expected)
@@ -380,7 +380,7 @@ class EntropyStringTests: XCTestCase {
     invalidBytes(17, .base2,  [1,2])
   }
   
-  func invalidBytes(_ bits: Float, _ base: RandomString.CharBase, _ bytes: RandomString.Bytes) {
+  func invalidBytes(_ bits: Float, _ base: RandomString.CharSet, _ bytes: RandomString.Bytes) {
     do {
       _ = try randomString.entropy(of: bits, using: base, bytes: bytes)
       XCTFail("Should have thrown")
@@ -469,7 +469,7 @@ class EntropyStringTests: XCTestCase {
     entropy(16, .base2, [0xe3, 0xe9], "1110001111101001")
   }
 
-  func entropy(_ bits: Float, _ base: RandomString.CharBase, _ bytes: [UInt8], _ expected: String) {
+  func entropy(_ bits: Float, _ base: RandomString.CharSet, _ bytes: [UInt8], _ expected: String) {
     do {
       var string = try RandomString.entropy(of: bits, using: base, bytes: bytes)
       XCTAssertEqual(string, expected)
@@ -495,7 +495,7 @@ class EntropyStringTests: XCTestCase {
   // Adopt XCTestCaseProvider to run test on  Linux
   var allTests: [(String, () throws -> ())] {
     return [
-      ("testCharBaseLengths",  testCharBaseLengths),
+      ("testCharSetLengths",  testCharSetLengths),
       ("testEntropyLengths",   testEntropyLengths),
       ("testCustom64Chars",    testCustom64Chars),
       ("testCustom32Chars",    testCustom32Chars),
