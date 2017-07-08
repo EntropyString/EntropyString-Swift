@@ -13,6 +13,7 @@
 		E287ADB51F0E9DEE00DE6DF5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E287ADB21F0E9DEE00DE6DF5 /* Info.plist */; };
 		E287ADB71F0E9E8500DE6DF5 /* EntropyStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */; };
 		E287ADB91F0EDCAB00DE6DF5 /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */; };
+		E2BB88FC1F1162E80084D759 /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BB88FB1F1162E80084D759 /* CharSet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +35,8 @@
 		E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyStringTests.swift; sourceTree = "<group>"; };
 		E287ADB21F0E9DEE00DE6DF5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entropy.swift; sourceTree = "<group>"; };
-		E287ADBA1F0EE3B600DE6DF5 /* Entropy.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Entropy.playground; sourceTree = "<group>"; };
+		E287ADBA1F0EE3B600DE6DF5 /* EntropyString.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EntropyString.playground; sourceTree = "<group>"; };
+		E2BB88FB1F1162E80084D759 /* CharSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +63,7 @@
 			children = (
 				E287AD941F0E9B9A00DE6DF5 /* EntropyString */,
 				E287AD931F0E9B9A00DE6DF5 /* Products */,
-				E287ADBA1F0EE3B600DE6DF5 /* Entropy.playground */,
+				E287ADBA1F0EE3B600DE6DF5 /* EntropyString.playground */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +92,7 @@
 			children = (
 				E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */,
 				E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */,
+				E2BB88FB1F1162E80084D759 /* CharSet.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -222,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2BB88FC1F1162E80084D759 /* CharSet.swift in Sources */,
 				E287ADAE1F0E9DDC00DE6DF5 /* RandomString.swift in Sources */,
 				E287ADB91F0EDCAB00DE6DF5 /* Entropy.swift in Sources */,
 			);

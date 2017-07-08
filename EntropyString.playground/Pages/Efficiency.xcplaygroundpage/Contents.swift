@@ -3,9 +3,9 @@
 //:
 //: To efficiently create random strings, `EntropyString` generates the necessary number of
 //: bytes needed for each the string and uses those bytes in a bit shifting scheme to index into
-//: a character base. For example, consider generating strings from the `.base32` character
-//: base. There are __32__ characters in the base, so an index into an array of those characters
-//: would be in the range `[0,31]`. Generating a random string of `.base32` characters is thus
+//: a character set. For example, consider generating strings from the `.charSet32` character
+//: set. There are __32__ characters in the set, so an index into an array of those characters
+//: would be in the range `[0,31]`. Generating a random string of `.charSet32` characters is thus
 //: reduced to generating a random sequence of indices in the range `[0,31]`.
 //:
 //: To generate the indices, `EntropyString` slices just enough bits from the array of bytes to create
@@ -13,7 +13,7 @@
 //: `[0,31]`. `EntropyString` processes the byte array 5 bits at a time to create the indices. The first
 //: index comes from the first 5 bits of the first byte, the second index comes from the last 3 bits of
 //: the first byte combined with the first 2 bits of the second byte, and so on as the byte array is
-//: systematically sliced to form indices into the character base. And since bit shifting and addition
+//: systematically sliced to form indices into the character set. And since bit shifting and addition
 //: of byte values is really efficient, this scheme is quite fast.
 //:
 //: The `EntropyString` scheme is also efficient with regard to the amount of randomness used. Consider

@@ -20,7 +20,7 @@
 import EntropyString
 
 var secure = true
-RandomString.entropy(of: 20, using: .base32, secure: &secure)
+RandomString.entropy(of: 20, using: .charSet32, secure: &secure)
 print("secure: \(secure)")
 //: * callout(secure): true
 //:
@@ -30,7 +30,7 @@ print("secure: \(secure)")
 //: You can also pass in __secure__ as `false`, in which case the `entropy` call will not
 //: attempt to use `SecRandomCopyBytes` and will use `arc4random_buf` instead.
 secure = false
-RandomString.entropy(of: 20, using: .base32, secure: &secure)
+RandomString.entropy(of: 20, using: .charSet32, secure: &secure)
 //: Rather than have `EntropyString` generate bytes automatically, you can provide your own [Custom
 //: Bytes](Custom%20Bytes) to create a string, which is the next topic.
 //:

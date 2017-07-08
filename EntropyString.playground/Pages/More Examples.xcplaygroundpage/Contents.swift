@@ -11,7 +11,7 @@
 import EntropyString
 
 var bits = Entropy.bits(total: 10000, risk: .ten06)
-var string = RandomString.entropy(of: bits, using: .base32)
+var string = RandomString.entropy(of: bits, using: .charSet32)
 print("String: \(string)\n")
 //: * callout(string): PmgMJrdp9h
 //: 
@@ -24,16 +24,16 @@ print("String: \(string)\n")
 //: items. And let's decide we can live with a 1 in 100,000 probability of collision (we're just
 //: futzing with some code ideas). Using hex characters we get:
 bits = Entropy.bits(total: 30, risk: .ten05)
-string = RandomString.entropy(of: bits, using: .base16)
+string = RandomString.entropy(of: bits, using: .charSet16)
 print("String: \(string)\n")
 //: * callout(string): 766923a
 //:
-//: Using base 4 characters we get:
-string = RandomString.entropy(of: bits, using: .base4)
+//: Using 4 characters we get:
+string = RandomString.entropy(of: bits, using: .charSet4)
 print("String: \(string)\n")
 //: * callout(string): GCGTCGGGTTTTA
 //:
-//: Okay, we probably wouldn't use base 4 (and what's up with those characters?), but you get the
+//: Okay, we probably wouldn't use 4 characters (and what's up with those characters?), but you get the
 //: idea.
 //:
 //: Suppose we have a more extreme need. We want less than a 1 in a trillion chance that 10
@@ -41,7 +41,7 @@ print("String: \(string)\n")
 //: our total (10 billion) is 10 to the 10th, so:
 //:
 bits = Entropy.bits(total: .ten10, risk: .ten12)
-string = RandomString.entropy(of: bits, using: .base32)
+string = RandomString.entropy(of: bits, using: .charSet32)
 print("String: \(string)\n")
 //: * callout(string): F78PmfGRNfJrhHGTqpt6Hn
 //:
@@ -50,7 +50,7 @@ print("String: \(string)\n")
 //: this case, we're using entropy as a measure of unpredictability of the IDs. Rather than calculate
 //: our entropy, we declare it needs to be 128 bits (since we read on some web site that session IDs
 //: should be 128 bits).
-string = RandomString.entropy(of: 128, using: .base64)
+string = RandomString.entropy(of: 128, using: .charSet64)
 print("String: \(string)\n")
 //: * callout(string): b0Gnh6H5cKCjWrCLwKoeuN
 //:

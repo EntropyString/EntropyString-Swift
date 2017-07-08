@@ -2,19 +2,19 @@
 //: ## Character Bases
 //:
 //: As we've seen in the previous sections, `EntropyString` provides default characters for each of
-//: the supported bases. Let's see what's under the hood.
+//: the supported character sets. Let's see what's under the hood.
 import EntropyString
 
-print("Base 64: \(RandomString.characters(for: .base64))\n")
+print("Base 64: \(RandomString.characters(for: .charSet64))\n")
 //: The call to `RandomString.characters(for:)` returns the characters used for any of the
-//: bases defined by the `RandomString.CharBase enum`. The following code reveals all the
-//: character bases.
-print("Base 32: \(RandomString.characters(for: .base32))\n")
-print("Base 16: \(RandomString.characters(for: .base16))\n")
-print("Base  8: \(RandomString.characters(for: .base8))\n")
-print("Base  4: \(RandomString.characters(for: .base4))\n")
-print("Base  2: \(RandomString.characters(for: .base2))\n")
-//: The default character bases were chosen as follows:
+//: character sets defined by the `RandomString.CharBase enum`. The following code reveals all the
+//: character sets.
+print("Base 32: \(RandomString.characters(for: .charSet32))\n")
+print("Base 16: \(RandomString.characters(for: .charSet16))\n")
+print("Base  8: \(RandomString.characters(for: .charSet8))\n")
+print("Base  4: \(RandomString.characters(for: .charSet4))\n")
+print("Base  2: \(RandomString.characters(for: .charSet2))\n")
+//: The default character sets were chosen as follows:
 //:  - Base 64: **ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_**
 //:     - The file system and URL safe char set from
 //:       [RFC 4648](https://tools.ietf.org/html/rfc4648#section-5).

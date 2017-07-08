@@ -55,7 +55,7 @@ import EntropyString
 let bits = Entropy.bits(total: 10000, risk: .ten06)
 var strings = [String]()
 for i in 0 ..< 5 {
-  let string = RandomString.entropy(of: bits, using: .base16)
+  let string = RandomString.entropy(of: bits, using: .charSet16)
   strings.append(string)
 }
 print("Strings: \(strings)")
@@ -72,10 +72,10 @@ print("Strings: \(strings)")
 //: result, but if you did you'd see it's about **45.51**. Then inside a loop we used
 //:
 //: ```swift
-//:   let string = RandomString.entropy(of: bits, using: .base16)
+//:   let string = RandomString.entropy(of: bits, using: .charSet16)
 //: ```
 //:
-//: to actually generate random strings using hexadecimal (base16) characters. Looking at the IDs, we can
+//: to actually generate random strings using hexadecimal (charSet16) characters. Looking at the IDs, we can
 //: see each is 12 characters long. Again, the string length is a by-product of the characters used to
 //: represent the entropy we needed. And it seems the developer didn't really need 16 characters after all.
 //:

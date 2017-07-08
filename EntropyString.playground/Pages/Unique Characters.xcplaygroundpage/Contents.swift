@@ -2,16 +2,16 @@
 //: ## Unique Characters
 //:
 //: As noted in [Custom Characters](Custom%20Characters), specifying the characters to use for a
-//: base can fail if the number of characters is invalid or if any character repeats.  The desire
-//: for unique characters is due to the calculation of entropy, which includes the probability of
-//: the occurrence of each character. `EntropyString` assumes the characters are unique so that each
+//: character set can fail if the number of characters is invalid or if any character repeats.  The
+//: desire for unique characters is due to the calculation of entropy, which includes the probability
+//: of the occurrence of each character. `EntropyString` assumes the characters are unique so that each
 //: has the exact same probability of occurrence.
 //:
 import EntropyString
 
 let randomString = RandomString()
 do {
-  try randomString.use("0120", for: .base4)
+  try randomString.use("0120", for: .charSet4)
 }
 catch {
   print(error)
@@ -20,9 +20,9 @@ catch {
 //:
 //: You can force the use of repeat characters. (BTW, don't do this unless you really know what you
 //: are doing.)
-try! randomString.use("0120", for: .base4, force: true)
+try! randomString.use("0120", for: .charSet4, force: true)
 //: Now we'll create a string by specifying an __entropy__ of __128__ bits and print the result.
-let string = randomString.entropy(of: 128, using: .base4)
+let string = randomString.entropy(of: 128, using: .charSet4)
 
 print("string: \(string)\n")
 //: * callout(string): 2201121012112100012022010002011020212002200212100110022121201221

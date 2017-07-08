@@ -9,7 +9,7 @@
 import EntropyString
 
 let bytes: RandomString.Bytes = [250, 200, 150, 100]
-let string = try! RandomString.entropy(of: 30, using: .base32, bytes: bytes)
+let string = try! RandomString.entropy(of: 30, using: .charSet32, bytes: bytes)
 print("String: \(string)\n")
 //: * callout(string): Th7fjL
 //:
@@ -18,7 +18,7 @@ print("String: \(string)\n")
 //: `RandomString.entropy(of:using:bytes)` throws `RandomString.RandomError.tooFewBytes` if
 //: the string cannot be formed from the passed bytes.
 do {
-  try RandomString.entropy(of: 32, using: .base32, bytes: bytes)
+  try RandomString.entropy(of: 32, using: .charSet32, bytes: bytes)
 }
 catch {
   print(error)

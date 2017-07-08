@@ -3,7 +3,7 @@
 //: ## Overview
 //:
 //: `EntropyString` provides easy creation of randomly generated strings of specific entropy using
-//: various character bases. Such strings are needed when generating, for example, random IDs and
+//: various character sets. Such strings are needed when generating, for example, random IDs and
 //: you don't want the overkill of a GUID, or for ensuring that some number of items have unique
 //: names.
 //:
