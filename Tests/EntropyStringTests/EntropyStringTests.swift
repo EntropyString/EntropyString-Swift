@@ -212,7 +212,7 @@ class EntropyStringTests: XCTestCase {
     }
   }
   
-  func testBase64Entropy() {
+  func testCharSet64Entropy() {
     entropy(.charSet64,   5,  1)
     entropy(.charSet64,   6,  1)
     entropy(.charSet64,   7,  2)
@@ -223,7 +223,7 @@ class EntropyStringTests: XCTestCase {
     entropy(.charSet64, 132, 22)
   }
   
-  func testBase32Entropy() {
+  func testCharSet32Entropy() {
     entropy(.charSet32,   4,  1)
     entropy(.charSet32,   5,  1)
     entropy(.charSet32,   6,  2)
@@ -234,7 +234,7 @@ class EntropyStringTests: XCTestCase {
     entropy(.charSet32, 130, 26)
   }
   
-  func testBase16Entropy() {
+  func testCharSet16Entropy() {
     entropy(.charSet16,   3,  1)
     entropy(.charSet16,   4,  1)
     entropy(.charSet16,   5,  2)
@@ -244,7 +244,7 @@ class EntropyStringTests: XCTestCase {
     entropy(.charSet16, 128, 32)
   }
   
-  func testBase8Entropy() {
+  func testCharSet8Entropy() {
     entropy(.charSet8,   2,  1)
     entropy(.charSet8,   3,  1)
     entropy(.charSet8,   4,  2)
@@ -255,7 +255,7 @@ class EntropyStringTests: XCTestCase {
     entropy(.charSet8, 128, 43)
   }
   
-  func testBase4Entropy() {
+  func testCharSet4Entropy() {
     entropy(.charSet4,   1,  1)
     entropy(.charSet4,   2,  1)
     entropy(.charSet4,   3,  2)
@@ -265,7 +265,7 @@ class EntropyStringTests: XCTestCase {
     entropy(.charSet4, 128, 64)
   }
   
-  func testBase2Entropy() {
+  func testCharSet2Entropy() {
     entropy(.charSet2,   1,   1)
     entropy(.charSet2,   2,   2)
     entropy(.charSet2,   3,   3)
@@ -395,7 +395,7 @@ class EntropyStringTests: XCTestCase {
     }
   }
 
-  func testBase64() {
+  func testCharSet64() {
     entropy( 6, .charSet64, [0xdd],                                                 "3")
     entropy(12, .charSet64, [0x78, 0xfc],                                           "eP")
     entropy(18, .charSet64, [0xc5, 0x6f, 0x21],                                     "xW8")
@@ -410,7 +410,7 @@ class EntropyStringTests: XCTestCase {
     entropy(72, .charSet64, [0x9d, 0x99, 0x4e, 0xa5, 0xd2, 0x3f, 0x8c, 0x86, 0x80], "nZlOpdI_jIaA")
   }
   
-  func testBase32() {
+  func testCharSet32() {
     entropy( 5, .charSet32, [0xdd],                                     "N")
     entropy(10, .charSet32, [0x78, 0xfc],                               "p6")
     entropy(15, .charSet32, [0x78, 0xfc],                               "p6R")
@@ -424,7 +424,7 @@ class EntropyStringTests: XCTestCase {
     entropy(55, .charSet32, [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52], "MhrRBGqLtQf")
   }
   
-  func testBase16() {
+  func testCharSet16() {
     entropy( 4, .charSet16, [0x9d],             "9")
     entropy( 8, .charSet16, [0xae],             "ae")
     entropy(12, .charSet16, [0x01, 0xf2],       "01f")
@@ -432,7 +432,7 @@ class EntropyStringTests: XCTestCase {
     entropy(20, .charSet16, [0xc7, 0xc9, 0x00], "c7c90")
   }
   
-  func testBase8() {
+  func testCharSet8() {
     entropy( 3, .charSet8, [0x5a],                   "2")
     entropy( 6, .charSet8, [0x5a],                   "26")
     entropy( 9, .charSet8, [0x21, 0xa4],             "103")
@@ -445,7 +445,7 @@ class EntropyStringTests: XCTestCase {
     entropy(30, .charSet8, [0xc7, 0xc9, 0x07, 0xc9], "6174440762")
   }
   
-  func testBase4() {
+  func testCharSet4() {
     entropy( 2, .charSet4, [0x5a],       "T")
     entropy( 4, .charSet4, [0x5a],       "TT")
     entropy( 6, .charSet4, [0x93],       "CTA")
@@ -456,7 +456,7 @@ class EntropyStringTests: XCTestCase {
     entropy(16, .charSet4, [0x20, 0xf1], "ACAAGGAT")
   }
   
-  func testBase2() {
+  func testCharSet2() {
     entropy( 1, .charSet2, [0x27],       "0")
     entropy( 2, .charSet2, [0x27],       "00")
     entropy( 3, .charSet2, [0x27],       "001")
@@ -504,19 +504,19 @@ class EntropyStringTests: XCTestCase {
       ("testCustom4Chars",     testCustom4Chars),
       ("testCustom2Chars",     testCustom2Chars),
       ("testInvalidBytes",     testInvalidBytes),
-      ("testBase64",           testBase64),
-      ("testBase32",           testBase32),
-      ("testBase16",           testBase16),
-      ("testBase8",            testBase8),
-      ("testBase4",            testBase4),
-      ("testBase2",            testBase2),
+      ("testCharSet64",           testCharSet64),
+      ("testCharSet32",           testCharSet32),
+      ("testCharSet16",           testCharSet16),
+      ("testCharSet8",            testCharSet8),
+      ("testCharSet4",            testCharSet4),
+      ("testCharSet2",            testCharSet2),
       ("testZeroEntropy",      testZeroEntropy),
-      ("testBase64Entropy",    testBase64Entropy),
-      ("testBase32Entropy",    testBase32Entropy),
-      ("testBase16Entropy",    testBase16Entropy),
-      ("testBase8Entropy",     testBase8Entropy),
-      ("testBase4Entropy",     testBase4Entropy),
-      ("testBase2Entropy",     testBase2Entropy),
+      ("testCharSet64Entropy",    testCharSet64Entropy),
+      ("testCharSet32Entropy",    testCharSet32Entropy),
+      ("testCharSet16Entropy",    testCharSet16Entropy),
+      ("testCharSet8Entropy",     testCharSet8Entropy),
+      ("testCharSet4Entropy",     testCharSet4Entropy),
+      ("testCharSet2Entropy",     testCharSet2Entropy),
       ("testSecure",           testSecure)
     ]
   }
