@@ -6,7 +6,6 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     for version in $SWIFT_VERSIONS; do
         swiftenv global "$version"
         swiftenv version
-
         swift test
     done
 elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
