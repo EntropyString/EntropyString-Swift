@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "EntropyString"
-  s.version      = "0.2.0"
+  s.version      = "0.3.0"
   s.summary      = "Efficiently generate secure strings of specified entropy from various character sets"
 
   # This description is used to generate tags and improve search results.
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 Efficiently generate secure strings of specified entropy from various character sets for use when probabilisticly unique string identifiers are needed. Entropy is specified by total number of strings and acceptable risk of a repeat.
                    DESC
 
-  s.homepage = "https://github.com/#{s.name}/Swift"
+  s.homepage = "https://github.com/#{s.name}/#{s.name}-Swift"
   s.license  = { :type => "MIT", :file => "LICENSE" }
   s.authors   = { "Paul Rogers" => "paul@knoxen.com", "dingo sky" => "paul@dingosky.com" }
   # s.authors            = { "dingo sky" => "paul@dingosky.com" }
@@ -42,7 +42,7 @@ Efficiently generate secure strings of specified entropy from various character 
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source = { :git => "https://github.com/EntropyString/Swift.git", :tag => "#{s.version}" }
+  s.source = { :git => "https://github.com/EntropyString/EntropyString-Swift.git", :tag => "#{s.version}" }
 
   s.source_files  = "Sources/**/*.swift"
 #   s.public_header_files = "#{s.name}/{s.name}.h"

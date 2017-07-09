@@ -1,8 +1,10 @@
+## EntropyString for Swift
 
 <p align="center">
 <a href="https://github.com/Carthage/Carthage"><img
 src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"
 alt="Carthage"></a>
+<a href="https://cocoapods.org/pods/EntropyString"><img src="https://img.shields.io/cocoapods/v/EntropyString.svg" alt="CocoaPods - EntropyString"></a>
 </p>
 
 EntropyString provides easy creation of randomly generated strings of specific entropy using various character sets.
@@ -28,30 +30,6 @@ EntropyString provides easy creation of randomly generated strings of specific e
 
 ## <a name="Installation"></a>Installation
 
-### Swift Package Manager
-
-The [Swift Package Manager](https://swift.org/package-manager/) is a decentralized dependency manager for Swift.
-
-1. Add the project to your `Package.swift`.
-
-    ```swift
-    import PackageDescription
-
-    let package = Package(
-        name: "YourProject",
-        dependencies: [
-            .Package(url: "https://github.com/EntropyString/Swift.git",
-                     majorVersion: 1)
-        ]
-    )
-    ```
-
-2. Import module EntropyString 
-
-    ```swift
-    import EntropyString
-    ```
-
 ### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager for Objective-C and Swift.
@@ -59,7 +37,7 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a decentraliz
 1. Add the project to your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile).
 
     ```
-    github "EntropyString/Swift.git"
+    github "EntropyString/EntropyString-Swift.git"
     ```
 
 2. Run `carthage update` and follow the [Carthage getting started steps](https://github.com/Carthage/Carthage#getting-started).
@@ -85,6 +63,32 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a decentraliz
 2. Run `pod install` and open the `.xcworkspace` file to launch Xcode.
 
 3. Import module EntropyString 
+
+    ```swift
+    import EntropyString
+    ```
+
+### Swift Package Manager
+
+##### CxNote: Linux not yet supported until random byte generation issue resolved.
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a decentralized dependency manager for Swift.
+
+1. Add the project to your `Package.swift`.
+
+    ```swift
+    import PackageDescription
+
+    let package = Package(
+        name: "YourProject",
+        dependencies: [
+            .Package(url: "https://github.com/EntropyString/EntropyString-Swift.git",
+                     majorVersion: 1)
+        ]
+    )
+    ```
+
+2. Import module EntropyString 
 
     ```swift
     import EntropyString
