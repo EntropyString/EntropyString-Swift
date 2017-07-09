@@ -24,7 +24,7 @@ EntropyString provides easy creation of randomly generated strings of specific e
  - [Custom Bytes](#CustomBytes)
 
 ## <a name="BuildStatus"></a>Build Status
-[![Build Status](https://travis-ci.org/EntropyString/Swift.svg?branch=master)](https://travis-ci.org/EntropyString/Swift)
+[![Build Status](https://travis-ci.org/EntropyString/EntropyString-Swift.svg?branch=master)](https://travis-ci.org/EntropyString/EntropyString-Swift)
 
 [TOC](#TOC)
 
