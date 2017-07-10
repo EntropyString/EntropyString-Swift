@@ -96,9 +96,16 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a decentraliz
 
 [TOC](#TOC)
 
+----
+
+The remainer of this README is included in the project as a Swift playground for interactive exploration.
+
+----
+
+
 ## <a name="BasicUsage"></a>Basic Usage
 
-Calculate *bits* of entropy to cover **1 million strings** with a repeat *risk* of **1 in a billion** and generate a *string* using a set of **32 characters**:
+Calculate the bits of entropy necessary to cover a *risk* of a **1 in a billion** chance of a repeat in a *total* of **1 million** strings and generate a example string using a set of 32 characters:
 
   ```swift
   import EntropyString
@@ -109,7 +116,7 @@ Calculate *bits* of entropy to cover **1 million strings** with a repeat *risk* 
 
   > 9Pp7MDDm7b9Dhb
 
-Generate a *string* of the same *entropy* using a set of **16 characters** (hexadecimal):
+Generate a string of the same entropy using a set of 16 characters (hexadecimal):
 
   ```swift
   string = RandomString.entropy(of: bits, using: .charSet16)
@@ -135,12 +142,11 @@ We'll begin investigating `EntropyString` by considering our [Real Need](Read%20
 
 ## <a name="RealNeed"></a>Real Need
 
-Let's start by reflecting on a common statement of need of developers, who might say:
+Let's start by reflecting on a common statement of need for developers, who might say:
 
 *I need random strings 16 characters long.*
 
-Okay. There are libraries available that address that exact need. But first, there are some
-questions that arise from the need as stated, such as:
+Okay. There are libraries available that address that exact need. But first, there are some questions that arise from the need as stated, such as:
 
   1. What characters do you want to use?
   2. How many of these strings do you need?
@@ -148,7 +154,7 @@ questions that arise from the need as stated, such as:
 
 The available libraries often let you specify the characters to use. So we can assume for now that question 1 is answered with:
 
-*Hexadecimal IDs will do fine*.
+*Hexadecimal will do fine*.
 
 As for question 2, the developer might respond:
 
@@ -168,13 +174,15 @@ Probabilistic uniqueness contains risk. That's the price we pay for giving up on
 
 *I guess I can live with a 1 in a million chance of a repeat*.
 
-So now we've gotten to the real need:
+So now we've gotten to the developer's real need:
 
 *I need 10,000 random hexadecimal IDs with less than 1 in a million chance of any repeats*.
 
-How do you address this need using a library designed to generate strings of specified length?  Well, you don't directly, because that library was designed to answer the originally stated need, not the real need we've uncovered. We need a library that deals with probabilistic uniqueness of a total number of some strings. And that's exactly what `EntropyString` does.
+Not only is this statement more specific, note there is no mention of string length. The developer needs probabilistic uniqueness, and strings are to be used to capture randomness for this purpose. As such, the length of the string is simply a by-product of the encoding used to represent the required uniqueness as a string.
 
-Let's use `EntropyString` to help this developer:
+So how do you address this need using a library designed to generate strings of specified length?  Well, you don't directly, because that library was designed to answer the originally stated need, not the real need we've uncovered. We need a library that deals with probabilistic uniqueness of a total number of some strings. And that's exactly what `EntropyString` does.
+
+Let's use `EntropyString` to help this developer by generating 5 IDs:
 
   ```swift
   import EntropyString
@@ -196,13 +204,13 @@ To generate the IDs, we first use
     let bits = Entropy.bits(total: 10000, risk: .ten06)
   ```
 
-to determine the bits of entropy needed to satisfy our probabilistic uniqueness of **10,000** strings with a **1 in a million** (ten to the sixth power) risk of repeat. We didn't print the result, but if you did you'd see it's about **45.51**. Then inside a loop we used
+to determine how much entropy  is needed to satisfy the probabilistic uniqueness of a **1 in a million** (ten to the sixth power) risk of repeat in a total of **10,000** strings. We didn't print the result, but if you did you'd see it's about **45.51** bits. Then inside a loop we used
 
   ```swift
     let string = RandomString.entropy(of: bits, using: .charSet16)
   ```
 
-to actually generate random strings using hexadecimal (charSet16) characters. Looking at the IDs, we can see each is 12 characters long. Again, the string length is a by-product of the characters used to represent the entropy we needed. And it seems the developer didn't really need 16 characters after all.
+to actually generate a random string of the specified entropy using hexadecimal (charSet16) characters. Looking at the IDs, we can see each is 12 characters long. Again, the string length is a by-product of the characters used to represent the entropy we needed. And it seems the developer didn't really need 16 characters after all.
 
 Finally, given that the strings are 12 hexadecimals long, each string actually has an information carrying capacity of 12 * 4 = 48 bits of entropy (a hexadecimal character carries 4 bits). That's fine. Assuming all characters are equally probable, a string can only carry entropy equal to a multiple of the amount of entropy represented per character. `EntropyString` produces the smallest strings that *exceed* the specified entropy.
 
@@ -477,6 +485,8 @@ Rather than have `EntropyString` generate bytes automatically, you can provide y
 
 As described in [Secure Bytes](#SecureBytes), `EntropyString` automatically generates random bytes using either `SecRandomCopyBuf` or `arc4random_buf`. These functions are fine, but you may have a need to provide your own btyes, say for deterministic testing or to use a specialized byte genterator. The `RandomString.entropy(of:using:bytes)` function allows passing in your own bytes to create a string.
 
+Suppose we want a string capable of 30 bits of entropy using 32 characters. We pass in 4 bytes (to cover the 30 bits):
+
   ```swift
   import EntropyString
 
@@ -499,5 +509,7 @@ The __bytes__ provided can come from any source. However, the number of bytes mu
   ```
 
   > error: tooFewBytes
+
+Note how the number of bytes needed is dependent on the number of characters in our set. In using a string to represent entropy, we can only generate entropy in multiples of the bits of entropy per character used. So in the example above, to get at least 32 bits of entropy using a character set of 32 characters (5 bits per char), we'll need enough bytes to cover 35 bits, not 32, so a `tooFewBytes` error is thrown.
 
 [TOC](#TOC)

@@ -72,7 +72,7 @@ public struct Entropy {
   //
   /// Calculates bits of entropy
   ///
-  /// - parameter total: Number of items in the universal set express as a `UInt`
+  /// - parameter total: Number of total items
   /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
@@ -80,7 +80,7 @@ public struct Entropy {
     let tPower = log10(Float(total))
     var N: Float
     if UInt(tPower) < Power.ten09.rawValue {
-      N = log2(Float(total) * Float(total-1)) + (Float(risk.rawValue) * log2(10)) - 1
+      N = log2(Float(total)) + log2(Float(total-1)) + (Float(risk.rawValue) * log2(10)) - 1
     }
     else {
       let n = 2 * tPower + Float(risk.rawValue)
@@ -91,7 +91,7 @@ public struct Entropy {
   
   /// Calculates bits of entropy
   ///
-  /// - parameter total: Number of items in the universal set expressed a power of ten
+  /// - parameter total: Number of total items
   /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.

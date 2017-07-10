@@ -24,188 +24,6 @@ class EntropyStringTests: XCTestCase {
               .ten21, .ten22, .ten23, .ten24, .ten25, .ten26, .ten27, .ten28, .ten29, .ten30] as [Entropy.Power]
   }
   
-  func testCharSetLengths() {
-    for charSet in charSets {
-      var count = RandomString.characters(for: charSet).characters.count
-      XCTAssertEqual(count, String.CharacterView.IndexDistance(charSet.rawValue))
-
-      count = randomString.characters(for: charSet).characters.count
-      XCTAssertEqual(count, String.CharacterView.IndexDistance(charSet.rawValue))
-    }
-  }
-  
-  func testEntropyLengths() {
-    for charSet in charSets {
-      let iters = 32
-      for i in 0 ..< Int(iters) {
-        var string = RandomString.entropy(of: Float(i), using: charSet)
-        var count = string.characters.count
-        let expected: Int = Int(ceil(Float(i) / Float(charSet.entropyPerChar)))
-        XCTAssertEqual(count, expected)
-
-        string = randomString.entropy(of: Float(i), using: charSet)
-        count = string.characters.count
-        XCTAssertEqual(count, expected)
-      }
-    }
-  }
-  
-  func testCustom64Chars() {
-    do {
-      try randomString.use("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz)!@#$%^&*(+=", for: .charSet64)
-      try randomString.use("1234567890-=[];,./~!@#$%^&*()_+{}|:<>?abcdefghijklmnopqrstuvwxyz", for: .charSet64)
-    }
-    catch {
-      XCTFail(error.localizedDescription)
-    }
-    
-    invalidCharCount(.charSet64, "")
-    invalidCharCount(.charSet64, String(repeating: "x", count: 65))
-    
-    notUniqueChars(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
-    
-    forceNotUnique(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
-  }
-  
-  func testCustom32Chars() {
-    do {
-      try randomString.use("0123456789)!@#$%^&*(+=[]{}\\|_-/?", for: .charSet32)
-    }
-    catch {
-      XCTFail(error.localizedDescription)
-    }
-    
-    invalidCharCount(.charSet32, "0123456789ABCDEF")
-    invalidCharCount(.charSet32, String(repeating: "x", count: 33))
-    
-    notUniqueChars(.charSet32, "01234567890123456789012345678901")
-    
-    forceNotUnique(.charSet32, "01234567890123456789012345678901")
-  }
-  
-  func testCustom16Chars() {
-    let lowerString = randomString.entropy(of: 32, using: .charSet16)
-    assert(lowerString == lowerString.lowercased())
-    assert(lowerString != lowerString.uppercased())
-    
-    do {
-      try randomString.use("0123456789ABCDEF", for: .charSet16)
-      let upperString = randomString.entropy(of: 32, using: .charSet16)
-      XCTAssertNotEqual(upperString, upperString.lowercased())
-      XCTAssertEqual(upperString, upperString.uppercased())
-    }
-    catch {
-      XCTFail(error.localizedDescription)
-    }
-    
-    invalidCharCount(.charSet16, "0123456789abcde")
-    invalidCharCount(.charSet16, "0123456789abcdefg")
-    
-    notUniqueChars(.charSet16, "0123456789abcdee")
-    
-    forceNotUnique(.charSet16, "0123456789abcdee")
-  }
-  
-  func testCustom8Chars() {
-    do {
-      for _ in 0..<50 {
-        try randomString.use("abcdefgh", for: .charSet8)
-        let string = randomString.entropy(of: 3, using: .charSet8)
-        XCTAssertTrue(string == "a" || string == "b" || string == "c" || string == "d"
-          || string == "e" || string == "f" || string == "g" || string == "h")
-      }
-    }
-    catch {
-      XCTFail(error.localizedDescription)
-    }
-    
-    invalidCharCount(.charSet8, "0123456")
-    invalidCharCount(.charSet8, "012345678")
-    
-    notUniqueChars(.charSet8, "01233456")
-    
-    forceNotUnique(.charSet8,  "01233456")
-  }
-  
-  func testCustom4Chars() {
-    do {
-      for _ in 0..<20 {
-        try randomString.use("0123", for: .charSet4)
-        let string = randomString.entropy(of: 2, using: .charSet4)
-        XCTAssertTrue(string == "0" || string == "1" || string == "2" || string == "3")
-      }
-    }
-    catch {
-      XCTFail(error.localizedDescription)
-    }
-
-    invalidCharCount(.charSet4,  "TF")
-    invalidCharCount(.charSet4,  "AEIOU")
-
-    notUniqueChars(.charSet4,  "0120")
-    
-    forceNotUnique(.charSet4,  "0120")
-  }
-  
-  func testCustom2Chars() {
-    do {
-      for _ in 0..<10 {
-        try randomString.use("HT", for: .charSet2)
-        let string = randomString.entropy(of: 1, using: .charSet2)
-        XCTAssertTrue(string == "H" || string == "T")
-      }
-    }
-    catch {
-      XCTFail(error.localizedDescription)
-    }
-    
-    invalidCharCount(.charSet2,  "F")
-    invalidCharCount(.charSet2,  "TFH")
-    
-    notUniqueChars(.charSet2,  "aa")
-    
-    forceNotUnique(.charSet2,  "aa")
-  }
-  
-  func invalidCharCount(_ charSet: CharSet, _ chars: String) {
-    do {
-      try randomString.use(chars, for: charSet)
-      XCTFail("Should have thrown")
-    }
-    catch {
-      if let error = error as? RandomString.RandomStringError {
-        XCTAssertEqual(error, RandomString.RandomStringError.invalidCharCount)
-      }
-      else {
-        XCTFail("Error not a RandomStringError")
-      }
-    }
-  }
-  
-  func notUniqueChars(_ charSet: CharSet, _ chars: String) {
-    do {
-      try randomString.use(chars, for: charSet)
-      XCTFail("Should have thrown")
-    }
-    catch {
-      if let error = error as? RandomString.RandomStringError {
-        XCTAssertEqual(error, RandomString.RandomStringError.charsNotUnique)
-      }
-      else {
-        XCTFail("Error not a RandomStringError")
-      }
-    }
-  }
-  
-  func forceNotUnique(_ charSet: CharSet, _ chars: String) {
-    do {
-      try randomString.use(chars, for: charSet, force: true)
-    }
-    catch {
-      XCTFail("Should not throw")
-    }
-  }
-  
   func testZeroEntropy() {
     for charSet in charSets {
       XCTAssertEqual(RandomString.entropy(of: 0, using: charSet), "")
@@ -492,32 +310,217 @@ class EntropyStringTests: XCTestCase {
     }
   }
   
+  func testEntropyLengths() {
+    for charSet in charSets {
+      let iters = 32
+      for i in 0 ..< Int(iters) {
+        var string = RandomString.entropy(of: Float(i), using: charSet)
+        var count = string.characters.count
+        let expected: Int = Int(ceil(Float(i) / Float(charSet.entropyPerChar)))
+        XCTAssertEqual(count, expected)
+        
+        string = randomString.entropy(of: Float(i), using: charSet)
+        count = string.characters.count
+        XCTAssertEqual(count, expected)
+      }
+    }
+  }
+  
+  func testCharSetLengths() {
+    for charSet in charSets {
+      var count = RandomString.characters(for: charSet).characters.count
+      XCTAssertEqual(count, String.CharacterView.IndexDistance(charSet.rawValue))
+      
+      count = randomString.characters(for: charSet).characters.count
+      XCTAssertEqual(count, String.CharacterView.IndexDistance(charSet.rawValue))
+    }
+  }
+  
+  func testCustom64Chars() {
+    do {
+      try randomString.use("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz)!@#$%^&*(+=", for: .charSet64)
+      try randomString.use("1234567890-=[];,./~!@#$%^&*()_+{}|:<>?abcdefghijklmnopqrstuvwxyz", for: .charSet64)
+    }
+    catch {
+      XCTFail(error.localizedDescription)
+    }
+    
+    invalidCharCount(.charSet64, "")
+    invalidCharCount(.charSet64, String(repeating: "x", count: 65))
+    
+    notUniqueChars(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
+    
+    forceNotUnique(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
+  }
+  
+  func testCustom32Chars() {
+    do {
+      try randomString.use("0123456789)!@#$%^&*(+=[]{}\\|_-/?", for: .charSet32)
+    }
+    catch {
+      XCTFail(error.localizedDescription)
+    }
+    
+    invalidCharCount(.charSet32, "0123456789ABCDEF")
+    invalidCharCount(.charSet32, String(repeating: "x", count: 33))
+    
+    notUniqueChars(.charSet32, "01234567890123456789012345678901")
+    
+    forceNotUnique(.charSet32, "01234567890123456789012345678901")
+  }
+  
+  func testCustom16Chars() {
+    let lowerString = randomString.entropy(of: 32, using: .charSet16)
+    assert(lowerString == lowerString.lowercased())
+    assert(lowerString != lowerString.uppercased())
+    
+    do {
+      try randomString.use("0123456789ABCDEF", for: .charSet16)
+      let upperString = randomString.entropy(of: 32, using: .charSet16)
+      XCTAssertNotEqual(upperString, upperString.lowercased())
+      XCTAssertEqual(upperString, upperString.uppercased())
+    }
+    catch {
+      XCTFail(error.localizedDescription)
+    }
+    
+    invalidCharCount(.charSet16, "0123456789abcde")
+    invalidCharCount(.charSet16, "0123456789abcdefg")
+    
+    notUniqueChars(.charSet16, "0123456789abcdee")
+    
+    forceNotUnique(.charSet16, "0123456789abcdee")
+  }
+  
+  func testCustom8Chars() {
+    do {
+      for _ in 0..<50 {
+        try randomString.use("abcdefgh", for: .charSet8)
+        let string = randomString.entropy(of: 3, using: .charSet8)
+        XCTAssertTrue(string == "a" || string == "b" || string == "c" || string == "d"
+          || string == "e" || string == "f" || string == "g" || string == "h")
+      }
+    }
+    catch {
+      XCTFail(error.localizedDescription)
+    }
+    
+    invalidCharCount(.charSet8, "0123456")
+    invalidCharCount(.charSet8, "012345678")
+    
+    notUniqueChars(.charSet8, "01233456")
+    
+    forceNotUnique(.charSet8,  "01233456")
+  }
+  
+  func testCustom4Chars() {
+    do {
+      for _ in 0..<20 {
+        try randomString.use("0123", for: .charSet4)
+        let string = randomString.entropy(of: 2, using: .charSet4)
+        XCTAssertTrue(string == "0" || string == "1" || string == "2" || string == "3")
+      }
+    }
+    catch {
+      XCTFail(error.localizedDescription)
+    }
+    
+    invalidCharCount(.charSet4,  "TF")
+    invalidCharCount(.charSet4,  "AEIOU")
+    
+    notUniqueChars(.charSet4,  "0120")
+    
+    forceNotUnique(.charSet4,  "0120")
+  }
+  
+  func testCustom2Chars() {
+    do {
+      for _ in 0..<10 {
+        try randomString.use("HT", for: .charSet2)
+        let string = randomString.entropy(of: 1, using: .charSet2)
+        XCTAssertTrue(string == "H" || string == "T")
+      }
+    }
+    catch {
+      XCTFail(error.localizedDescription)
+    }
+    
+    invalidCharCount(.charSet2,  "F")
+    invalidCharCount(.charSet2,  "TFH")
+    
+    notUniqueChars(.charSet2,  "aa")
+    
+    forceNotUnique(.charSet2,  "aa")
+  }
+  
+  func invalidCharCount(_ charSet: CharSet, _ chars: String) {
+    do {
+      try randomString.use(chars, for: charSet)
+      XCTFail("Should have thrown")
+    }
+    catch {
+      if let error = error as? RandomString.RandomStringError {
+        XCTAssertEqual(error, RandomString.RandomStringError.invalidCharCount)
+      }
+      else {
+        XCTFail("Error not a RandomStringError")
+      }
+    }
+  }
+  
+  func notUniqueChars(_ charSet: CharSet, _ chars: String) {
+    do {
+      try randomString.use(chars, for: charSet)
+      XCTFail("Should have thrown")
+    }
+    catch {
+      if let error = error as? RandomString.RandomStringError {
+        XCTAssertEqual(error, RandomString.RandomStringError.charsNotUnique)
+      }
+      else {
+        XCTFail("Error not a RandomStringError")
+      }
+    }
+  }
+  
+  func forceNotUnique(_ charSet: CharSet, _ chars: String) {
+    do {
+      try randomString.use(chars, for: charSet, force: true)
+    }
+    catch {
+      XCTFail("Should not throw")
+    }
+  }
+  
   // Adopt XCTestCaseProvider to run test on  Linux
   var allTests: [(String, () throws -> ())] {
     return [
-      ("testCharSetLengths",  testCharSetLengths),
+      ("testZeroEntropy",      testZeroEntropy),
+      ("testCharSet64Entropy", testCharSet64Entropy),
+      ("testCharSet32Entropy", testCharSet32Entropy),
+      ("testCharSet16Entropy", testCharSet16Entropy),
+      ("testCharSet8Entropy",  testCharSet8Entropy),
+      ("testCharSet4Entropy",  testCharSet4Entropy),
+      ("testCharSet2Entropy",  testCharSet2Entropy),
+      ("testTotalEntropy",     testTotalEntropy),
+      ("testPowerEntropy",     testPowerEntropy),
+      ("testInvalidBytes",     testInvalidBytes),
+      ("testCharSet64",        testCharSet64),
+      ("testCharSet32",        testCharSet32),
+      ("testCharSet16",        testCharSet16),
+      ("testCharSet8",         testCharSet8),
+      ("testCharSet4",         testCharSet4),
+      ("testCharSet2",         testCharSet2),
+      ("testSecure",           testSecure),
       ("testEntropyLengths",   testEntropyLengths),
+      ("testCharSetLengths",   testCharSetLengths),
       ("testCustom64Chars",    testCustom64Chars),
       ("testCustom32Chars",    testCustom32Chars),
       ("testCustom16Chars",    testCustom16Chars),
       ("testCustom8Chars",     testCustom8Chars),
       ("testCustom4Chars",     testCustom4Chars),
-      ("testCustom2Chars",     testCustom2Chars),
-      ("testInvalidBytes",     testInvalidBytes),
-      ("testCharSet64",           testCharSet64),
-      ("testCharSet32",           testCharSet32),
-      ("testCharSet16",           testCharSet16),
-      ("testCharSet8",            testCharSet8),
-      ("testCharSet4",            testCharSet4),
-      ("testCharSet2",            testCharSet2),
-      ("testZeroEntropy",      testZeroEntropy),
-      ("testCharSet64Entropy",    testCharSet64Entropy),
-      ("testCharSet32Entropy",    testCharSet32Entropy),
-      ("testCharSet16Entropy",    testCharSet16Entropy),
-      ("testCharSet8Entropy",     testCharSet8Entropy),
-      ("testCharSet4Entropy",     testCharSet4Entropy),
-      ("testCharSet2Entropy",     testCharSet2Entropy),
-      ("testSecure",           testSecure)
+      ("testCustom2Chars",     testCustom2Chars)
+
     ]
   }
 }
