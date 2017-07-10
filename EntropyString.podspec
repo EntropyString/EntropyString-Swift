@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "EntropyString"
-  s.version      = "0.3.0"
+  s.version      = "0.3.4"
   s.summary      = "Efficiently generate secure strings of specified entropy from various character sets."
 
   # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ Efficiently generate secure strings of specified entropy from various character 
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
-  s.ios.deployment_target = "10.0"
+  s.ios.deployment_target = "9.0"
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
   # s.tvos.deployment_target = "9.0"
