@@ -68,6 +68,8 @@ public struct Entropy {
     }
   }
   
+  private static let log2_10: Float = log2(10)
+  
   // MARK: - Public API (Static)
   //
   /// Calculates bits of entropy
@@ -77,14 +79,13 @@ public struct Entropy {
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
   public static func bits(for total: UInt, risk: Power) -> Float {
-    let tPower = log10(Float(total))
     var N: Float
-    if UInt(tPower) < Power.ten09.rawValue {
-      N = log2(Float(total)) + log2(Float(total-1)) + (Float(risk.rawValue) * log2(10)) - 1
+    if total < 10000 {
+      N = log2(Float(total)) + log2(Float(total-1)) + (Float(risk.rawValue) * log2_10) - 1
     }
     else {
-      let n = 2 * tPower + Float(risk.rawValue)
-      N = n * log2(10) - 1
+      let n = 2 * log10(Float(total)) + Float(risk.rawValue)
+      N = n * log2_10 - 1
     }
     return N
   }
@@ -96,8 +97,8 @@ public struct Entropy {
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
   public static func bits(for total: Power, risk: Power) -> Float {
-    let n = 2 * total.rawValue + risk.rawValue
-    let N = Float(n) * log2(10) - 1
+    let n = Float(2 * total.rawValue + risk.rawValue)
+    let N = n * log2_10 - 1
     return N
   }
 
