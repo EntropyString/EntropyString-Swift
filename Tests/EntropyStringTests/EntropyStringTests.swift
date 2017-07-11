@@ -102,18 +102,159 @@ class EntropyStringTests: XCTestCase {
     for risk in powers {
       _ = Entropy.bits(for: 10000, risk: risk)
     }
-    
-    entropyBits(    30,   .ten06,   29)
-    entropyBits(100000,   .ten12,   73)
     entropyBits(UInt.max, .ten15,  177)
 
+    // From table at http://preshing.com/20110504/hash-collision-probabilities/ 
+    // 32-bit column
+    entropyBits(30084, .ten01, 32)
+    entropyBits( 9292, .ten02, 32)
+    entropyBits( 2932, .ten03, 32)
+    entropyBits(  927, .ten04, 32)
+    entropyBits(  294, .ten05, 32)
+    entropyBits(   93, .ten06, 32)
+    entropyBits(   30, .ten07, 32)
+    entropyBits(   10, .ten08, 32)
+    
+    // 64-bit column
+    entropyBits(1970000000, .ten01, 64)
+    entropyBits( 609000000, .ten02, 64)
+    entropyBits( 192000000, .ten03, 64)
+    entropyBits(  60700000, .ten04, 64)
+    entropyBits(  19200000, .ten05, 64)
+    entropyBits(   6070000, .ten06, 64)
+    entropyBits(   1920000, .ten07, 64)
+    entropyBits(    607401, .ten08, 64)
+    entropyBits(    192077, .ten09, 64)
+    entropyBits(     60704, .ten10, 64)
+    entropyBits(     19208, .ten11, 64)
+    entropyBits(      6074, .ten12, 64)
+    entropyBits(      1921, .ten13, 64)
+    entropyBits(       608, .ten14, 64)
+    entropyBits(       193, .ten15, 64)
+    entropyBits(        61, .ten16, 64)
+    entropyBits(        20, .ten17, 64)
+    entropyBits(         7, .ten18, 64)
+    
+    // 160-bit column, modified (over/under) and extended
+    entropyBits(.ten24, .ten01, 162)
+    entropyBits(.ten23, .ten01, 155)
+    entropyBits(.ten24, .ten02, 165)
+    entropyBits(.ten23, .ten02, 158)
+    entropyBits(.ten23, .ten03, 162)
+    entropyBits(.ten22, .ten03, 155)
+    entropyBits(.ten23, .ten04, 165)
+    entropyBits(.ten22, .ten04, 158)
+    entropyBits(.ten22, .ten05, 162)
+    entropyBits(.ten21, .ten05, 155)
+    entropyBits(.ten22, .ten06, 165)
+    entropyBits(.ten21, .ten06, 158)
+    entropyBits(.ten21, .ten07, 162)
+    entropyBits(.ten20, .ten07, 155)
+    entropyBits(.ten21, .ten08, 165)
+    entropyBits(.ten20, .ten08, 158)
+    entropyBits(.ten20, .ten09, 162)
+    entropyBits(.ten19, .ten09, 155)
+    entropyBits(.ten20, .ten10, 165)
+    entropyBits(.ten19, .ten10, 158)
+    entropyBits(.ten19, .ten11, 162)
+    entropyBits(.ten18, .ten11, 155)
+    entropyBits(.ten19, .ten12, 165)
+    entropyBits(.ten18, .ten12, 158)
+    entropyBits(.ten18, .ten13, 162)
+    entropyBits(.ten17, .ten13, 155)
+    entropyBits(.ten18, .ten14, 165)
+    entropyBits(.ten17, .ten14, 158)
+    entropyBits(.ten17, .ten15, 162)
+    entropyBits(.ten16, .ten15, 155)
+    entropyBits(.ten17, .ten16, 165)
+    entropyBits(.ten16, .ten16, 158)
+    entropyBits(.ten16, .ten17, 162)
+    entropyBits(.ten15, .ten17, 155)
+    entropyBits(.ten16, .ten18, 165)
+    entropyBits(.ten15, .ten18, 158)
+    entropyBits(.ten15, .ten19, 162)
+    entropyBits(.ten14, .ten19, 155)
+    entropyBits(.ten15, .ten20, 165)
+    entropyBits(.ten14, .ten20, 158)
+    entropyBits(.ten14, .ten21, 162)
+    entropyBits(.ten13, .ten21, 155)
+    entropyBits(.ten14, .ten22, 165)
+    entropyBits(.ten13, .ten22, 158)
+    entropyBits(.ten13, .ten23, 162)
+    entropyBits(.ten12, .ten23, 155)
+    entropyBits(.ten13, .ten24, 165)
+    entropyBits(.ten12, .ten24, 158)
+    entropyBits(.ten12, .ten25, 162)
+    entropyBits(.ten11, .ten25, 155)
+    entropyBits(.ten12, .ten26, 165)
+    entropyBits(.ten11, .ten26, 158)
+    entropyBits(.ten11, .ten27, 162)
+    entropyBits(.ten10, .ten27, 155)
+    entropyBits(.ten11, .ten28, 165)
+    entropyBits(.ten10, .ten28, 158)
+    entropyBits(.ten10, .ten29, 162)
+    entropyBits(.ten09, .ten29, 155)
+    entropyBits(.ten10, .ten30, 165)
+    entropyBits(.ten09, .ten30, 158)
+  }
+  
+  func testPowerEntropy() {
+    for total in powers {
+      for risk in powers {
+        _ = Entropy.bits(for: total, risk: risk)
+      }
+    }
+    
+    entropyBits(.ten04, .ten06,  46)
+    entropyBits(.ten05, .ten06,  52)
+    entropyBits(.ten06, .ten06,  59)
+    entropyBits(.ten07, .ten06,  65)
+    entropyBits(.ten08, .ten06,  72)
+    entropyBits(.ten09, .ten06,  79)
+    entropyBits(.ten10, .ten06,  85)
+    entropyBits(.ten11, .ten06,  92)
+    entropyBits(.ten12, .ten06,  99)
+    
+    entropyBits(.ten04, .ten09,  55)
+    entropyBits(.ten05, .ten09,  62)
+    entropyBits(.ten06, .ten09,  69)
+    entropyBits(.ten07, .ten09,  75)
+    entropyBits(.ten08, .ten09,  82)
+    entropyBits(.ten09, .ten09,  89)
+    entropyBits(.ten10, .ten09,  95)
+    entropyBits(.ten11, .ten09, 102)
+    entropyBits(.ten12, .ten09, 109)
+
+    entropyBits(.ten04, .ten12,  65)
+    entropyBits(.ten05, .ten12,  72)
+    entropyBits(.ten06, .ten12,  79)
+    entropyBits(.ten07, .ten12,  85)
+    entropyBits(.ten08, .ten12,  92)
+    entropyBits(.ten09, .ten12,  99)
+    entropyBits(.ten10, .ten12, 105)
+    entropyBits(.ten11, .ten12, 112)
+    entropyBits(.ten12, .ten12, 119)
+
+  }
+  
+  func entropyBits(_ total: UInt, _ risk: Entropy.Power, _ expected: UInt) {
+    let bits = Entropy.bits(for: total, risk: risk)
+    XCTAssertEqual(UInt(round(bits)), expected)
+  }
+  
+  func entropyBits(_ total: Entropy.Power, _ risk: Entropy.Power, _ expected: UInt) {
+    let bits = Entropy.bits(for: total, risk: risk)
+    XCTAssertEqual(UInt(round(bits)), expected)
+  }
+  
+  func testStringLens() {
     stringLength(30, .ten06, .charSet64,  5)
     stringLength(30, .ten06, .charSet32,  6)
     stringLength(30, .ten06, .charSet16,  8)
     stringLength(30, .ten06, .charSet8,  10)
     stringLength(30, .ten06, .charSet4,  15)
     stringLength(30, .ten06, .charSet2,  29)
-
+    
     stringLength(100000, .ten12, .charSet64,  13)
     stringLength(100000, .ten12, .charSet32,  15)
     stringLength(100000, .ten12, .charSet16,  19)
@@ -127,25 +268,6 @@ class EntropyStringTests: XCTestCase {
     stringLength(UInt.max, .ten15, .charSet8,   59)
     stringLength(UInt.max, .ten15, .charSet4,   89)
     stringLength(UInt.max, .ten15, .charSet2,  177)
-  }
-  
-  func entropyBits(_ total: UInt, _ risk: Entropy.Power, _ expected: UInt) {
-    let bits = Entropy.bits(for: total, risk: risk)
-    XCTAssertEqual(UInt(ceil(bits)), expected)
-  }
-
-  func stringLength(_ total: UInt, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
-    let bits = Entropy.bits(for: total, risk: risk)
-    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
-    XCTAssertEqual(len,  expected)
-  }
-  
-  func testPowerEntropy() {
-    for total in powers {
-      for risk in powers {
-        _ = Entropy.bits(for: total, risk: risk)
-      }
-    }
     
     stringLength(.ten05, .ten12, .charSet64, 13)
     stringLength(.ten05, .ten12, .charSet32, 15)
@@ -161,14 +283,18 @@ class EntropyStringTests: XCTestCase {
     stringLength(.ten10, .ten09, .charSet4,  48)
     stringLength(.ten10, .ten09, .charSet2,  96)
   }
+
+  func stringLength(_ total: UInt, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
+    let bits = Entropy.bits(for: total, risk: risk)
+    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
+    XCTAssertEqual(len,  expected)
+  }
   
   func stringLength(_ power: Entropy.Power, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
     let bits = Entropy.bits(for: power, risk: risk)
     let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
     XCTAssertEqual(len,  expected)
   }
-
-  
 
   func testInvalidBytes() {
     invalidBytes( 7, .charSet64, [1])
@@ -504,6 +630,7 @@ class EntropyStringTests: XCTestCase {
       ("testCharSet2Entropy",  testCharSet2Entropy),
       ("testTotalEntropy",     testTotalEntropy),
       ("testPowerEntropy",     testPowerEntropy),
+      ("testStringLens",       testStringLens),
       ("testInvalidBytes",     testInvalidBytes),
       ("testCharSet64",        testCharSet64),
       ("testCharSet32",        testCharSet32),
@@ -520,7 +647,6 @@ class EntropyStringTests: XCTestCase {
       ("testCustom8Chars",     testCustom8Chars),
       ("testCustom4Chars",     testCustom4Chars),
       ("testCustom2Chars",     testCustom2Chars)
-
     ]
   }
 }
