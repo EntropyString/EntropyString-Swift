@@ -79,6 +79,7 @@ public struct Entropy {
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
   public static func bits(for total: UInt, risk: Power) -> Float {
+    guard 0 < total else { return 0 }
     var N: Float
     if total < 10000 {
       N = log2(Float(total)) + log2(Float(total-1)) + (Float(risk.rawValue) * log2_10) - 1

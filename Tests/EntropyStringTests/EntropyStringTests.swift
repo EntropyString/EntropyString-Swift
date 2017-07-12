@@ -25,75 +25,79 @@ class EntropyStringTests: XCTestCase {
   }
   
   func testZeroEntropy() {
+    for power in powers {
+      entropyBits(0, power, 0)
+    }
+    
     for charSet in charSets {
       XCTAssertEqual(RandomString.entropy(of: 0, using: charSet), "")
     }
   }
   
   func testCharSet64Entropy() {
-    entropy(.charSet64,   5,  1)
-    entropy(.charSet64,   6,  1)
-    entropy(.charSet64,   7,  2)
-    entropy(.charSet64,  18,  3)
-    entropy(.charSet64,  50,  9)
-    entropy(.charSet64, 122, 21)
-    entropy(.charSet64, 128, 22)
-    entropy(.charSet64, 132, 22)
+    entropy(   5, .charSet64,  1)
+    entropy(   6, .charSet64,  1)
+    entropy(   7, .charSet64,  2)
+    entropy(  18, .charSet64,  3)
+    entropy(  50, .charSet64,  9)
+    entropy( 122, .charSet64, 21)
+    entropy( 128, .charSet64, 22)
+    entropy( 132, .charSet64, 22)
   }
   
   func testCharSet32Entropy() {
-    entropy(.charSet32,   4,  1)
-    entropy(.charSet32,   5,  1)
-    entropy(.charSet32,   6,  2)
-    entropy(.charSet32,  20,  4)
-    entropy(.charSet32,  32,  7)
-    entropy(.charSet32, 122, 25)
-    entropy(.charSet32, 128, 26)
-    entropy(.charSet32, 130, 26)
+    entropy(   4, .charSet32,  1)
+    entropy(   5, .charSet32,  1)
+    entropy(   6, .charSet32,  2)
+    entropy(  20, .charSet32,  4)
+    entropy(  32, .charSet32,  7)
+    entropy( 122, .charSet32, 25)
+    entropy( 128, .charSet32, 26)
+    entropy( 130, .charSet32, 26)
   }
   
   func testCharSet16Entropy() {
-    entropy(.charSet16,   3,  1)
-    entropy(.charSet16,   4,  1)
-    entropy(.charSet16,   5,  2)
-    entropy(.charSet16,  14,  4)
-    entropy(.charSet16,  40, 10)
-    entropy(.charSet16, 122, 31)
-    entropy(.charSet16, 128, 32)
+    entropy(   3, .charSet16,  1)
+    entropy(   4, .charSet16,  1)
+    entropy(   5, .charSet16,  2)
+    entropy(  14, .charSet16,  4)
+    entropy(  40, .charSet16, 10)
+    entropy( 122, .charSet16, 31)
+    entropy( 128, .charSet16, 32)
   }
   
   func testCharSet8Entropy() {
-    entropy(.charSet8,   2,  1)
-    entropy(.charSet8,   3,  1)
-    entropy(.charSet8,   4,  2)
-    entropy(.charSet8,  32, 11)
-    entropy(.charSet8,  48, 16)
-    entropy(.charSet8, 120, 40)
-    entropy(.charSet8, 122, 41)
-    entropy(.charSet8, 128, 43)
+    entropy(   2, .charSet8, 1)
+    entropy(   3, .charSet8, 1)
+    entropy(   4, .charSet8, 2)
+    entropy(  32, .charSet8,11)
+    entropy(  48, .charSet8,16)
+    entropy( 120, .charSet8,40)
+    entropy( 122, .charSet8,41)
+    entropy( 128, .charSet8,43)
   }
   
   func testCharSet4Entropy() {
-    entropy(.charSet4,   1,  1)
-    entropy(.charSet4,   2,  1)
-    entropy(.charSet4,   3,  2)
-    entropy(.charSet4,  32, 16)
-    entropy(.charSet4,  48, 24)
-    entropy(.charSet4, 122, 61)
-    entropy(.charSet4, 128, 64)
+    entropy(   1, .charSet4, 1)
+    entropy(   2, .charSet4, 1)
+    entropy(   3, .charSet4, 2)
+    entropy(  32, .charSet4,16)
+    entropy(  48, .charSet4,24)
+    entropy( 122, .charSet4,61)
+    entropy( 128, .charSet4,64)
   }
   
   func testCharSet2Entropy() {
-    entropy(.charSet2,   1,   1)
-    entropy(.charSet2,   2,   2)
-    entropy(.charSet2,   3,   3)
-    entropy(.charSet2,  32,  32)
-    entropy(.charSet2,  48,  48)
-    entropy(.charSet2, 122, 122)
-    entropy(.charSet2, 128, 128)
+    entropy(   1, .charSet2,  1)
+    entropy(   2, .charSet2,  2)
+    entropy(   3, .charSet2,  3)
+    entropy(  32, .charSet2, 32)
+    entropy(  48, .charSet2, 48)
+    entropy( 122, .charSet2,122)
+    entropy( 128, .charSet2,128)
   }
   
-  func entropy(_ charSet: CharSet, _ bits: Float, _ expected: Int) {
+  func entropy(_ bits: Float, _ charSet: CharSet, _ expected: Int) {
     var string = RandomString.entropy(of: bits, using: charSet)
     XCTAssertEqual(string.characters.count, expected)
   }
