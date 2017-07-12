@@ -104,7 +104,7 @@ class EntropyStringTests: XCTestCase {
     }
     entropyBits(UInt.max, .ten15,  177)
 
-    // From table at http://preshing.com/20110504/hash-collision-probabilities/ 
+    // From table at http://preshing.com/20110504/hash-collision-probabilities/
     // 32-bit column
     entropyBits(30084, .ten01, 32)
     entropyBits( 9292, .ten02, 32)
