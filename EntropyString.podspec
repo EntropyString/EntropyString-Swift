@@ -2,8 +2,8 @@
 
 Pod::Spec.new do |s|
   s.name         = "EntropyString"
-  s.version      = "0.4.0"
-  s.summary      = "Efficiently generate secure strings of specified entropy from various character sets."
+  s.version      = "0.5.0"
+  s.summary      = "Efficiently generate secure, random strings of specified entropy from various character sets."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-Efficiently generate secure strings of specified entropy from various character sets for use when probabilisticly unique string identifiers are needed. Entropy is specified by total number of strings and acceptable risk of a repeat.
+Efficiently generate secure, randmo strings of specified entropy from various character sets for use when probabilisticly unique string identifiers are needed. Entropy is specified by total number of strings and acceptable risk of a repeat.
                    DESC
 
   s.homepage = "https://github.com/#{s.name}/#{s.name}-Swift"
