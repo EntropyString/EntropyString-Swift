@@ -108,7 +108,7 @@ class EntropyStringTests: XCTestCase {
     entropyString(16, .charSet2, [0xe3, 0xe9], "1110001111101001")
   }
   
-  func testCharSet64Entropy() {
+  func testCharSet64StringLens() {
     entropyStringLen(   5, .charSet64,  1)
     entropyStringLen(   6, .charSet64,  1)
     entropyStringLen(   7, .charSet64,  2)
@@ -119,7 +119,7 @@ class EntropyStringTests: XCTestCase {
     entropyStringLen( 132, .charSet64, 22)
   }
   
-  func testCharSet32Entropy() {
+  func testCharSet32StringLens() {
     entropyStringLen(   4, .charSet32,  1)
     entropyStringLen(   5, .charSet32,  1)
     entropyStringLen(   6, .charSet32,  2)
@@ -130,7 +130,7 @@ class EntropyStringTests: XCTestCase {
     entropyStringLen( 130, .charSet32, 26)
   }
   
-  func testCharSet16Entropy() {
+  func testCharSet16StringLens() {
     entropyStringLen(   3, .charSet16,  1)
     entropyStringLen(   4, .charSet16,  1)
     entropyStringLen(   5, .charSet16,  2)
@@ -140,43 +140,152 @@ class EntropyStringTests: XCTestCase {
     entropyStringLen( 128, .charSet16, 32)
   }
   
-  func testCharSet8Entropy() {
-    entropyStringLen(   2, .charSet8, 1)
-    entropyStringLen(   3, .charSet8, 1)
-    entropyStringLen(   4, .charSet8, 2)
-    entropyStringLen(  32, .charSet8,11)
-    entropyStringLen(  48, .charSet8,16)
-    entropyStringLen( 120, .charSet8,40)
-    entropyStringLen( 122, .charSet8,41)
-    entropyStringLen( 128, .charSet8,43)
+  func testCharSet8StringLens() {
+    entropyStringLen(   2, .charSet8,  1)
+    entropyStringLen(   3, .charSet8,  1)
+    entropyStringLen(   4, .charSet8,  2)
+    entropyStringLen(  32, .charSet8, 11)
+    entropyStringLen(  48, .charSet8, 16)
+    entropyStringLen( 120, .charSet8, 40)
+    entropyStringLen( 122, .charSet8, 41)
+    entropyStringLen( 128, .charSet8, 43)
   }
   
-  func testCharSet4Entropy() {
-    entropyStringLen(   1, .charSet4, 1)
-    entropyStringLen(   2, .charSet4, 1)
-    entropyStringLen(   3, .charSet4, 2)
-    entropyStringLen(  32, .charSet4,16)
-    entropyStringLen(  48, .charSet4,24)
-    entropyStringLen( 122, .charSet4,61)
-    entropyStringLen( 128, .charSet4,64)
+  func testCharSet4StringLens() {
+    entropyStringLen(   1, .charSet4,  1)
+    entropyStringLen(   2, .charSet4,  1)
+    entropyStringLen(   3, .charSet4,  2)
+    entropyStringLen(  32, .charSet4, 16)
+    entropyStringLen(  48, .charSet4, 24)
+    entropyStringLen( 122, .charSet4, 61)
+    entropyStringLen( 128, .charSet4, 64)
   }
   
-  func testCharSet2Entropy() {
-    entropyStringLen(   1, .charSet2,  1)
-    entropyStringLen(   2, .charSet2,  2)
-    entropyStringLen(   3, .charSet2,  3)
-    entropyStringLen(  32, .charSet2, 32)
-    entropyStringLen(  48, .charSet2, 48)
-    entropyStringLen( 122, .charSet2,122)
-    entropyStringLen( 128, .charSet2,128)
+  func testCharSet2StringLens() {
+    entropyStringLen(   1, .charSet2,   1)
+    entropyStringLen(   2, .charSet2,   2)
+    entropyStringLen(   3, .charSet2,   3)
+    entropyStringLen(  32, .charSet2,  32)
+    entropyStringLen(  48, .charSet2,  48)
+    entropyStringLen( 122, .charSet2, 122)
+    entropyStringLen( 128, .charSet2, 128)
   }
   
   func testTotalEntropy() {
-    for risk in powers {
-      _ = Entropy.bits(for: 10000, risk: risk)
+    entropyBits(    10,   1000,   15)
+    entropyBits(    10,  10000,   19)
+    entropyBits(    10, 100000,   22)
+    
+    entropyBits(   100,   1000,   22)
+    entropyBits(   100,  10000,   26)
+    entropyBits(   100, 100000,   29)
+    
+    entropyBits(  1000,   1000,   29)
+    entropyBits(  1000,  10000,   32)
+    entropyBits(  1000, 100000,   36)
+    
+    entropyBits( 10000,   1000,   36)
+    entropyBits( 10000,  10000,   39)
+    entropyBits( 10000, 100000,   42)
+    
+    entropyBits(100000,   1000,   42)
+    entropyBits(100000,  10000,   46)
+    entropyBits(100000, 100000,   49)
+    
+    entropyBits(    10, .ten03,   15)
+    entropyBits(    10, .ten04,   19)
+    entropyBits(    10, .ten05,   22)
+    
+    entropyBits(   100, .ten03,   22)
+    entropyBits(   100, .ten04,   26)
+    entropyBits(   100, .ten05,   29)
+    
+    entropyBits(  1000, .ten03,   29)
+    entropyBits(  1000, .ten04,   32)
+    entropyBits(  1000, .ten05,   36)
+    
+    entropyBits( 10000, .ten03,   36)
+    entropyBits( 10000, .ten04,   39)
+    entropyBits( 10000, .ten05,   42)
+    
+    entropyBits(100000, .ten03,   42)
+    entropyBits(100000, .ten04,   46)
+    entropyBits(100000, .ten05,   49)
+    
+    entropyBits(.ten01, .ten03,   15)
+    entropyBits(.ten01, .ten04,   19)
+    entropyBits(.ten01, .ten05,   22)
+    
+    entropyBits(.ten02, .ten03,   22)
+    entropyBits(.ten02, .ten04,   26)
+    entropyBits(.ten02, .ten05,   29)
+    
+    entropyBits(.ten03, .ten03,   29)
+    entropyBits(.ten03, .ten04,   32)
+    entropyBits(.ten03, .ten05,   36)
+    
+    entropyBits(.ten04, .ten03,   36)
+    entropyBits(.ten04, .ten04,   39)
+    entropyBits(.ten04, .ten05,   42)
+    
+    entropyBits(.ten05, .ten03,   42)
+    entropyBits(.ten05, .ten04,   46)
+    entropyBits(.ten05, .ten05,   49)
+    
+    for total in powers {
+      for risk in powers {
+        _ = Entropy.bits(for: total, risk: risk)
+      }
     }
+    
     entropyBits(UInt.max, .ten15,  177)
+  }
 
+  func testStringLens() {
+    stringLength(30, .ten06, .charSet64,  5)
+    stringLength(30, .ten06, .charSet32,  6)
+    stringLength(30, .ten06, .charSet16,  8)
+    stringLength(30, .ten06, .charSet8,  10)
+    stringLength(30, .ten06, .charSet4,  15)
+    stringLength(30, .ten06, .charSet2,  29)
+    
+    stringLength(1000,   .ten10, .charSet64,  9)
+    stringLength(1000,   .ten10, .charSet32, 11)
+    stringLength(1000,   .ten10, .charSet16, 14)
+    stringLength(1000,   .ten10, .charSet8,  18)
+    stringLength(1000,   .ten10, .charSet4,  27)
+    stringLength(1000,   .ten10, .charSet2,  53)
+    
+    stringLength(100000, .ten12, .charSet64,  13)
+    stringLength(100000, .ten12, .charSet32,  15)
+    stringLength(100000, .ten12, .charSet16,  19)
+    stringLength(100000, .ten12, .charSet8,   25)
+    stringLength(100000, .ten12, .charSet4,   37)
+    stringLength(100000, .ten12, .charSet2,   73)
+    
+    stringLength(UInt.max, .ten15, .charSet64,  30)
+    stringLength(UInt.max, .ten15, .charSet32,  36)
+    stringLength(UInt.max, .ten15, .charSet16,  45)
+    stringLength(UInt.max, .ten15, .charSet8,   59)
+    stringLength(UInt.max, .ten15, .charSet4,   89)
+    stringLength(UInt.max, .ten15, .charSet2,  177)
+    
+    stringLength(.ten05, .ten12, .charSet64, 13)
+    stringLength(.ten05, .ten12, .charSet32, 15)
+    stringLength(.ten05, .ten12, .charSet16, 19)
+    stringLength(.ten05, .ten12, .charSet8,  25)
+    stringLength(.ten05, .ten12, .charSet4,  37)
+    stringLength(.ten05, .ten12, .charSet2,  73)
+    
+    stringLength(.ten10, .ten09, .charSet64, 16)
+    stringLength(.ten10, .ten09, .charSet32, 20)
+    stringLength(.ten10, .ten09, .charSet16, 24)
+    stringLength(.ten10, .ten09, .charSet8,  32)
+    stringLength(.ten10, .ten09, .charSet4,  48)
+    stringLength(.ten10, .ten09, .charSet2,  96)
+  }
+  
+  func testPreshingTable() {
     // From table at http://preshing.com/20110504/hash-collision-probabilities/
     // 32-bit column
     entropyBits(30084, .ten01, 32)
@@ -269,104 +378,6 @@ class EntropyStringTests: XCTestCase {
     entropyBits(.ten09, .ten29, 155)
     entropyBits(.ten10, .ten30, 165)
     entropyBits(.ten09, .ten30, 158)
-  }
-  
-  func testPowerEntropy() {
-    for total in powers {
-      for risk in powers {
-        _ = Entropy.bits(for: total, risk: risk)
-      }
-    }
-    
-    entropyBits(.ten04, .ten06,  46)
-    entropyBits(.ten05, .ten06,  52)
-    entropyBits(.ten06, .ten06,  59)
-    entropyBits(.ten07, .ten06,  65)
-    entropyBits(.ten08, .ten06,  72)
-    entropyBits(.ten09, .ten06,  79)
-    entropyBits(.ten10, .ten06,  85)
-    entropyBits(.ten11, .ten06,  92)
-    entropyBits(.ten12, .ten06,  99)
-    
-    entropyBits(.ten04, .ten09,  55)
-    entropyBits(.ten05, .ten09,  62)
-    entropyBits(.ten06, .ten09,  69)
-    entropyBits(.ten07, .ten09,  75)
-    entropyBits(.ten08, .ten09,  82)
-    entropyBits(.ten09, .ten09,  89)
-    entropyBits(.ten10, .ten09,  95)
-    entropyBits(.ten11, .ten09, 102)
-    entropyBits(.ten12, .ten09, 109)
-
-    entropyBits(.ten04, .ten12,  65)
-    entropyBits(.ten05, .ten12,  72)
-    entropyBits(.ten06, .ten12,  79)
-    entropyBits(.ten07, .ten12,  85)
-    entropyBits(.ten08, .ten12,  92)
-    entropyBits(.ten09, .ten12,  99)
-    entropyBits(.ten10, .ten12, 105)
-    entropyBits(.ten11, .ten12, 112)
-    entropyBits(.ten12, .ten12, 119)
-
-  }
-  
-  func entropyBits(_ total: UInt, _ risk: Entropy.Power, _ expected: UInt) {
-    let bits = Entropy.bits(for: total, risk: risk)
-    XCTAssertEqual(UInt(round(bits)), expected)
-  }
-  
-  func entropyBits(_ total: Entropy.Power, _ risk: Entropy.Power, _ expected: UInt) {
-    let bits = Entropy.bits(for: total, risk: risk)
-    XCTAssertEqual(UInt(round(bits)), expected)
-  }
-  
-  func testStringLens() {
-    stringLength(30, .ten06, .charSet64,  5)
-    stringLength(30, .ten06, .charSet32,  6)
-    stringLength(30, .ten06, .charSet16,  8)
-    stringLength(30, .ten06, .charSet8,  10)
-    stringLength(30, .ten06, .charSet4,  15)
-    stringLength(30, .ten06, .charSet2,  29)
-    
-    stringLength(100000, .ten12, .charSet64,  13)
-    stringLength(100000, .ten12, .charSet32,  15)
-    stringLength(100000, .ten12, .charSet16,  19)
-    stringLength(100000, .ten12, .charSet8,   25)
-    stringLength(100000, .ten12, .charSet4,   37)
-    stringLength(100000, .ten12, .charSet2,   73)
-
-    stringLength(UInt.max, .ten15, .charSet64,  30)
-    stringLength(UInt.max, .ten15, .charSet32,  36)
-    stringLength(UInt.max, .ten15, .charSet16,  45)
-    stringLength(UInt.max, .ten15, .charSet8,   59)
-    stringLength(UInt.max, .ten15, .charSet4,   89)
-    stringLength(UInt.max, .ten15, .charSet2,  177)
-    
-    stringLength(.ten05, .ten12, .charSet64, 13)
-    stringLength(.ten05, .ten12, .charSet32, 15)
-    stringLength(.ten05, .ten12, .charSet16, 19)
-    stringLength(.ten05, .ten12, .charSet8,  25)
-    stringLength(.ten05, .ten12, .charSet4,  37)
-    stringLength(.ten05, .ten12, .charSet2,  73)
-    
-    stringLength(.ten10, .ten09, .charSet64, 16)
-    stringLength(.ten10, .ten09, .charSet32, 20)
-    stringLength(.ten10, .ten09, .charSet16, 24)
-    stringLength(.ten10, .ten09, .charSet8,  32)
-    stringLength(.ten10, .ten09, .charSet4,  48)
-    stringLength(.ten10, .ten09, .charSet2,  96)
-  }
-
-  func stringLength(_ total: UInt, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
-    let bits = Entropy.bits(for: total, risk: risk)
-    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
-    XCTAssertEqual(len,  expected)
-  }
-  
-  func stringLength(_ power: Entropy.Power, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
-    let bits = Entropy.bits(for: power, risk: risk)
-    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
-    XCTAssertEqual(len,  expected)
   }
 
   func testInvalidBytes() {
@@ -584,7 +595,34 @@ class EntropyStringTests: XCTestCase {
     var string = RandomString.entropy(of: bits, using: charSet)
     XCTAssertEqual(string.characters.count, expected)
   }
+  
+  func entropyBits(_ total: UInt, _ risk: UInt, _ expected: UInt) {
+    let bits = Entropy.bits(for: total, risk: risk)
+    XCTAssertEqual(UInt(round(bits)), expected)
+  }
+  
+  func entropyBits(_ total: UInt, _ risk: Entropy.Power, _ expected: UInt) {
+    let bits = Entropy.bits(for: total, risk: risk)
+    XCTAssertEqual(UInt(round(bits)), expected)
+  }
+  
+  func entropyBits(_ total: Entropy.Power, _ risk: Entropy.Power, _ expected: UInt) {
+    let bits = Entropy.bits(for: total, risk: risk)
+    XCTAssertEqual(UInt(round(bits)), expected)
+  }
 
+  func stringLength(_ total: UInt, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
+    let bits = Entropy.bits(for: total, risk: risk)
+    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
+    XCTAssertEqual(len,  expected)
+  }
+  
+  func stringLength(_ power: Entropy.Power, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
+    let bits = Entropy.bits(for: power, risk: risk)
+    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
+    XCTAssertEqual(len,  expected)
+  }
+  
   func invalidCharCount(_ charSet: CharSet, _ chars: String) {
     do {
       try randomString.use(chars, for: charSet)
@@ -627,32 +665,32 @@ class EntropyStringTests: XCTestCase {
   // Adopt XCTestCaseProvider to run test on  Linux
   var allTests: [(String, () throws -> ())] {
     return [
-      ("testZeroEntropy",      testZeroEntropy),
-      ("testCharSet64",        testCharSet64),
-      ("testCharSet32",        testCharSet32),
-      ("testCharSet16",        testCharSet16),
-      ("testCharSet8",         testCharSet8),
-      ("testCharSet4",         testCharSet4),
-      ("testCharSet2",         testCharSet2),
-      ("testCharSet64Entropy", testCharSet64Entropy),
-      ("testCharSet32Entropy", testCharSet32Entropy),
-      ("testCharSet16Entropy", testCharSet16Entropy),
-      ("testCharSet8Entropy",  testCharSet8Entropy),
-      ("testCharSet4Entropy",  testCharSet4Entropy),
-      ("testCharSet2Entropy",  testCharSet2Entropy),
-      ("testTotalEntropy",     testTotalEntropy),
-      ("testPowerEntropy",     testPowerEntropy),
-      ("testStringLens",       testStringLens),
-      ("testInvalidBytes",     testInvalidBytes),
-      ("testSecure",           testSecure),
-      ("testEntropyLengths",   testEntropyLengths),
-      ("testCharSetLengths",   testCharSetLengths),
-      ("testCustom64Chars",    testCustom64Chars),
-      ("testCustom32Chars",    testCustom32Chars),
-      ("testCustom16Chars",    testCustom16Chars),
-      ("testCustom8Chars",     testCustom8Chars),
-      ("testCustom4Chars",     testCustom4Chars),
-      ("testCustom2Chars",     testCustom2Chars)
+      ("testZeroEntropy",         testZeroEntropy),
+      ("testCharSet64",           testCharSet64),
+      ("testCharSet32",           testCharSet32),
+      ("testCharSet16",           testCharSet16),
+      ("testCharSet8",            testCharSet8),
+      ("testCharSet4",            testCharSet4),
+      ("testCharSet2",            testCharSet2),
+      ("testCharSet64StringLens", testCharSet64StringLens),
+      ("testCharSet32StringLens", testCharSet32StringLens),
+      ("testCharSet16StringLens", testCharSet16StringLens),
+      ("testCharSet8StringLens",  testCharSet8StringLens),
+      ("testCharSet4StringLens",  testCharSet4StringLens),
+      ("testCharSet2StringLens",  testCharSet2StringLens),
+      ("testTotalEntropy",        testTotalEntropy),
+      ("testStringLens",          testStringLens),
+      ("testPreshingTable",       testPreshingTable),
+      ("testInvalidBytes",        testInvalidBytes),
+      ("testSecure",              testSecure),
+      ("testEntropyLengths",      testEntropyLengths),
+      ("testCharSetLengths",      testCharSetLengths),
+      ("testCustom64Chars",       testCustom64Chars),
+      ("testCustom32Chars",       testCustom32Chars),
+      ("testCustom16Chars",       testCustom16Chars),
+      ("testCustom8Chars",        testCustom8Chars),
+      ("testCustom4Chars",        testCustom4Chars),
+      ("testCustom2Chars",        testCustom2Chars)
     ]
   }
 }

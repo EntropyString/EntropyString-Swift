@@ -69,15 +69,38 @@ public struct Entropy {
   }
   
   private static let log2_10: Float = log2(10)
+
+  // MARK: - Public API (Static)
+  //
+  /// Calculates bits of entropy
+  ///
+  /// - parameter total: Number of total items expressed as *10^power*
+  /// - parameter risk: Accepted probability expressed as 1 in *10^risk* chance of repeat
+  ///
+  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
+  public static func bits(for total: UInt , risk: UInt) -> Float {
+    guard 0 < total else { return 0 }
+    guard 0 < risk else { return 0 }
+
+    var N: Float
+    if total < 10000 {
+      N = log2(Float(total)) + log2(Float(total-1)) + (log10(Float(risk)) * log2_10) - 1
+    }
+    else {
+      let n = 2 * log10(Float(total)) + log10(Float(risk))
+      N = n * log2_10 - 1
+    }
+    return N
+  }
   
   // MARK: - Public API (Static)
   //
   /// Calculates bits of entropy
   ///
   /// - parameter total: Number of total items
-  /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
+  /// - parameter risk: Accepted probability expressed as 1 in *10^risk* chance of repeat
   ///
-  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
+  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
   public static func bits(for total: UInt, risk: Power) -> Float {
     guard 0 < total else { return 0 }
     var N: Float
@@ -96,10 +119,16 @@ public struct Entropy {
   /// - parameter total: Number of total items
   /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
   ///
-  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* generated items.
+  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
   public static func bits(for total: Power, risk: Power) -> Float {
-    let n = Float(2 * total.rawValue + risk.rawValue)
-    let N = n * log2_10 - 1
+    var N: Float
+    if total < .ten04 {
+      return bits(for: UInt(powf(10, Float(total.rawValue))), risk: risk)
+    }
+    else {
+      let n = Float(2 * total.rawValue + risk.rawValue)
+      N = n * log2_10 - 1
+    }
     return N
   }
 
