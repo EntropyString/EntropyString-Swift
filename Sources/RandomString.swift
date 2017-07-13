@@ -172,38 +172,38 @@ public class RandomString {
     var ndxFn: (Bytes, Int, Int) -> UInt8
     switch charSet {
     case .charSet64:
-      ndxFn = charSet64Ndx
+      ndxFn = ndx64
       chars = self.chars.charSet64
     case .charSet32:
-      ndxFn = charSet32Ndx
+      ndxFn = ndx32
       chars = self.chars.charSet32
     case .charSet16:
-      ndxFn = charSet16Ndx
+      ndxFn = ndx16
       chars = self.chars.charSet16
     case .charSet8:
-      ndxFn = charSet8Ndx
+      ndxFn = ndx8
       chars = self.chars.charSet8
     case .charSet4:
-      ndxFn = charSet4Ndx
+      ndxFn = ndx4
       chars = self.chars.charSet4
     case .charSet2:
-      ndxFn = charSet2Ndx
+      ndxFn = ndx2
       chars = self.chars.charSet2
     }
     
-    var result = ""
+    var string = ""
     for chunk in 0 ..< chunks {
       for slice in 0 ..< charSet.charsPerChunk {
         let ndx = ndxFn(bytes, Int(chunk), Int(slice))
-        result.append(char(ndx, from: chars))
+        string.append(char(ndx, from: chars))
       }
     }
     for slice in 0..<partials {
       let ndx = ndxFn(bytes, Int(chunks), Int(slice))
-      result.append(char(ndx, from: chars))
+      string.append(char(ndx, from: chars))
     }
     
-    return result
+    return string
   }
   
   /// The characters being used for a particular charSet. These characters can be set on instances
@@ -300,22 +300,9 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet64` characters.
-  private func charSet64Ndx(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    let bNum = 3 * chunk
-    var ndx: UInt8 = 0
-    switch slice {
-    case 0:
-      ndx = bytes[bNum]>>2
-    case 1:
-      ndx = (bytes[bNum]<<6)>>2 + bytes[bNum+1]>>4
-    case 2:
-      ndx = (bytes[bNum+1]<<4)>>2 + bytes[bNum+2]>>6
-    case 3:
-      ndx = (bytes[bNum+2]<<2)>>2
-    default:
-      fatalError("Invalid slice for charSet64 chars")
-    }
-    return ndx
+  private func ndx64(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+    guard slice < 4 else { fatalError("Invalid slice for charSet64 chars") }
+    return ndxGen(bytes, chunk, slice, 6)
   }
 
   /// Determines index into `charSet32` characters.
@@ -329,30 +316,9 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet32` characters.
-  private func charSet32Ndx(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    let bNum = 5 * chunk
-    var ndx: UInt8 = 0
-    switch slice {
-    case 0:
-      ndx = bytes[bNum]>>3
-    case 1:
-      ndx = (bytes[bNum]<<5)>>3 + bytes[bNum+1]>>6
-    case 2:
-      ndx = (bytes[bNum+1]<<2)>>3
-    case 3:
-      ndx = (bytes[bNum+1]<<7)>>3 + bytes[bNum+2]>>4
-    case 4:
-      ndx = (bytes[bNum+2]<<4)>>3 + bytes[bNum+3]>>7
-    case 5:
-      ndx = (bytes[bNum+3]<<1)>>3
-    case 6:
-      ndx = (bytes[bNum+3]<<6)>>3 + bytes[bNum+4]>>5
-    case 7:
-      ndx = (bytes[bNum+4]<<3)>>3
-    default:
-      fatalError("Invalid slice for charSet32 chars")
-    }
-    return ndx
+  private func ndx32(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+    guard slice < 8 else { fatalError("Invalid slice for charSet32 chars") }
+    return ndxGen(bytes, chunk, slice, 5)
   }
   
   /// Determines index into `charSet16` characters.
@@ -366,18 +332,9 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet16` characters.
-  private func charSet16Ndx(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    let bNum = chunk
-    var ndx: UInt8 = 0
-    switch slice {
-    case 0:
-      ndx = bytes[bNum]>>4
-    case 1:
-      ndx = (bytes[bNum]<<4)>>4
-    default:
-      fatalError("Invalid slice for charSet16 chars")
-    }
-    return ndx
+  private func ndx16(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+    guard slice < 2 else { fatalError("Invalid slice for charSet16 chars") }
+    return (bytes[chunk]<<UInt8(4*slice))>>4
   }
   
   /// Determines index into `charSet8` characters.
@@ -391,30 +348,9 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet8` characters.
-  private func charSet8Ndx(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    let bNum = 3 * chunk
-    var ndx: UInt8 = 0
-    switch slice {
-    case 0:
-      ndx = bytes[bNum]>>5
-    case 1:
-      ndx = (bytes[bNum]<<3)>>5
-    case 2:
-      ndx = (bytes[bNum]<<6)>>5 + bytes[bNum+1]>>7
-    case 3:
-      ndx = (bytes[bNum+1]<<1)>>5
-    case 4:
-      ndx = (bytes[bNum+1]<<4)>>5
-    case 5:
-      ndx = (bytes[bNum+1]<<7)>>5 + bytes[bNum+2]>>6
-    case 6:
-      ndx = (bytes[bNum+2]<<2)>>5
-    case 7:
-      ndx = (bytes[bNum+2]<<5)>>5
-    default:
-      fatalError("Invalid slice for charSet8 chars")
-    }
-    return ndx
+  private func ndx8(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+    guard slice < 8 else { fatalError("Invalid slice for charSet8 chars") }
+    return ndxGen(bytes, chunk, slice, 3)
   }
   
   /// Determines index into `charSet4` characters.
@@ -428,22 +364,9 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet4` characters.
-  private func charSet4Ndx(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    let bNum = chunk
-    var ndx: UInt8 = 0
-    switch slice {
-    case 0:
-      ndx = bytes[bNum]>>6
-    case 1:
-      ndx = (bytes[bNum]<<2)>>6
-    case 2:
-      ndx = (bytes[bNum]<<4)>>6
-    case 3:
-      ndx = (bytes[bNum]<<6)>>6
-    default:
-      fatalError("Invalid slice for charSet4 chars")
-    }
-    return ndx
+  private func ndx4(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+    guard slice < 4 else { fatalError("Invalid slice for charSet4 chars") }
+    return (bytes[chunk]<<UInt8(2*slice))>>6
   }
   
   /// Determines index into `charSet2` characters.
@@ -457,28 +380,29 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet2` characters.
-  private func charSet2Ndx(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    let bNum = chunk
+  private func ndx2(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+    guard slice < 8 else { fatalError("Invalid slice for charSet2 chars") }
+    return (bytes[chunk]<<UInt8(slice))>>7
+  }
+
+  private func ndxGen(_ bytes: Bytes, _ chunk: Int, _ slice: Int, _ bitsPerSlice: Int) -> UInt8 {
     var ndx: UInt8 = 0
-    switch slice {
-    case 0:
-      ndx = bytes[bNum]>>7
-    case 1:
-      ndx = (bytes[bNum]<<1)>>7
-    case 2:
-      ndx = (bytes[bNum]<<2)>>7
-    case 3:
-      ndx = (bytes[bNum]<<3)>>7
-    case 4:
-      ndx = (bytes[bNum]<<4)>>7
-    case 5:
-      ndx = (bytes[bNum]<<5)>>7
-    case 6:
-      ndx = (bytes[bNum]<<6)>>7
-    case 7:
-      ndx = (bytes[bNum]<<7)>>7
-    default:
-      fatalError("Invalid slice for charSet2 chars")
+    
+    let bitsPerByte: Int = 8
+    let slicesPerChunk = lcm(bitsPerSlice, bitsPerByte) / bitsPerByte
+
+    let bNum = chunk * slicesPerChunk
+    
+    let rShiftIt = UInt8(bitsPerByte - bitsPerSlice)
+    
+    let lOffset = Int(Float(slice*bitsPerSlice/bitsPerByte))
+    let lShift = UInt8((slice*bitsPerSlice) % bitsPerByte)
+    ndx = (bytes[bNum+lOffset]<<(lShift))>>UInt8(rShiftIt)
+    
+    let rOffset = Int(ceil(Float(slice*bitsPerSlice)/Float(bitsPerByte)))
+    let rShift = UInt8((bitsPerByte*(rOffset+1) - (slice+1)*bitsPerSlice) % bitsPerByte)
+    if (rShiftIt < rShift) {
+      ndx += bytes[bNum+rOffset]>>rShift
     }
     return ndx
   }
@@ -493,6 +417,15 @@ public class RandomString {
     guard Int(ndx) < chars.characters.count else { fatalError("Index out of bounds") }
     let charIndex = chars.index(chars.startIndex, offsetBy: Int(ndx))
     return chars[charIndex]
+  }
+  
+  private func gcd(_ a: Int, _ b: Int) -> Int {
+    let r = a % b
+    return r != 0 ? gcd(b, r) : b
+  }
+
+  private func lcm(_ a: Int, _ b: Int) -> Int {
+    return a / gcd(a,b) * b
   }
   
   // MARK: - Private Structs

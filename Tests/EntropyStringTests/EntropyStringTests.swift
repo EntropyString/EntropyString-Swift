@@ -34,72 +34,141 @@ class EntropyStringTests: XCTestCase {
     }
   }
   
+  func testCharSet64() {
+    entropyString( 6, .charSet64, [0xdd],                                                 "3")
+    entropyString(12, .charSet64, [0x78, 0xfc],                                           "eP")
+    entropyString(18, .charSet64, [0xc5, 0x6f, 0x21],                                     "xW8")
+    entropyString(24, .charSet64, [0xc9, 0x68, 0xc7],                                     "yWjH")
+    entropyString(30, .charSet64, [0xa5, 0x62, 0x20, 0x87],                               "pWIgh")
+    entropyString(36, .charSet64, [0x39, 0x51, 0xca, 0xcc, 0x8b],                         "OVHKzI")
+    entropyString(42, .charSet64, [0x83, 0x89, 0x00, 0xc7, 0xf4, 0x02],                   "g4kAx_Q")
+    entropyString(48, .charSet64, [0x51, 0xbc, 0xa8, 0xc7, 0xc9, 0x17],                   "Ubyox8kX")
+    entropyString(54, .charSet64, [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52],             "0uPp2hmXU")
+    entropyString(60, .charSet64, [0xd9, 0x39, 0xc1, 0xaf, 0x1e, 0x2e, 0x69, 0x48],       "2TnBrx4uaU")
+    entropyString(66, .charSet64, [0x78, 0x3f, 0xfd, 0x93, 0xd1, 0x06, 0x90, 0x4b, 0xd6], "eD_9k9EGkEv")
+    entropyString(72, .charSet64, [0x9d, 0x99, 0x4e, 0xa5, 0xd2, 0x3f, 0x8c, 0x86, 0x80], "nZlOpdI_jIaA")
+  }
+  
+  func testCharSet32() {
+    entropyString( 5, .charSet32, [0xdd],                                     "N")
+    entropyString(10, .charSet32, [0x78, 0xfc],                               "p6")
+    entropyString(15, .charSet32, [0x78, 0xfc],                               "p6R")
+    entropyString(20, .charSet32, [0xc5, 0x6f, 0x21],                         "JFHt")
+    entropyString(25, .charSet32, [0xa5, 0x62, 0x20, 0x87],                   "DFr43")
+    entropyString(30, .charSet32, [0xa5, 0x62, 0x20, 0x87],                   "DFr433")
+    entropyString(35, .charSet32, [0x39, 0x51, 0xca, 0xcc, 0x8b],             "b8dPFB7")
+    entropyString(40, .charSet32, [0x39, 0x51, 0xca, 0xcc, 0x8b],             "b8dPFB7h")
+    entropyString(45, .charSet32, [0x83, 0x89, 0x00, 0xc7, 0xf4, 0x02],       "qn7q3rTD2")
+    entropyString(50, .charSet32, [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52], "MhrRBGqLtQ")
+    entropyString(55, .charSet32, [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52], "MhrRBGqLtQf")
+  }
+  
+  func testCharSet16() {
+    entropyString( 4, .charSet16, [0x9d],             "9")
+    entropyString( 8, .charSet16, [0xae],             "ae")
+    entropyString(12, .charSet16, [0x01, 0xf2],       "01f")
+    entropyString(16, .charSet16, [0xc7, 0xc9],       "c7c9")
+    entropyString(20, .charSet16, [0xc7, 0xc9, 0x00], "c7c90")
+  }
+  
+  func testCharSet8() {
+    entropyString( 3, .charSet8, [0x5a],                   "2")
+    entropyString( 6, .charSet8, [0x5a],                   "26")
+    entropyString( 9, .charSet8, [0x21, 0xa4],             "103")
+    entropyString(12, .charSet8, [0x21, 0xa4],             "1032")
+    entropyString(15, .charSet8, [0xda, 0x19],             "66414")
+    entropyString(18, .charSet8, [0xfd, 0x93, 0xd1],       "773117")
+    entropyString(21, .charSet8, [0xfd, 0x93, 0xd1],       "7731172")
+    entropyString(24, .charSet8, [0xfd, 0x93, 0xd1],       "77311721")
+    entropyString(27, .charSet8, [0xc7, 0xc9, 0x07, 0xc9], "617444076")
+    entropyString(30, .charSet8, [0xc7, 0xc9, 0x07, 0xc9], "6174440762")
+  }
+  
+  func testCharSet4() {
+    entropyString( 2, .charSet4, [0x5a],       "T")
+    entropyString( 4, .charSet4, [0x5a],       "TT")
+    entropyString( 6, .charSet4, [0x93],       "CTA")
+    entropyString( 8, .charSet4, [0x93],       "CTAG")
+    entropyString(10, .charSet4, [0x20, 0xf1], "ACAAG")
+    entropyString(12, .charSet4, [0x20, 0xf1], "ACAAGG")
+    entropyString(14, .charSet4, [0x20, 0xf1], "ACAAGGA")
+    entropyString(16, .charSet4, [0x20, 0xf1], "ACAAGGAT")
+  }
+  
+  func testCharSet2() {
+    entropyString( 1, .charSet2, [0x27],       "0")
+    entropyString( 2, .charSet2, [0x27],       "00")
+    entropyString( 3, .charSet2, [0x27],       "001")
+    entropyString( 4, .charSet2, [0x27],       "0010")
+    entropyString( 5, .charSet2, [0x27],       "00100")
+    entropyString( 6, .charSet2, [0x27],       "001001")
+    entropyString( 7, .charSet2, [0x27],       "0010011")
+    entropyString( 8, .charSet2, [0x27],       "00100111")
+    entropyString( 9, .charSet2, [0xe3, 0xe9], "111000111")
+    entropyString(16, .charSet2, [0xe3, 0xe9], "1110001111101001")
+  }
+  
   func testCharSet64Entropy() {
-    entropy(   5, .charSet64,  1)
-    entropy(   6, .charSet64,  1)
-    entropy(   7, .charSet64,  2)
-    entropy(  18, .charSet64,  3)
-    entropy(  50, .charSet64,  9)
-    entropy( 122, .charSet64, 21)
-    entropy( 128, .charSet64, 22)
-    entropy( 132, .charSet64, 22)
+    entropyStringLen(   5, .charSet64,  1)
+    entropyStringLen(   6, .charSet64,  1)
+    entropyStringLen(   7, .charSet64,  2)
+    entropyStringLen(  18, .charSet64,  3)
+    entropyStringLen(  50, .charSet64,  9)
+    entropyStringLen( 122, .charSet64, 21)
+    entropyStringLen( 128, .charSet64, 22)
+    entropyStringLen( 132, .charSet64, 22)
   }
   
   func testCharSet32Entropy() {
-    entropy(   4, .charSet32,  1)
-    entropy(   5, .charSet32,  1)
-    entropy(   6, .charSet32,  2)
-    entropy(  20, .charSet32,  4)
-    entropy(  32, .charSet32,  7)
-    entropy( 122, .charSet32, 25)
-    entropy( 128, .charSet32, 26)
-    entropy( 130, .charSet32, 26)
+    entropyStringLen(   4, .charSet32,  1)
+    entropyStringLen(   5, .charSet32,  1)
+    entropyStringLen(   6, .charSet32,  2)
+    entropyStringLen(  20, .charSet32,  4)
+    entropyStringLen(  32, .charSet32,  7)
+    entropyStringLen( 122, .charSet32, 25)
+    entropyStringLen( 128, .charSet32, 26)
+    entropyStringLen( 130, .charSet32, 26)
   }
   
   func testCharSet16Entropy() {
-    entropy(   3, .charSet16,  1)
-    entropy(   4, .charSet16,  1)
-    entropy(   5, .charSet16,  2)
-    entropy(  14, .charSet16,  4)
-    entropy(  40, .charSet16, 10)
-    entropy( 122, .charSet16, 31)
-    entropy( 128, .charSet16, 32)
+    entropyStringLen(   3, .charSet16,  1)
+    entropyStringLen(   4, .charSet16,  1)
+    entropyStringLen(   5, .charSet16,  2)
+    entropyStringLen(  14, .charSet16,  4)
+    entropyStringLen(  40, .charSet16, 10)
+    entropyStringLen( 122, .charSet16, 31)
+    entropyStringLen( 128, .charSet16, 32)
   }
   
   func testCharSet8Entropy() {
-    entropy(   2, .charSet8, 1)
-    entropy(   3, .charSet8, 1)
-    entropy(   4, .charSet8, 2)
-    entropy(  32, .charSet8,11)
-    entropy(  48, .charSet8,16)
-    entropy( 120, .charSet8,40)
-    entropy( 122, .charSet8,41)
-    entropy( 128, .charSet8,43)
+    entropyStringLen(   2, .charSet8, 1)
+    entropyStringLen(   3, .charSet8, 1)
+    entropyStringLen(   4, .charSet8, 2)
+    entropyStringLen(  32, .charSet8,11)
+    entropyStringLen(  48, .charSet8,16)
+    entropyStringLen( 120, .charSet8,40)
+    entropyStringLen( 122, .charSet8,41)
+    entropyStringLen( 128, .charSet8,43)
   }
   
   func testCharSet4Entropy() {
-    entropy(   1, .charSet4, 1)
-    entropy(   2, .charSet4, 1)
-    entropy(   3, .charSet4, 2)
-    entropy(  32, .charSet4,16)
-    entropy(  48, .charSet4,24)
-    entropy( 122, .charSet4,61)
-    entropy( 128, .charSet4,64)
+    entropyStringLen(   1, .charSet4, 1)
+    entropyStringLen(   2, .charSet4, 1)
+    entropyStringLen(   3, .charSet4, 2)
+    entropyStringLen(  32, .charSet4,16)
+    entropyStringLen(  48, .charSet4,24)
+    entropyStringLen( 122, .charSet4,61)
+    entropyStringLen( 128, .charSet4,64)
   }
   
   func testCharSet2Entropy() {
-    entropy(   1, .charSet2,  1)
-    entropy(   2, .charSet2,  2)
-    entropy(   3, .charSet2,  3)
-    entropy(  32, .charSet2, 32)
-    entropy(  48, .charSet2, 48)
-    entropy( 122, .charSet2,122)
-    entropy( 128, .charSet2,128)
-  }
-  
-  func entropy(_ bits: Float, _ charSet: CharSet, _ expected: Int) {
-    var string = RandomString.entropy(of: bits, using: charSet)
-    XCTAssertEqual(string.characters.count, expected)
+    entropyStringLen(   1, .charSet2,  1)
+    entropyStringLen(   2, .charSet2,  2)
+    entropyStringLen(   3, .charSet2,  3)
+    entropyStringLen(  32, .charSet2, 32)
+    entropyStringLen(  48, .charSet2, 48)
+    entropyStringLen( 122, .charSet2,122)
+    entropyStringLen( 128, .charSet2,128)
   }
   
   func testTotalEntropy() {
@@ -343,92 +412,6 @@ class EntropyStringTests: XCTestCase {
     }
   }
 
-  func testCharSet64() {
-    entropy( 6, .charSet64, [0xdd],                                                 "3")
-    entropy(12, .charSet64, [0x78, 0xfc],                                           "eP")
-    entropy(18, .charSet64, [0xc5, 0x6f, 0x21],                                     "xW8")
-    entropy(24, .charSet64, [0xc9, 0x68, 0xc7],                                     "yWjH")
-    entropy(30, .charSet64, [0xa5, 0x62, 0x20, 0x87],                               "pWIgh")
-    entropy(36, .charSet64, [0x39, 0x51, 0xca, 0xcc, 0x8b],                         "OVHKzI")
-    entropy(42, .charSet64, [0x83, 0x89, 0x00, 0xc7, 0xf4, 0x02],                   "g4kAx_Q")
-    entropy(48, .charSet64, [0x51, 0xbc, 0xa8, 0xc7, 0xc9, 0x17],                   "Ubyox8kX")
-    entropy(54, .charSet64, [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52],             "0uPp2hmXU")
-    entropy(60, .charSet64, [0xd9, 0x39, 0xc1, 0xaf, 0x1e, 0x2e, 0x69, 0x48],       "2TnBrx4uaU")
-    entropy(66, .charSet64, [0x78, 0x3f, 0xfd, 0x93, 0xd1, 0x06, 0x90, 0x4b, 0xd6], "eD_9k9EGkEv")
-    entropy(72, .charSet64, [0x9d, 0x99, 0x4e, 0xa5, 0xd2, 0x3f, 0x8c, 0x86, 0x80], "nZlOpdI_jIaA")
-  }
-  
-  func testCharSet32() {
-    entropy( 5, .charSet32, [0xdd],                                     "N")
-    entropy(10, .charSet32, [0x78, 0xfc],                               "p6")
-    entropy(15, .charSet32, [0x78, 0xfc],                               "p6R")
-    entropy(20, .charSet32, [0xc5, 0x6f, 0x21],                         "JFHt")
-    entropy(25, .charSet32, [0xa5, 0x62, 0x20, 0x87],                   "DFr43")
-    entropy(30, .charSet32, [0xa5, 0x62, 0x20, 0x87],                   "DFr433")
-    entropy(35, .charSet32, [0x39, 0x51, 0xca, 0xcc, 0x8b],             "b8dPFB7")
-    entropy(40, .charSet32, [0x39, 0x51, 0xca, 0xcc, 0x8b],             "b8dPFB7h")
-    entropy(45, .charSet32, [0x83, 0x89, 0x00, 0xc7, 0xf4, 0x02],       "qn7q3rTD2")
-    entropy(50, .charSet32, [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52], "MhrRBGqLtQ")
-    entropy(55, .charSet32, [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52], "MhrRBGqLtQf")
-  }
-  
-  func testCharSet16() {
-    entropy( 4, .charSet16, [0x9d],             "9")
-    entropy( 8, .charSet16, [0xae],             "ae")
-    entropy(12, .charSet16, [0x01, 0xf2],       "01f")
-    entropy(16, .charSet16, [0xc7, 0xc9],       "c7c9")
-    entropy(20, .charSet16, [0xc7, 0xc9, 0x00], "c7c90")
-  }
-  
-  func testCharSet8() {
-    entropy( 3, .charSet8, [0x5a],                   "2")
-    entropy( 6, .charSet8, [0x5a],                   "26")
-    entropy( 9, .charSet8, [0x21, 0xa4],             "103")
-    entropy(12, .charSet8, [0x21, 0xa4],             "1032")
-    entropy(15, .charSet8, [0xda, 0x19],             "66414")
-    entropy(18, .charSet8, [0xfd, 0x93, 0xd1],       "773117")
-    entropy(21, .charSet8, [0xfd, 0x93, 0xd1],       "7731172")
-    entropy(24, .charSet8, [0xfd, 0x93, 0xd1],       "77311721")
-    entropy(27, .charSet8, [0xc7, 0xc9, 0x07, 0xc9], "617444076")
-    entropy(30, .charSet8, [0xc7, 0xc9, 0x07, 0xc9], "6174440762")
-  }
-  
-  func testCharSet4() {
-    entropy( 2, .charSet4, [0x5a],       "T")
-    entropy( 4, .charSet4, [0x5a],       "TT")
-    entropy( 6, .charSet4, [0x93],       "CTA")
-    entropy( 8, .charSet4, [0x93],       "CTAG")
-    entropy(10, .charSet4, [0x20, 0xf1], "ACAAG")
-    entropy(12, .charSet4, [0x20, 0xf1], "ACAAGG")
-    entropy(14, .charSet4, [0x20, 0xf1], "ACAAGGA")
-    entropy(16, .charSet4, [0x20, 0xf1], "ACAAGGAT")
-  }
-  
-  func testCharSet2() {
-    entropy( 1, .charSet2, [0x27],       "0")
-    entropy( 2, .charSet2, [0x27],       "00")
-    entropy( 3, .charSet2, [0x27],       "001")
-    entropy( 4, .charSet2, [0x27],       "0010")
-    entropy( 5, .charSet2, [0x27],       "00100")
-    entropy( 6, .charSet2, [0x27],       "001001")
-    entropy( 7, .charSet2, [0x27],       "0010011")
-    entropy( 8, .charSet2, [0x27],       "00100111")
-    entropy( 9, .charSet2, [0xe3, 0xe9], "111000111")
-    entropy(16, .charSet2, [0xe3, 0xe9], "1110001111101001")
-  }
-
-  func entropy(_ bits: Float, _ charSet: CharSet, _ bytes: [UInt8], _ expected: String) {
-    do {
-      var string = try RandomString.entropy(of: bits, using: charSet, bytes: bytes)
-      XCTAssertEqual(string, expected)
-      string = try randomString.entropy(of: bits, using: charSet, bytes: bytes)
-      XCTAssertEqual(string, expected)
-    }
-    catch {
-      XCTFail(error.localizedDescription)
-    }
-  }
-  
   func testSecure() {
     for charSet in charSets {
       var secure = false
@@ -583,6 +566,25 @@ class EntropyStringTests: XCTestCase {
     forceNotUnique(.charSet2,  "aa")
   }
   
+  // MARK: - Helper functions -
+  
+  func entropyString(_ bits: Float, _ charSet: CharSet, _ bytes: [UInt8], _ expected: String) {
+    do {
+      var string = try RandomString.entropy(of: bits, using: charSet, bytes: bytes)
+      XCTAssertEqual(string, expected)
+      string = try randomString.entropy(of: bits, using: charSet, bytes: bytes)
+      XCTAssertEqual(string, expected)
+    }
+    catch {
+      XCTFail(error.localizedDescription)
+    }
+  }
+
+  func entropyStringLen(_ bits: Float, _ charSet: CharSet, _ expected: Int) {
+    var string = RandomString.entropy(of: bits, using: charSet)
+    XCTAssertEqual(string.characters.count, expected)
+  }
+
   func invalidCharCount(_ charSet: CharSet, _ chars: String) {
     do {
       try randomString.use(chars, for: charSet)
@@ -626,6 +628,12 @@ class EntropyStringTests: XCTestCase {
   var allTests: [(String, () throws -> ())] {
     return [
       ("testZeroEntropy",      testZeroEntropy),
+      ("testCharSet64",        testCharSet64),
+      ("testCharSet32",        testCharSet32),
+      ("testCharSet16",        testCharSet16),
+      ("testCharSet8",         testCharSet8),
+      ("testCharSet4",         testCharSet4),
+      ("testCharSet2",         testCharSet2),
       ("testCharSet64Entropy", testCharSet64Entropy),
       ("testCharSet32Entropy", testCharSet32Entropy),
       ("testCharSet16Entropy", testCharSet16Entropy),
@@ -636,12 +644,6 @@ class EntropyStringTests: XCTestCase {
       ("testPowerEntropy",     testPowerEntropy),
       ("testStringLens",       testStringLens),
       ("testInvalidBytes",     testInvalidBytes),
-      ("testCharSet64",        testCharSet64),
-      ("testCharSet32",        testCharSet32),
-      ("testCharSet16",        testCharSet16),
-      ("testCharSet8",         testCharSet8),
-      ("testCharSet4",         testCharSet4),
-      ("testCharSet2",         testCharSet2),
       ("testSecure",           testSecure),
       ("testEntropyLengths",   testEntropyLengths),
       ("testCharSetLengths",   testCharSetLengths),
