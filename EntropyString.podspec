@@ -3,21 +3,15 @@
 Pod::Spec.new do |s|
   s.name         = "EntropyString"
   s.version      = "0.5.1"
-  s.summary      = "Efficiently generate secure, random strings of specified entropy from various character sets."
+  s.summary      = "Efficiently generate cryptographically strong random strings of specified entropy from various character sets."
 
-  # This description is used to generate tags and improve search results.
-  #   * Think: What does it do? Why did you write it? What is the focus?
-  #   * Try to keep it short, snappy and to the point.
-  #   * Write the description between the DESC delimiters below.
-  #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-Efficiently generate secure, randmo strings of specified entropy from various character sets for use when probabilisticly unique string identifiers are needed. Entropy is specified by total number of strings and acceptable risk of a repeat.
+Efficiently generate cryptographically strong and secure random strings of specified entropy from various character sets for use when probabilisticly unique string identifiers are needed. Entropy is calculated from a total number of strings and acceptable risk of a repeat.
                    DESC
 
   s.homepage = "https://github.com/#{s.name}/#{s.name}-Swift"
   s.license  = { :type => "MIT", :file => "LICENSE" }
   s.authors   = { "knoxen" => "paul@knoxen.com", "dingo sky" => "paul@dingosky.com" }
-  # s.authors            = { "dingo sky" => "paul@dingosky.com" }
   # s.social_media_url   = "http://twitter.com/knoxen"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -35,18 +29,9 @@ Efficiently generate secure, randmo strings of specified entropy from various ch
   # s.watchos.deployment_target = "2.0"
   # s.tvos.deployment_target = "9.0"
 
-
-  # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Specify the location from where the source should be retrieved.
-  #  Supports git, hg, bzr, svn and HTTP.
-  #
-
   s.source = { :git => "https://github.com/EntropyString/EntropyString-Swift.git", :tag => "#{s.version}" }
 
   s.source_files  = "Sources/**/*.swift"
 #   s.public_header_files = "#{s.name}/{s.name}.h"
-
-  # s.dependency "JSONKit", "~> 1.4"
 
 end

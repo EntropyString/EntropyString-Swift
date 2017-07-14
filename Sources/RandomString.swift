@@ -201,7 +201,7 @@ public class RandomString {
         string.append(char(ndx, from: chars))
       }
     }
-    for slice in 0..<partials {
+    for slice in 0 ..< partials {
       let ndx = ndxFn(bytes, Int(chunks), Int(slice))
       string.append(char(ndx, from: chars))
     }
@@ -304,7 +304,7 @@ public class RandomString {
   ///
   /// - return: The index into the `charSet64` characters.
   private func ndx64(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    guard slice < 4 else { fatalError("Invalid slice for charSet64 chars") }
+    guard slice < CharSet.charSet64.charsPerChunk else { fatalError("Invalid slice for charSet64 chars") }
     return ndxGen(bytes, chunk, slice, 6)
   }
 
@@ -320,7 +320,7 @@ public class RandomString {
   ///
   /// - return: The index into the `charSet32` characters.
   private func ndx32(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    guard slice < 8 else { fatalError("Invalid slice for charSet32 chars") }
+    guard slice < CharSet.charSet32.charsPerChunk else { fatalError("Invalid slice for charSet32 chars") }
     return ndxGen(bytes, chunk, slice, 5)
   }
   
@@ -336,7 +336,7 @@ public class RandomString {
   ///
   /// - return: The index into the `charSet16` characters.
   private func ndx16(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    guard slice < 2 else { fatalError("Invalid slice for charSet16 chars") }
+    guard slice < CharSet.charSet16.charsPerChunk else { fatalError("Invalid slice for charSet16 chars") }
     return (bytes[chunk]<<UInt8(4*slice))>>4
   }
   
@@ -352,7 +352,7 @@ public class RandomString {
   ///
   /// - return: The index into the `charSet8` characters.
   private func ndx8(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    guard slice < 8 else { fatalError("Invalid slice for charSet8 chars") }
+    guard slice < CharSet.charSet8.charsPerChunk else { fatalError("Invalid slice for charSet8 chars") }
     return ndxGen(bytes, chunk, slice, 3)
   }
   
@@ -368,7 +368,7 @@ public class RandomString {
   ///
   /// - return: The index into the `charSet4` characters.
   private func ndx4(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    guard slice < 4 else { fatalError("Invalid slice for charSet4 chars") }
+    guard slice < CharSet.charSet4.charsPerChunk else { fatalError("Invalid slice for charSet4 chars") }
     return (bytes[chunk]<<UInt8(2*slice))>>6
   }
   
@@ -384,10 +384,21 @@ public class RandomString {
   ///
   /// - return: The index into the `charSet2` characters.
   private func ndx2(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
-    guard slice < 8 else { fatalError("Invalid slice for charSet2 chars") }
+    guard slice < CharSet.charSet2.charsPerChunk else { fatalError("Invalid slice for charSet2 chars") }
     return (bytes[chunk]<<UInt8(slice))>>7
   }
 
+  /// Determines index into general CharSet characters.
+  ///
+  /// Each `slice` of bits is used to create a single character. A `chunk` is the number of
+  /// __Bytes__ required for a exact multiple of `slice`s. This function indexes into the _chunk_
+  /// chunk of __Bytes__ to get the _slice_ of bits for generating a character.
+  ///
+  /// - parameter bytes: The __Bytes__ used for character generation
+  /// - parameter chunk: The _chunk_ into the __Bytes__.
+  /// - parameter slice: The _slice_ of the _chunk_.
+  ///
+  /// - return: The index into the `charSet2` characters.
   private func ndxGen(_ bytes: Bytes, _ chunk: Int, _ slice: Int, _ bitsPerSlice: Int) -> UInt8 {
     var ndx: UInt8 = 0
     
