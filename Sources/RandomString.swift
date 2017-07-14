@@ -38,6 +38,7 @@ public class RandomString {
     case tooFewBytes
     case invalidCharCount
     case charsNotUnique
+    case negativeEntropy
   }
   
   // MARK: - Private Vars (Class)
@@ -159,6 +160,7 @@ public class RandomString {
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
   public func entropy(of bits: Float, using charSet: CharSet, bytes: Bytes) throws -> String {
+    guard 0 < bits else { throw RandomStringError.negativeEntropy }
     
     let count: Int = Int(ceil(bits / Float(charSet.entropyPerChar)))
     guard 0 < count else { return "" }
