@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "EntropyString"
-  s.version      = "0.5.0"
+  s.version      = "0.5.1"
   s.summary      = "Efficiently generate secure, random strings of specified entropy from various character sets."
 
   # This description is used to generate tags and improve search results.

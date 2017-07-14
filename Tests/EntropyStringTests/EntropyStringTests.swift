@@ -408,21 +408,6 @@ class EntropyStringTests: XCTestCase {
     invalidBytes(17, .charSet2,  [1,2])
   }
   
-  func invalidBytes(_ bits: Float, _ charSet: CharSet, _ bytes: RandomString.Bytes) {
-    do {
-      _ = try randomString.entropy(of: bits, using: charSet, bytes: bytes)
-      XCTFail("Should have thrown")
-    }
-    catch {
-      if let error = error as? RandomString.RandomStringError {
-        XCTAssertEqual(error, RandomString.RandomStringError.tooFewBytes)
-      }
-      else {
-        XCTFail("Error not a RandomStringError")
-      }
-    }
-  }
-
   func testSecure() {
     for charSet in charSets {
       var secure = false
@@ -462,34 +447,35 @@ class EntropyStringTests: XCTestCase {
   
   func testCustom64Chars() {
     do {
-      try randomString.use("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz)!@#$%^&*(+=", for: .charSet64)
-      try randomString.use("1234567890-=[];,./~!@#$%^&*()_+{}|:<>?abcdefghijklmnopqrstuvwxyz", for: .charSet64)
+      try randomString.use("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ9876543210_-", for: .charSet64)
     }
     catch {
       XCTFail(error.localizedDescription)
     }
     
+    let string = try! randomString.entropy(of: 72, using: .charSet64, bytes: [0x9d, 0x99, 0x4e, 0xa5, 0xd2, 0x3f, 0x8c, 0x86, 0x80])
+    XCTAssertEqual(string, "NzLoPDi-JiAa")
+    
     invalidCharCount(.charSet64, "")
     invalidCharCount(.charSet64, String(repeating: "x", count: 65))
-    
     notUniqueChars(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
-    
     forceNotUnique(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
   }
   
   func testCustom32Chars() {
     do {
-      try randomString.use("0123456789)!@#$%^&*(+=[]{}\\|_-/?", for: .charSet32)
+      try randomString.use("2346789BDFGHJMNPQRTbdfghjlmnpqrt", for: .charSet32)
     }
     catch {
       XCTFail(error.localizedDescription)
     }
+
+    let string = try! randomString.entropy(of: 55, using: .charSet32, bytes: [0xd2, 0xe3, 0xe9, 0xda, 0x19, 0x97, 0x52])
+    XCTAssertEqual(string, "mHRrbgQlTqF")
     
     invalidCharCount(.charSet32, "0123456789ABCDEF")
     invalidCharCount(.charSet32, String(repeating: "x", count: 33))
-    
     notUniqueChars(.charSet32, "01234567890123456789012345678901")
-    
     forceNotUnique(.charSet32, "01234567890123456789012345678901")
   }
   
@@ -507,12 +493,13 @@ class EntropyStringTests: XCTestCase {
     catch {
       XCTFail(error.localizedDescription)
     }
+
+    let string = try! randomString.entropy(of: 20, using: .charSet16, bytes: [0xc7, 0xc9, 0x00])
+    XCTAssertEqual(string, "C7C90")
     
     invalidCharCount(.charSet16, "0123456789abcde")
     invalidCharCount(.charSet16, "0123456789abcdefg")
-    
     notUniqueChars(.charSet16, "0123456789abcdee")
-    
     forceNotUnique(.charSet16, "0123456789abcdee")
   }
   
@@ -528,33 +515,35 @@ class EntropyStringTests: XCTestCase {
     catch {
       XCTFail(error.localizedDescription)
     }
+
+    let string = try! randomString.entropy(of: 30, using: .charSet8, bytes: [0xc7, 0xc9, 0x07, 0xc9])
+    XCTAssertEqual(string, "gbheeeahgc")
     
     invalidCharCount(.charSet8, "0123456")
     invalidCharCount(.charSet8, "012345678")
-    
     notUniqueChars(.charSet8, "01233456")
-    
-    forceNotUnique(.charSet8,  "01233456")
+    forceNotUnique(.charSet8, "01233456")
   }
   
   func testCustom4Chars() {
     do {
       for _ in 0..<20 {
-        try randomString.use("0123", for: .charSet4)
+        try randomString.use("atcg", for: .charSet4)
         let string = randomString.entropy(of: 2, using: .charSet4)
-        XCTAssertTrue(string == "0" || string == "1" || string == "2" || string == "3")
+        XCTAssertTrue(string == "a" || string == "t" || string == "c" || string == "g")
       }
     }
     catch {
       XCTFail(error.localizedDescription)
     }
+
+    let string = try! randomString.entropy(of: 16, using: .charSet4, bytes: [0x20, 0xf1])
+    XCTAssertEqual(string, "acaaggat")
     
-    invalidCharCount(.charSet4,  "TF")
-    invalidCharCount(.charSet4,  "AEIOU")
-    
-    notUniqueChars(.charSet4,  "0120")
-    
-    forceNotUnique(.charSet4,  "0120")
+    invalidCharCount(.charSet4, "TF")
+    invalidCharCount(.charSet4, "AEIOU")
+    notUniqueChars(.charSet4, "0120")
+    forceNotUnique(.charSet4, "0120")
   }
   
   func testCustom2Chars() {
@@ -569,12 +558,13 @@ class EntropyStringTests: XCTestCase {
       XCTFail(error.localizedDescription)
     }
     
-    invalidCharCount(.charSet2,  "F")
-    invalidCharCount(.charSet2,  "TFH")
+    let string = try! randomString.entropy(of: 16, using: .charSet2, bytes: [0xe3, 0xe9])
+    XCTAssertEqual(string, "TTTHHHTTTTTHTHHT")
     
-    notUniqueChars(.charSet2,  "aa")
-    
-    forceNotUnique(.charSet2,  "aa")
+    invalidCharCount(.charSet2, "F")
+    invalidCharCount(.charSet2, "TFH")
+    notUniqueChars(.charSet2, "aa")
+    forceNotUnique(.charSet2, "aa")
   }
   
   // MARK: - Helper functions -
@@ -623,6 +613,21 @@ class EntropyStringTests: XCTestCase {
     XCTAssertEqual(len,  expected)
   }
   
+  func invalidBytes(_ bits: Float, _ charSet: CharSet, _ bytes: RandomString.Bytes) {
+    do {
+      _ = try randomString.entropy(of: bits, using: charSet, bytes: bytes)
+      XCTFail("Should have thrown")
+    }
+    catch {
+      if let error = error as? RandomString.RandomStringError {
+        XCTAssertEqual(error, RandomString.RandomStringError.tooFewBytes)
+      }
+      else {
+        XCTFail("Error not a RandomStringError")
+      }
+    }
+  }
+
   func invalidCharCount(_ charSet: CharSet, _ chars: String) {
     do {
       try randomString.use(chars, for: charSet)
