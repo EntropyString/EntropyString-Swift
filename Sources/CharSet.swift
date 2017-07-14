@@ -26,6 +26,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+import Foundation
+
 public enum CharSet: UInt {
   // Supported character sets
   case charSet64 = 64
@@ -36,48 +38,29 @@ public enum CharSet: UInt {
   case charSet2  =  2
   
   // Entropy per character for the supported character bases
-  public var entropyPerChar: UInt {
-    get {
-      switch self {
-      case .charSet64:
-        return 6
-      case .charSet32:
-        return 5
-      case .charSet16:
-        return 4
-      case .charSet8:
-        return 3
-      case .charSet4:
-        return 2
-      case .charSet2:
-        return 1
-      }
-    }
+  public var entropyPerChar: Int {
+    return Int(log2(Float(rawValue)))
   }
   
   // Characters per chunk of bytes. A slice of bits is used to create a single character. A chunk
   // of bytes is the number of Bytes required for a exact multiple of character slice.
-  var charsPerChunk: UInt {
-    get {
-      switch self {
-      case .charSet64:
-        return 4
-      case .charSet32:
-        return 8
-      case .charSet16:
-        return 2
-      case .charSet8:
-        return 8
-      case .charSet4:
-        return 4
-      case .charSet2:
-        return 8
-      }
-    }
+  var charsPerChunk: Int {
+    return CharSet.lcm(entropyPerChar,8) / entropyPerChar
+  }
+
+  // Greatest common divisor. Needed for least common multiple
+  static func gcd(_ a: Int, _ b: Int) -> Int {
+    let r = a % b
+    return r != 0 ? gcd(b, r) : b
+  }
+  
+  // Least common multiple
+  static func lcm(_ a: Int, _ b: Int) -> Int {
+    return a / gcd(a,b) * b
   }
   
   // MARK: - Private Structs
-  internal struct Chars {
+  struct Chars {
     // File system and URL safe char set from RFC 4648.
     static let default64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
     

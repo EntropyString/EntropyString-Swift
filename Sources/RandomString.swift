@@ -159,7 +159,8 @@ public class RandomString {
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
   public func entropy(of bits: Float, using charSet: CharSet, bytes: Bytes) throws -> String {
-    let count: UInt = UInt(ceil(bits / Float(charSet.entropyPerChar)))
+    
+    let count: Int = Int(ceil(bits / Float(charSet.entropyPerChar)))
     guard 0 < count else { return "" }
 
     let needed = Int(ceil(Float(charSet.entropyPerChar)/8 * Float(count)))
@@ -389,7 +390,7 @@ public class RandomString {
     var ndx: UInt8 = 0
     
     let bitsPerByte: Int = 8
-    let slicesPerChunk = lcm(bitsPerSlice, bitsPerByte) / bitsPerByte
+    let slicesPerChunk = CharSet.lcm(bitsPerSlice, bitsPerByte) / bitsPerByte
 
     let bNum = chunk * slicesPerChunk
     
@@ -417,15 +418,6 @@ public class RandomString {
     guard Int(ndx) < chars.characters.count else { fatalError("Index out of bounds") }
     let charIndex = chars.index(chars.startIndex, offsetBy: Int(ndx))
     return chars[charIndex]
-  }
-  
-  private func gcd(_ a: Int, _ b: Int) -> Int {
-    let r = a % b
-    return r != 0 ? gcd(b, r) : b
-  }
-
-  private func lcm(_ a: Int, _ b: Int) -> Int {
-    return a / gcd(a,b) * b
   }
   
 }
