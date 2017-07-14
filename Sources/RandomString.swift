@@ -28,9 +28,10 @@ import Foundation
 
 public class RandomString {
 
-  // MARK: - Types
-  /// An array of unsigned bytes
-  public typealias Bytes = [UInt8]
+  public typealias Byte  = Random.Byte
+  public typealias Bytes = Random.Bytes
+
+  typealias CharNdx = UInt8
   
   // MARK: - Enums
   /// Errors thrown by RandomString
@@ -83,14 +84,14 @@ public class RandomString {
   ///
   /// - parameter bits: Minimum bits of entropy.
   /// - parameter charSet: The character set to use
-  /// - parameter bytes: The array of __UInt8__ btues used to generate characters.
+  /// - parameter bytes: __Bytes__ used to generate characters.
   ///
   /// - throws: `.tooFewBytes` if there are an insufficient number of bytes to generate the string.
   ///
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-  public static func entropy(of bits: Float, using charSet: CharSet, bytes: Bytes) throws -> String {
+  public static func entropy(of bits: Float, using charSet: CharSet, bytes: Random.Bytes) throws -> String {
     return try RandomString.instance.entropy(of: bits, using: charSet, bytes: bytes)
   }
 
@@ -142,7 +143,7 @@ public class RandomString {
     guard 0 < count else { return "" }
     
     // genBytes sets secure
-    let bytes = RandomString.genBytes(count, charSet, &secure)
+    let bytes = Random.bytes(count, charSet, &secure)
     
     // genBytes ensures enough bytes so this call will not fail
     return try! entropy(of: bits, using: charSet, bytes: bytes)
@@ -152,7 +153,7 @@ public class RandomString {
   ///
   /// - parameter bits: Minimum bits of entropy.
   /// - parameter charSet: The character set to use
-  /// - parameter bytes: The array of __UInt8__ btues used to generate characters.
+  /// - parameter bytes: __Bytes__ used to generate characters.
   ///
   /// - throws: `.tooFewBytes` if there are an insufficient number of bytes to generate the string.
   ///
@@ -172,7 +173,7 @@ public class RandomString {
     let partials = count % charSet.charsPerChunk
     
     var chars: String
-    var ndxFn: (Bytes, Int, Int) -> UInt8
+    var ndxFn: (Bytes, Int, Int) -> CharNdx
     switch charSet {
     case .charSet64:
       ndxFn = ndx64
@@ -255,43 +256,6 @@ public class RandomString {
     }
   }
 
-  // MARK: - Private
-  /// Generates __Bytes__.
-  ///
-  /// The number of __Bytes__ returned is sufficient to generate _count_ characters from the `charSet`.
-  ///
-  /// - parameter count: The number of characters that can be generated.
-  /// - paramater charSet: The character set that will be used.
-  /// - parameter secure: Whether to attemp to use `SecRandomCopyBytes`. If _secure_ is `true`,
-  ///     attempt to use `SecRandomCopyBytes` to generate the random bytes used to generate the
-  ///     random characters for the returned string; otherwise use `arc4random_buf` to generate
-  ///     random bytes.
-  ///
-  /// - return: Random __Bytes__. If _secure_ is passed in as `true`, the value of _secure_ on
-  ///     return indicates whether `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`)
-  ///     was used.
-  private static func genBytes(_ count: UInt, _ charSet: CharSet, _ secure: inout Bool) -> Bytes {
-    // Each slice forms a chars and requires entropy per char bits
-    let bytesPerSlice = Double(charSet.entropyPerChar)/8;
-    
-    let bytesNeeded = Int(ceil(Double(count) * bytesPerSlice))
-    var bytes = [UInt8](repeating: 0, count: bytesNeeded)
-    
-    // If secure requested, attempt to form bytes using SecRandomCopyBytes, which can potentially
-    // fail, and if so, use arc4random (which is also purportedly "secure", but less so) and
-    // set the inout secure Bool to false to notify that SecRandomCopyBytes wasn't used.
-    if secure {
-      if SecRandomCopyBytes(kSecRandomDefault, bytesNeeded, &bytes) != 0 {
-        arc4random_buf(&bytes, bytesNeeded);
-        secure = false
-      }
-    }
-    else {
-      arc4random_buf(&bytes, bytesNeeded);
-    }
-    return bytes
-  }
-  
   /// Determines index into `charSet64` characters.
   ///
   /// Each `slice` of bits is used to create a single character. A `chunk` is the number of
@@ -303,7 +267,7 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet64` characters.
-  private func ndx64(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+  private func ndx64(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> CharNdx {
     guard slice < CharSet.charSet64.charsPerChunk else { fatalError("Invalid slice for charSet64 chars") }
     return ndxGen(bytes, chunk, slice, 6)
   }
@@ -319,7 +283,7 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet32` characters.
-  private func ndx32(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+  private func ndx32(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> CharNdx {
     guard slice < CharSet.charSet32.charsPerChunk else { fatalError("Invalid slice for charSet32 chars") }
     return ndxGen(bytes, chunk, slice, 5)
   }
@@ -335,7 +299,7 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet16` characters.
-  private func ndx16(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+  private func ndx16(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> CharNdx {
     guard slice < CharSet.charSet16.charsPerChunk else { fatalError("Invalid slice for charSet16 chars") }
     return (bytes[chunk]<<UInt8(4*slice))>>4
   }
@@ -351,7 +315,7 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet8` characters.
-  private func ndx8(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+  private func ndx8(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> CharNdx {
     guard slice < CharSet.charSet8.charsPerChunk else { fatalError("Invalid slice for charSet8 chars") }
     return ndxGen(bytes, chunk, slice, 3)
   }
@@ -367,7 +331,7 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet4` characters.
-  private func ndx4(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+  private func ndx4(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> CharNdx {
     guard slice < CharSet.charSet4.charsPerChunk else { fatalError("Invalid slice for charSet4 chars") }
     return (bytes[chunk]<<UInt8(2*slice))>>6
   }
@@ -383,7 +347,7 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet2` characters.
-  private func ndx2(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> UInt8 {
+  private func ndx2(_ bytes: Bytes, _ chunk: Int, _ slice: Int) -> CharNdx {
     guard slice < CharSet.charSet2.charsPerChunk else { fatalError("Invalid slice for charSet2 chars") }
     return (bytes[chunk]<<UInt8(slice))>>7
   }
@@ -399,8 +363,8 @@ public class RandomString {
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The index into the `charSet2` characters.
-  private func ndxGen(_ bytes: Bytes, _ chunk: Int, _ slice: Int, _ bitsPerSlice: Int) -> UInt8 {
-    var ndx: UInt8 = 0
+  private func ndxGen(_ bytes: Bytes, _ chunk: Int, _ slice: Int, _ bitsPerSlice: Int) -> CharNdx {
+    var ndx: CharNdx = 0
     
     let bitsPerByte: Int = 8
     let slicesPerChunk = CharSet.lcm(bitsPerSlice, bitsPerByte) / bitsPerByte
@@ -427,7 +391,7 @@ public class RandomString {
   /// - parameter chars: The characters string
   ///
   /// - return: The character
-  private func char(_ ndx: UInt8, from chars: String) -> Character {
+  private func char(_ ndx: CharNdx, from chars: String) -> Character {
     guard Int(ndx) < chars.characters.count else { fatalError("Index out of bounds") }
     let charIndex = chars.index(chars.startIndex, offsetBy: Int(ndx))
     return chars[charIndex]
