@@ -4,7 +4,6 @@ set -e -o pipefail
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     xcodebuild -version
-
     xcodebuild \
         -project $FRAMEWORK_NAME.xcodeproj \
         -scheme "$FRAMEWORK_NAME-iOS" \
@@ -13,7 +12,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         ONLY_ACTIVE_ARCH=NO \
         test | xcpretty
 
-#    pod lib lint --quick
+    pod lib lint --quick
 fi
 
 if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
