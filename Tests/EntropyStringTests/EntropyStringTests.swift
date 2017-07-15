@@ -666,9 +666,11 @@ class EntropyStringTests: XCTestCase {
       XCTFail("Should not throw")
     }
   }
-  
+}
+
+extension EntropyStringTests {
   // Adopt XCTestCaseProvider to run test on  Linux
-  var allTests: [(String, () throws -> ())] {
+  static var allTests: [(String, (EntropyStringTests) -> () throws -> Void)] {
     return [
       ("testZeroEntropy",         testZeroEntropy),
       ("testCharSet64",           testCharSet64),
@@ -687,13 +689,13 @@ class EntropyStringTests: XCTestCase {
       ("testStringLens",          testStringLens),
       ("testPreshingTable",       testPreshingTable),
       ("testInvalidBytes",        testInvalidBytes),
-      ("testSecure",              testSecure),
+      //      ("testSecure",              testSecure),
       ("testEntropyLengths",      testEntropyLengths),
+//      ("testCustom16Chars",       testCustom16Chars),
+      ("testCustom8Chars",        testCustom8Chars),
       ("testCharSetLengths",      testCharSetLengths),
       ("testCustom64Chars",       testCustom64Chars),
       ("testCustom32Chars",       testCustom32Chars),
-      ("testCustom16Chars",       testCustom16Chars),
-      ("testCustom8Chars",        testCustom8Chars),
       ("testCustom4Chars",        testCustom4Chars),
       ("testCustom2Chars",        testCustom2Chars)
     ]

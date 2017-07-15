@@ -25,8 +25,8 @@
 //  THE SOFTWARE.
 //
 import XCTest
-@testable import EntropyStringTest
+@testable import EntropyStringTests
 
-XTCMain([
-  EntropyStringTests()
+XCTMain([
+  testCase(EntropyStringTests.allTests)
 ])
