@@ -66,7 +66,7 @@ public class RandomString {
   ///
   /// - parameter bits: Minimum bits of entropy.
   /// - parameter charSet: The character set to use
-  /// - parameter secure: If _secure_ is `true`, attempt to use `SecRandomCopyBytes` to
+  /// - parameter secRand: If _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
   ///     generate the random bytes used to generate the random characters for the returned string;
   ///     otherwise use `arc4random_buf` to generate random bytes.
   ///
@@ -74,10 +74,10 @@ public class RandomString {
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
   ///
-  ///     If _secure_ is passed in as `true`, the value of _secure_ on return indicates whether
+  ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
-  public static func entropy(of bits: Float, using charSet: CharSet, secure: inout Bool) -> String {
-    return RandomString.instance.entropy(of: bits, using: charSet, secure: &secure)
+  public static func entropy(of bits: Float, using charSet: CharSet, secRand: inout Bool) -> String {
+    return RandomString.instance.entropy(of: bits, using: charSet, secRand: &secRand)
   }
 
   /// Generates a random string.
@@ -120,15 +120,15 @@ public class RandomString {
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
     public func entropy(of bits: Float, using charSet: CharSet) -> String {
-    var secure = true
-    return entropy(of: bits, using: charSet, secure: &secure)
+    var secRand = true
+    return entropy(of: bits, using: charSet, secRand: &secRand)
   }
   
   /// Generates a random string.
   ///
   /// - parameter bits: Minimum bits of entropy.
   /// - parameter charSet: The character set to use
-  /// - parameter secure: If _secure_ is `true`, attempt to use `SecRandomCopyBytes` to
+  /// - parameter secRand: If _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
   ///     generate the random bytes used to generate the random characters for the returned string;
   ///     otherwise use `arc4random_buf` to generate random bytes.
   ///
@@ -136,14 +136,14 @@ public class RandomString {
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
   ///
-  ///     If _secure_ is passed in as `true`, the value of _secure_ on return indicates whether
+  ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
-  public func entropy(of bits: Float, using charSet: CharSet, secure: inout Bool) -> String {
+  public func entropy(of bits: Float, using charSet: CharSet, secRand: inout Bool) -> String {
     let count: UInt = UInt(ceil(bits / Float(charSet.entropyPerChar)))
     guard 0 < count else { return "" }
     
-    // genBytes sets secure
-    let bytes = Random.bytes(count, charSet, &secure)
+    // genBytes sets secRand
+    let bytes = Random.bytes(count, charSet, &secRand)
     
     // genBytes ensures enough bytes so this call will not fail
     return try! entropy(of: bits, using: charSet, bytes: bytes)

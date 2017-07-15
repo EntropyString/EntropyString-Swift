@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E2126C141F198EDB00D74CA4 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2126C131F198EDB00D74CA4 /* Random.swift */; };
-		E2126C161F19966C00D74CA4 /* ARC4Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2126C151F19966C00D74CA4 /* ARC4Random.swift */; };
 		E287AD9C1F0E9B9A00DE6DF5 /* EntropyString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */; };
 		E287ADA31F0E9B9A00DE6DF5 /* EntropyString.h in Headers */ = {isa = PBXBuildFile; fileRef = E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E287ADAE1F0E9DDC00DE6DF5 /* RandomString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		E2126C131F198EDB00D74CA4 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
-		E2126C151F19966C00D74CA4 /* ARC4Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARC4Random.swift; sourceTree = "<group>"; };
 		E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntropyString.h; sourceTree = "<group>"; };
 		E287AD961F0E9B9A00DE6DF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		E287ADAC1F0E9DDC00DE6DF5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E2126C151F19966C00D74CA4 /* ARC4Random.swift */,
 				E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */,
 				E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */,
 				E2BB88FB1F1162E80084D759 /* CharSet.swift */,
@@ -232,7 +229,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2126C141F198EDB00D74CA4 /* Random.swift in Sources */,
-				E2126C161F19966C00D74CA4 /* ARC4Random.swift in Sources */,
 				E2BB88FC1F1162E80084D759 /* CharSet.swift in Sources */,
 				E287ADAE1F0E9DDC00DE6DF5 /* RandomString.swift in Sources */,
 				E287ADB91F0EDCAB00DE6DF5 /* Entropy.swift in Sources */,

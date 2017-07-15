@@ -407,17 +407,19 @@ class EntropyStringTests: XCTestCase {
     invalidBytes( 9, .charSet2,  [1])
     invalidBytes(17, .charSet2,  [1,2])
   }
-  
-  func testSecure() {
+
+  #if !os(Linux)
+  func testSecRand() {
     for charSet in charSets {
-      var secure = false
-      _ = RandomString.entropy(of: 36, using: charSet, secure: &secure)
-      XCTAssertFalse(secure)
+      var secRand = false
+      _ = RandomString.entropy(of: 36, using: charSet, secRand: &secRand)
+      XCTAssertFalse(secRand)
       
-      secure = true
-      _ = RandomString.entropy(of: 36, using: .charSet64, secure: &secure)
+      secRand = true
+      _ = RandomString.entropy(of: 36, using: .charSet64, secRand: &secRand)
     }
   }
+  #endif
   
   func testEntropyLengths() {
     for charSet in charSets {
@@ -480,15 +482,8 @@ class EntropyStringTests: XCTestCase {
   }
   
   func testCustom16Chars() {
-    let lowerString = randomString.entropy(of: 32, using: .charSet16)
-    assert(lowerString == lowerString.lowercased())
-    assert(lowerString != lowerString.uppercased())
-    
     do {
       try randomString.use("0123456789ABCDEF", for: .charSet16)
-      let upperString = randomString.entropy(of: 32, using: .charSet16)
-      XCTAssertNotEqual(upperString, upperString.lowercased())
-      XCTAssertEqual(upperString, upperString.uppercased())
     }
     catch {
       XCTFail(error.localizedDescription)
@@ -689,9 +684,8 @@ extension EntropyStringTests {
       ("testStringLens",          testStringLens),
       ("testPreshingTable",       testPreshingTable),
       ("testInvalidBytes",        testInvalidBytes),
-      //      ("testSecure",              testSecure),
       ("testEntropyLengths",      testEntropyLengths),
-//      ("testCustom16Chars",       testCustom16Chars),
+      ("testCustom16Chars",       testCustom16Chars),
       ("testCustom8Chars",        testCustom8Chars),
       ("testCharSetLengths",      testCharSetLengths),
       ("testCustom64Chars",       testCustom64Chars),

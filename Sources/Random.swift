@@ -11,26 +11,38 @@ import Foundation
 public struct Random {
   
   // MARK: - Types
-  /// An array of unsigned bytes
   public typealias Byte = UInt8
   public typealias Bytes = [Byte]
   
-  // MARK: - Private
+  #if os(Linux)
+  
+  // On first use, Random will attempt to load `arc4random_buf`
+  
+  private typealias Arc4Random_Buf = @convention(c) (ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>, Int) -> ()
+  private var arc4random_buf: Arc4Random_Buf?
+  public static var instance = Random()
+  
+  private init() {
+    if let handle = dlopen(nil, RTLD_NOW), let result = dlsym(handle, "arc4random_buf") {
+      arc4random_buf = unsafeBitCast(result, to: Arc4Random_Buf.self)
+    }
+  }
+
+  #endif
+  
   /// Generates __Bytes__.
   ///
   /// The number of __Bytes__ returned is sufficient to generate _count_ characters from the `charSet`.
   ///
   /// - parameter count: The number of characters that can be generated.
   /// - paramater charSet: The character set that will be used.
-  /// - parameter secure: Whether to attemp to use `SecRandomCopyBytes`. If _secure_ is `true`,
-  ///     attempt to use `SecRandomCopyBytes` to generate the random bytes used to generate the
-  ///     random characters for the returned string; otherwise use `arc4random_buf` to generate
-  ///     random bytes.
+  /// - parameter secRand: On Apple OSes, if _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
+  ///     generate random bytes; if `false` use `arc4random_buf`. This parameter is ignored on Linux OS.
   ///
-  /// - return: Random __Bytes__. If _secure_ is passed in as `true`, the value of _secure_ on
-  ///     return indicates whether `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`)
-  ///     was used.
-  static func bytes(_ count: UInt, _ charSet: CharSet, _ secure: inout Bool) -> Bytes {
+  /// - return: Random __Bytes__. On Apple OSes, if _secRand_ is passed as `true`, the value on return
+  ///     indicates whether `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
+  ///
+  public static func bytes(_ count: UInt, _ charSet: CharSet, _ secRand: inout Bool) -> Bytes {
     // Each slice forms a chars and requires entropy per char bits
     let bytesPerSlice = Double(charSet.entropyPerChar)/8;
     
@@ -38,44 +50,33 @@ public struct Random {
     var bytes = [Byte](repeating: 0, count: bytesNeeded)
 
     #if os(Linux)
-//      fill(&bytes)
       let buf = UnsafeMutableRawPointer(mutating: bytes)
-      ARC4Random.default.randomize(buffer: buf, size: bytes.count)
+      fill(buffer: buf, size: bytes.count)
     #else
-      fill(&bytes, &secure)
+      fill(&bytes, &secRand)
     #endif
 
     return bytes
   }
   
+  // MARK: - Private
+  
   #if os(Linux)
-  
-  private typealias RandomBuf = @convention(c) (ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>, Int) -> ()
-  
-  private static func load<T>(symbol: String) -> T? {
-    guard let handle = dlopen(nil, RTLD_NOW) else { return nil }
-    defer { dlclose(handle) }
-    guard let result = dlsym(handle, symbol) else { return nil }
-    return unsafeBitCast(result, to: T.self)
+
+  private static func fill(buffer: UnsafeMutableRawPointer, size: Int) {
+    Random.instance.arc4random_buf?(buffer, size)
   }
-  
-  private static let randomBuf: RandomBuf? = load(symbol: "arc4random_buf")
-  
-  
-  private static func fill(_ bytes: inout Bytes) {
-//    arc4random_buf(&bytes, bytes.count)
-  }
-  
+
   #else
 
-  private static func fill(_ bytes: inout Bytes, _ secure: inout Bool) {
-    // If secure requested, attempt to form bytes using SecRandomCopyBytes, which can potentially
-    // fail, and if so, use arc4random (which is also purportedly "secure", but less so) and
-    // set the inout secure Bool to false to notify that SecRandomCopyBytes wasn't used.
-    if secure {
+  private static func fill(_ bytes: inout Bytes, _ secRand: inout Bool) {
+    // If `secRand` requested, attempt to form bytes using `SecRandomCopyBytes`, which can potentially
+    // fail; and if so, use `arc4random` and set the `inout secRand Bool` to `false`
+    // to notify that `SecRandomCopyBytes` wasn't used.
+    if secRand {
       if SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) != 0 {
         arc4random_buf(&bytes, bytes.count)
-        secure = false
+        secRand = false
       }
     }
     else {
