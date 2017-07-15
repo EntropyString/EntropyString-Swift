@@ -52,7 +52,7 @@
 //: Let's use `EntropyString` to help this developer:
 import EntropyString
 
-let bits = Entropy.bits(total: 10000, risk: .ten06)
+let bits = Entropy.bits(for: 10000, risk: .ten06)
 var strings = [String]()
 for i in 0 ..< 5 {
   let string = RandomString.entropy(of: bits, using: .charSet16)

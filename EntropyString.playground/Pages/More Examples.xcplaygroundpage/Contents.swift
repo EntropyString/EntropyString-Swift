@@ -10,7 +10,7 @@
 //: characters you want. For now we'll stick to the provided defaults.
 import EntropyString
 
-var bits = Entropy.bits(total: 10000, risk: .ten06)
+var bits = Entropy.bits(for: 10000, risk: .ten06)
 var string = RandomString.entropy(of: bits, using: .charSet32)
 print("String: \(string)\n")
 //: * callout(string): PmgMJrdp9h
@@ -23,7 +23,7 @@ print("String: \(string)\n")
 //: Now let's suppose we need to ensure the names of a handful of items are unique.  Let's say 30
 //: items. And let's decide we can live with a 1 in 100,000 probability of collision (we're just
 //: futzing with some code ideas). Using hex characters:
-bits = Entropy.bits(total: 30, risk: .ten05)
+bits = Entropy.bits(for: 30, risk: .ten05)
 string = RandomString.entropy(of: bits, using: .charSet16)
 print("String: \(string)\n")
 //: * callout(string): 766923a
@@ -40,7 +40,7 @@ print("String: \(string)\n")
 //: billion strings of 32 characters repeat. Let's see, our risk (trillion) is 10 to the 12th and
 //: our total (10 billion) is 10 to the 10th, so:
 //:
-bits = Entropy.bits(total: .ten10, risk: .ten12)
+bits = Entropy.bits(for: .ten10, risk: .ten12)
 string = RandomString.entropy(of: bits, using: .charSet32)
 print("String: \(string)\n")
 //: * callout(string): F78PmfGRNfJrhHGTqpt6Hn
