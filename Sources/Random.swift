@@ -35,22 +35,54 @@ public struct Random {
     let bytesPerSlice = Double(charSet.entropyPerChar)/8;
     
     let bytesNeeded = Int(ceil(Double(count) * bytesPerSlice))
-    var bytes = [UInt8](repeating: 0, count: bytesNeeded)
-    
+    var bytes = [Byte](repeating: 0, count: bytesNeeded)
+
+    #if os(Linux)
+//      fill(&bytes)
+      let buf = UnsafeMutableRawPointer(mutating: bytes)
+      ARC4Random.default.randomize(buffer: buf, size: bytes.count)
+    #else
+      fill(&bytes, &secure)
+    #endif
+
+    return bytes
+  }
+  
+  #if os(Linux)
+  
+  private typealias RandomBuf = @convention(c) (ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>, Int) -> ()
+  
+  private static func load<T>(symbol: String) -> T? {
+    guard let handle = dlopen(nil, RTLD_NOW) else { return nil }
+    defer { dlclose(handle) }
+    guard let result = dlsym(handle, symbol) else { return nil }
+    return unsafeBitCast(result, to: T.self)
+  }
+  
+  private static let randomBuf: RandomBuf? = load(symbol: "arc4random_buf")
+  
+  
+  private static func fill(_ bytes: inout Bytes) {
+//    arc4random_buf(&bytes, bytes.count)
+  }
+  
+  #else
+
+  private static func fill(_ bytes: inout Bytes, _ secure: inout Bool) {
     // If secure requested, attempt to form bytes using SecRandomCopyBytes, which can potentially
     // fail, and if so, use arc4random (which is also purportedly "secure", but less so) and
     // set the inout secure Bool to false to notify that SecRandomCopyBytes wasn't used.
     if secure {
-      if SecRandomCopyBytes(kSecRandomDefault, bytesNeeded, &bytes) != 0 {
-        arc4random_buf(&bytes, bytesNeeded);
+      if SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) != 0 {
+        arc4random_buf(&bytes, bytes.count)
         secure = false
       }
     }
     else {
-      arc4random_buf(&bytes, bytesNeeded);
+      arc4random_buf(&bytes, bytes.count)
     }
-    return bytes
   }
   
-
+  #endif
+  
 }
