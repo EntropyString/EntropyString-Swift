@@ -9,8 +9,8 @@
 //:
 //: A key concern when generating such strings is that they be unique. To truly guarantee uniqueness
 //: requires that each newly created string be compared against all existing strings. The overhead
-//: of storing and comparing strings in this manner is often too onerous and a different strategy is
-//: desired.
+//: of storing and comparing strings in this manner is often too onerous and a different tack is
+//: needed.
 //:
 //: A common strategy is to replace the *guarantee of uniqueness* with a weaker but hopefully
 //: sufficient *probabilistic uniqueness*. Specifically, rather than being absolutely sure of

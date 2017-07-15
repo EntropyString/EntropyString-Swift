@@ -2,7 +2,7 @@
 //: For best viewing, use __Editor -> Show Rendered Markup__
 //:
 //: ## Table of Contents
-//:  - [BasicUsage](Basic%20Usage)
+//:  - [TL;DR](TLDR)
 //:  - [Overview](Overview)
 //:  - [Real Need](Real%20Need)
 //:  - [More Examples](More%20Examples)

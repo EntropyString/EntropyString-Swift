@@ -12,7 +12,7 @@ EntropyString provides easy creation of randomly generated strings of specific e
 ## <a name="TOC"></a>
  - [Build Status](#BuildStatus)
  - [Installation](#Installation)
- - [Basic Usage](#BasicUsage)
+ - [TL;DR](#TLDR)
  - [Overview](#Overview)
  - [Real Need](#RealNeed)
  - [More Examples](#MoreExamples)
@@ -103,26 +103,65 @@ The remainer of this README is included in the project as a Swift playground for
 ----
 
 
-## <a name="BasicUsage"></a>Basic Usage
-
-Calculate the bits of entropy necessary to cover a *risk* of a **1 in a billion** chance of a repeat in a *total* of **1 million** strings and generate a example string using a set of 32 characters:
+## <a name="TLDR"></a>TL;DR
 
   ```swift
   import EntropyString
+  ```
 
-  let bits = Entropy.bits(for: .ten06, risk: .ten09)
+48-bit string using base32 characters:
+
+  ```swift
+  var bits = 48
   var string = RandomString.entropy(of: bits, using: .charSet32)
   ```
 
-  > 9Pp7MDDm7b9Dhb
+  > MRd272t4G3
 
-Generate a string of the same entropy using a set of 16 characters (hexadecimal):
+48-bit string using hex characters:
 
   ```swift
   string = RandomString.entropy(of: bits, using: .charSet16)
   ```
 
-  > d33fa62f572c4cc9c8
+  > 7973b7cf643c
+
+48-bit string using uppercase hex characters:
+
+  ```swift
+  let randomString = RandomString()
+  try! randomString.use("1234567890ABCDEF", for: .charSet16)
+  string = randomString.entropy(of: bits, using: .charSet16)
+  ```
+
+  > 6D98AA8E6A46
+
+Base 32 character string with a 1 in a million chance of a repeat in 30 such strings:
+
+  ```swift
+  bits = Entropy.bits(for: 30, risk: 1000000)
+  string = RandomString.entropy(of: bits, using: .charSet32)
+  ```
+
+  > BqMhJM
+  
+Base 32 character string with a 1 in a trillion chance of a repeat in 10 million such strings:
+
+  ```swift
+  bits = Entropy.bits(for: .ten07, risk: .ten12)
+  string = RandomString.entropy(of: bits, using: .charSet32)
+  ```
+
+  > H9fT8qmMBd9qLfqmpm
+
+OWASP session ID using file system and URL safe characters:
+
+  ```swift
+  bits = 128
+  string = RandomString.entropy(of: bits, using: .charSet64)
+  ```
+
+  > RX3FzLm2YZmeBT2Y5n_79C
 
 [TOC](#TOC)
 
@@ -130,7 +169,7 @@ Generate a string of the same entropy using a set of 16 characters (hexadecimal)
 
 `EntropyString` provides easy creation of randomly generated strings of specific entropy using various character sets. Such strings are needed when generating, for example, random IDs and you don't want the overkill of a GUID, or for ensuring that some number of items have unique names.
 
-A key concern when generating such strings is that they be unique. To truly guarantee uniqueness requires that each newly created string be compared against all existing strings. The overhead of storing and comparing strings in this manner is often too onerous and a different strategy is desired.
+A key concern when generating such strings is that they be unique. To truly guarantee uniqueness requires that each newly created string be compared against all existing strings. The overhead of storing and comparing strings in this manner is often too onerous and a different tack is needed.
 
 A common strategy is to replace the *guarantee of uniqueness* with a weaker but hopefully sufficient *probabilistic uniqueness*. Specifically, rather than being absolutely sure of uniqueness, we settle for a statement such as *"there is less than a 1 in a billion chance that two of my strings are the same"*. This strategy requires much less overhead, but does require we have some manner of qualifying what we mean by, for example, *"there is less than a 1 in a billion chance that 1 million strings of this form will have a repeat"*.
 
@@ -187,7 +226,7 @@ Let's use `EntropyString` to help this developer by generating 5 IDs:
   ```swift
   import EntropyString
 
-  let bits = Entropy.bits(total: 10000, risk: .ten06)
+  let bits = Entropy.bits(for: 10000, risk: .ten06)
   var strings = [String]()
   for i in 0 ..< 5 {
     let string = RandomString.entropy(of: bits, using: .charSet16)
@@ -201,7 +240,7 @@ Let's use `EntropyString` to help this developer by generating 5 IDs:
 To generate the IDs, we first use
 
   ```swift
-    let bits = Entropy.bits(total: 10000, risk: .ten06)
+    let bits = Entropy.bits(for: 10000, risk: .ten06)
   ```
 
 to determine how much entropy  is needed to satisfy the probabilistic uniqueness of a **1 in a million** (ten to the sixth power) risk of repeat in a total of **10,000** strings. We didn't print the result, but if you did you'd see it's about **45.51** bits. Then inside a loop we used
@@ -225,7 +264,7 @@ We'll start with using 32 characters. What 32 characters, you ask? Well, the [Ch
   ```swift
   import EntropyString
 
-  var bits = Entropy.bits(total: 10000, risk: .ten06)
+  var bits = Entropy.bits(for: 10000, risk: .ten06)
   var string = RandomString.entropy(of: bits, using: .charSet32)
   print("String: \(string)\n")
   ```
@@ -237,7 +276,7 @@ We're using the same __bits__ calculation since we haven't changed the number of
 Now let's suppose we need to ensure the names of a handful of items are unique.  Let's say 30 items. And let's decide we can live with a 1 in 100,000 probability of collision (we're just futzing with some code ideas). Using hex characters:
 
   ```swift
-  bits = Entropy.bits(total: 30, risk: .ten05)
+  bits = Entropy.bits(for: 30, risk: .ten05)
   string = RandomString.entropy(of: bits, using: .charSet16)
   print("String: \(string)\n")
   ```
@@ -258,7 +297,7 @@ Okay, we probably wouldn't use 4 characters (and what's up with those characters
 Suppose we have a more extreme need. We want less than a 1 in a trillion chance that 10 billion strings of 32 characters repeat. Let's see, our risk (trillion) is 10 to the 12th and our total (10 billion) is 10 to the 10th, so:
 
   ```swift
-  bits = Entropy.bits(total: .ten10, risk: .ten12)
+  bits = Entropy.bits(for: .ten10, risk: .ten12)
   string = RandomString.entropy(of: bits, using: .charSet32)
   print("String: \(string)\n")
   ```
@@ -434,7 +473,7 @@ To generate the indices, `EntropyString` slices just enough bits from the array 
 The `EntropyString` scheme is also efficient with regard to the amount of randomness used. Consider the following common solution to generating random strings. To generated a character, an index into the available characters is create using `arc4random_uniform`. The code looks something like:
 
   ```swift
-  for _ in 0..<len {
+  for _ in 0 ..< len {
     let offset = Int(arc4random_uniform(charCount))
     let index = chars.index(chars.startIndex, offsetBy: offset)
     let char = chars[index]
@@ -442,7 +481,7 @@ The `EntropyString` scheme is also efficient with regard to the amount of random
   }
   ```
 
-`arc4random_uniform` generates 32 bits of randomness, returned as an UInt32. The returned value is used to create an **index**. Suppose we're creating strings of **len** 16 using a **charCount** of 32. Each **char** consumes 32 bits of randomness (generated by `archrandom_uniform` per character) while only injecting 5 bits of entropy into **string**. But a string of length 16 using 32 possible characters has an entropy carrying capacity of 80 bits. So creating each **string** requires a total of 512 bits of randomness while only actually carrying 80 bits of that entropy forward in the string itself. That means 432 bits (84% of the total) of the generated randomness is simply thrown away.
+In the code above, `arc4random_uniform` generates 32 bits of randomness per call, returned as an `UInt32`. The returned value is used to create an **index**. Suppose we're creating strings with **len=16** and **charCount=32**. Each **char** consumes 32 bits of randomness (`UInt32`) while only injecting 5 bits (`log2(32)`) of entropy into **string**. The resulting string has an information carrying capacity of 80 bits. So creating each **string** requires a *total* of 512 bits of randomness while only actually *carrying* 80 bits of that entropy forward in the string itself. That means 432 bits (84% of the total) of the generated randomness is simply wasted away.
 
 Compare that to the `EntropyString` scheme. For the example above, slicing off 5 bits at a time requires a total of 80 bits (10 bytes). Creating the same strings as above, `EntropyString` uses 80 bits of randomness per string with no wasted bits. In general, the `EntropyString` scheme can waste up to 7 bits per string, but that's the worst case scenario and that's *per string*, not *per character*!
 
