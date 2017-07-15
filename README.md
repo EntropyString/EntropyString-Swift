@@ -452,29 +452,32 @@ Fortunately you don't need to really understand how the bytes are efficiently sl
 
 ## <a name="SecureBytes"></a>Secure Bytes
 
-As described in [Efficiency](#Efficiency), `EntropyString` uses an underlying array of bytes to generate strings. The entropy of the resulting strings is, of course, directly tied to the randomness of the bytes used. That's an important point. Strings are only capable of carrying information (entropy), it's the random bytes that actually provide the entropy itself.
+As described in [Efficiency](#Efficiency), `EntropyString` uses an underlying array of bytes to generate strings. The entropy of the resulting strings is, of course, directly related to the randomness of the bytes used. That's an important point. Strings are only capable of carrying information (entropy); random bytes actually provide the entropy itself.
 
-`EntropyString` automatically generates the necessary number of bytes needed for the strings using either `SecRandomCopyBytes` or `arc4random_buf`, both of which produce cryptographically-secure random byte. `SecRandomCopyBytes` is the stronger of the two, but can fail. Rather than propagate that failure, if `SecRandomCopyBytes` fails `EntropyString` falls back and uses`arc4random_buf` to generate the bytes. Though not as secure, `arc4random_buf` does not fail.
+`EntropyString` automatically generates the necessary number of bytes needed to create a random string. On Apple OSes, `EntropyString` uses either `SecRandomCopyBytes` or `arc4random_buf`, both of which are cryptographically secure random number generators. `SecRandomCopyBytes` is the stronger of the two, but can fail if the system entropy pool lacks sufficient randomness. Rather than propagate that failure, if `SecRandomCopyBytes` fails `EntropyString` falls back and uses `arc4random_buf` to generate the bytes. Though not as strong, `arc4random_buf` does not fail.
 
-You may, however, want to know which routine was used to generate the underlying bytes for a string. `RandomString` provides an additional `inout` parameter in the `RandomString.entropy(for:using:secure)` function for this purpose.
+You may, of course, want feedback as to when or if `SecRandomCopyBytes` fails. `RandomString.entropy(of:using:secRand)` provides an additional `inout` parameter that acts as a flag should a `SecRandomCopyBtyes` call fail.
+
+On Linux OSes, `EntropyString` always uses `arc4random_buf`. The `secRand` parameter in the `RandomString.entropy(of:using:secRand)` is ignored.
+
 
   ```swift
   import EntropyString
 
-  var secure = true
-  RandomString.entropy(of: 20, using: .charSet32, secure: &secure)
-  print("secure: \(secure)")
+  var secRand = true
+  RandomString.entropy(of: 20, using: .charSet32, secRand: &secRand)
+  print("secRand: \(secRand)")
   ```
 
-  > secure: true
+  > secRand: true
 
-If `SecRandomCopyBytes` is used, the __secure__ parameter will remain `true`; otherwise it will be flipped to `false`.
+If `SecRandomCopyBytes` is used, the __secRand__ parameter will remain `true`; otherwise it will be flipped to `false`.
 
-You can also pass in __secure__ as `false`, in which case the `entropy` call will not attempt to use `SecRandomCopyBytes` and will use `arc4random_buf` instead.
+You can also pass in __secRand__ as `false`, in which case the `entropy` call will not attempt to use `SecRandomCopyBytes` and will use `arc4random_buf` instead.
 
   ```swift
-  secure = false
-  RandomString.entropy(of: 20, using: .charSet32, secure: &secure)
+  secRand = false
+  RandomString.entropy(of: 20, using: .charSet32, secRand: &secRand)
   ```
 
 Rather than have `EntropyString` generate bytes automatically, you can provide your own [Custom Bytes](#CustomBytes) to create a string, which is the next topic.
