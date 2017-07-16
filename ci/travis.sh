@@ -7,7 +7,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 
     xcodebuild \
         -project ${FRAMEWORK_NAME}.xcodeproj \
-        -scheme "${$FRAMEWORK_NAME}-iOS" \
+        -scheme "${FRAMEWORK_NAME}-iOS" \
         -sdk iphonesimulator \
         -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3.1" \
         ONLY_ACTIVE_ARCH=NO \
@@ -15,7 +15,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 
     xcodebuild \
         -project ${FRAMEWORK_NAME}.xcodeproj \
-        -scheme "${$FRAMEWORK_NAME}-tvOS" \
+        -scheme "${FRAMEWORK_NAME}-tvOS" \
         -sdk appletvsimulator \
         -destination "platform=tvOS Simulator,name=Apple TV 1080p" \
         ONLY_ACTIVE_ARCH=NO \
@@ -23,7 +23,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 
     xcodebuild \
         -project ${FRAMEWORK_NAME}.xcodeproj \
-        -scheme "${$FRAMEWORK_NAME}-macOS" \
+        -scheme "${FRAMEWORK_NAME}-macOS" \
         ONLY_ACTIVE_ARCH=YES \
         test | xcpretty
     
