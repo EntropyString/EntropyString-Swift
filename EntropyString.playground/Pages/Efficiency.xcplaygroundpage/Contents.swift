@@ -33,7 +33,7 @@
 //: (`log2(32)`) of entropy into **string**. The resulting string has an information carrying capacity of
 //: 80 bits. So creating each **string** requires a *total* of 512 bits of randomness while only actually
 //: *carrying* 80 bits of that entropy forward in the string itself. That means 432 bits (84% of the total!)
-//: of the generated randomness is simply wasted away.
+//: of the generated randomness is simply wasted.
 //:
 //: Compare that to the `EntropyString` scheme. For the example above, slicing off 5 bits at a time
 //: requires a total of 80 bits (10 bytes). Creating the same strings as above, `EntropyString` uses 80

@@ -44,6 +44,11 @@
 //:
 //: *I need 10,000 random hexadecimal IDs with less than 1 in a million chance of any repeats*.
 //:
+//: Not only is this statement more specific, there is no mention of string length. The developer needs
+//: probabilistic uniqueness, and strings are to be used to capture randomness for this purpose. As such,
+//: the length of the string is simply a by-product of the encoding used to represent the required
+//: uniqueness as a string.
+//:
 //: How do you address this need using a library designed to generate strings of specified length?
 //: Well, you don't directly, because that library was designed to answer the originally stated need,
 //: not the real need we've uncovered. We need a library that deals with probabilistic uniqueness

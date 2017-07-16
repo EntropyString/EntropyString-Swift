@@ -24,7 +24,7 @@ print("flips: \(flips)\n")
 //: used in the class `RandomString` (i.e., there is no `RandomString.use(_,for:)` function).
 //:
 //: As another example, we saw in [Character Sets](Character%20Sets) the default characters for
-//: charSet 16 are **01234567890abcdef**. Suppose you like uppercase hexadecimal letters instead.
+//: charSet 16 are **0123456789abcdef**. Suppose you like uppercase hexadecimal letters instead.
 try! randomString.use("0123456789ABCDEF", for: .charSet16)
 let hex = randomString.entropy(of: 48, using: .charSet16)
 print("hex: \(hex)\n")

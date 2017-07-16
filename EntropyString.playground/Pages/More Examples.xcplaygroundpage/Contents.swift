@@ -17,8 +17,7 @@ print("String: \(string)\n")
 //: 
 //: We're using the same __bits__ calculation since we haven't changed the number of IDs or the
 //: accepted risk of probabilistic uniqueness. But this time we use 32 characters and our resulting
-//: ID only requires 10 characters (and can carry 50 bits of entropy, which as when we used 16
-//: characters, is more than the required 45.51).
+//: ID only requires 10 characters (and can carry 50 bits of entropy).
 //:
 //: Now let's suppose we need to ensure the names of a handful of items are unique.  Let's say 30
 //: items. And let's decide we can live with a 1 in 100,000 probability of collision (we're just
@@ -58,7 +57,7 @@ print("String: \(string)\n")
 //: our OWASP requirement covered! 😌
 //:
 //: Also note that we covered our need using strings that are only 22 characters in length. So long
-//: to using GUID strings which only carry 122 bits of entropy (for the commonly used version 4
-//: anyway) and use string representations (hex and dashes) that are 36 characters in length.
+//: to using GUID strings which only carry 122 bits of entropy (commonly used version 4) and use string
+//: representations that are 36 characters long (hex with dashes).
 //:
 //: [TOC](Table%20of%20Contents) | [Next](@next)

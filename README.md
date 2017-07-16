@@ -1,16 +1,10 @@
-## EntropyString for Swift
+## EntropyString for Swift 
 
-<p align="center">
-<a href="https://github.com/Carthage/Carthage"><img
-src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"
-alt="Carthage"></a>
-<a href="https://cocoapods.org/pods/EntropyString"><img src="https://img.shields.io/cocoapods/v/EntropyString.svg" alt="CocoaPods - EntropyString"></a>
-</p>
+[![Build Status](https://travis-ci.org/EntropyString/EntropyString-Swift.svg?branch=master)](https://travis-ci.org/EntropyString/EntropyString-Swift) &nbsp; <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage"></a> &nbsp; <a href="https://cocoapods.org/pods/EntropyString"><img src="https://img.shields.io/cocoapods/v/EntropyString.svg" alt="CocoaPods - EntropyString"></a>
 
 EntropyString provides easy creation of randomly generated strings of specific entropy using various character sets.
 
 ## <a name="TOC"></a>
- - [Build Status](#BuildStatus)
  - [Installation](#Installation)
  - [TL;DR](#TLDR)
  - [Overview](#Overview)
@@ -21,9 +15,6 @@ EntropyString provides easy creation of randomly generated strings of specific e
  - [Efficiency](#Efficiency)
  - [Secure Bytes](#SecureBytes)
  - [Custom Bytes](#CustomBytes)
-
-## <a name="BuildStatus"></a>Build Status
-[![Build Status](https://travis-ci.org/EntropyString/EntropyString-Swift.svg?branch=master)](https://travis-ci.org/EntropyString/EntropyString-Swift)
 
 [TOC](#TOC)
 
@@ -129,7 +120,7 @@ The remainer of this README is included in the project as a Swift playground for
 
   ```swift
   let randomString = RandomString()
-  try! randomString.use("1234567890ABCDEF", for: .charSet16)
+  try! randomString.use("0123456789ABCDEF", for: .charSet16)
   string = randomString.entropy(of: bits, using: .charSet16)
   ```
 
@@ -216,9 +207,9 @@ So now we've gotten to the developer's real need:
 
 *I need 10,000 random hexadecimal IDs with less than 1 in a million chance of any repeats*.
 
-Not only is this statement more specific, note there is no mention of string length. The developer needs probabilistic uniqueness, and strings are to be used to capture randomness for this purpose. As such, the length of the string is simply a by-product of the encoding used to represent the required uniqueness as a string.
+Not only is this statement more specific, there is no mention of string length. The developer needs probabilistic uniqueness, and strings are to be used to capture randomness for this purpose. As such, the length of the string is simply a by-product of the encoding used to represent the required uniqueness as a string.
 
-So how do you address this need using a library designed to generate strings of specified length?  Well, you don't directly, because that library was designed to answer the originally stated need, not the real need we've uncovered. We need a library that deals with probabilistic uniqueness of a total number of some strings. And that's exactly what `EntropyString` does.
+How do you address this need using a library designed to generate strings of specified length?  Well, you don't directly, because that library was designed to answer the originally stated need, not the real need we've uncovered. We need a library that deals with probabilistic uniqueness of a total number of some strings. And that's exactly what `EntropyString` does.
 
 Let's use `EntropyString` to help this developer by generating 5 IDs:
 
@@ -270,7 +261,7 @@ We'll start with using 32 characters. What 32 characters, you ask? Well, the [Ch
 
   > String: PmgMJrdp9h
 
-We're using the same __bits__ calculation since we haven't changed the number of IDs or the accepted risk of probabilistic uniqueness. But this time we use 32 characters and our resulting ID only requires 10 characters (and can carry 50 bits of entropy, which as when we used 16 characters, is more than the required 45.51).
+We're using the same __bits__ calculation since we haven't changed the number of IDs or the accepted risk of probabilistic uniqueness. But this time we use 32 characters and our resulting ID only requires 10 characters (and can carry 50 bits of entropy).
 
 Now let's suppose we need to ensure the names of a handful of items are unique.  Let's say 30 items. And let's decide we can live with a 1 in 100,000 probability of collision (we're just futzing with some code ideas). Using hex characters:
 
@@ -314,7 +305,7 @@ Finally, let say we're generating session IDs. We're not interested in uniquenes
 
 Using 64 characters, our string length is 22 characters. That's actually 132 bits, so we've got our OWASP requirement covered! 😌
 
-Also note that we covered our need using strings that are only 22 characters in length. So long to using GUID strings which only carry 122 bits of entropy (for the commonly used version 4 anyway) and use string representations (hex and dashes) that are 36 characters in length.
+Also note that we covered our need using strings that are only 22 characters in length. So long to using GUID strings which only carry 122 bits of entropy (commonly used version 4) and use string representations that are 36 characters long (hex with dashes).
 
 [TOC](#TOC)
 
@@ -388,7 +379,7 @@ The resulting string of __0__'s and __1__'s doesn't look quite right. You want t
 
 Note that setting custom characters in the above code requires using an *instance* of `RandomString`, wheras in the previous sections we used *class* functions for all calls. The function signatures are the same in each case, but you can't change the static character sets used in the class `RandomString` (i.e., there is no `RandomString.use(_,for:)` function).
 
-As another example, we saw in [Character Sets](#CharacterSets) the default characters for CharSet 16 are **01234567890abcdef**. Suppose you like uppercase hexadecimal letters instead.
+As another example, we saw in [Character Sets](#CharacterSets) the default characters for CharSet 16 are **0123456789abcdef**. Suppose you like uppercase hexadecimal letters instead.
 
   ```swift
   try! randomString.use("0123456789ABCDEF", for: .charSet16)
@@ -450,7 +441,7 @@ The `EntropyString` scheme is also efficient with regard to the amount of random
   }
   ```
 
-In the code above, `arc4random_uniform` generates 32 bits of randomness per call, returned as an `UInt32`. The returned value is used to create an **index**. Suppose we're creating strings with **len=16** and **charCount=32**. Each **char** consumes 32 bits of randomness (`UInt32`) while only injecting 5 bits (`log2(32)`) of entropy into **string**. The resulting string has an information carrying capacity of 80 bits. So creating each **string** requires a *total* of 512 bits of randomness while only actually *carrying* 80 bits of that entropy forward in the string itself. That means 432 bits (84% of the total) of the generated randomness is simply wasted away.
+In the code above, `arc4random_uniform` generates 32 bits of randomness per call, returned as an `UInt32`. The returned value is used to create an **index**. Suppose we're creating strings with **len=16** and **charCount=32**. Each **char** consumes 32 bits of randomness (`UInt32`) while only injecting 5 bits (`log2(32)`) of entropy into **string**. The resulting string has an information carrying capacity of 80 bits. So creating each **string** requires a *total* of 512 bits of randomness while only actually *carrying* 80 bits of that entropy forward in the string itself. That means 432 bits (84% of the total) of the generated randomness is simply wasted.
 
 Compare that to the `EntropyString` scheme. For the example above, slicing off 5 bits at a time requires a total of 80 bits (10 bytes). Creating the same strings as above, `EntropyString` uses 80 bits of randomness per string with no wasted bits. In general, the `EntropyString` scheme can waste up to 7 bits per string, but that's the worst case scenario and that's *per string*, not *per character*!
 
@@ -464,7 +455,7 @@ As described in [Efficiency](#Efficiency), `EntropyString` uses an underlying ar
 
 `EntropyString` automatically generates the necessary number of bytes needed to create a random string. On Apple OSes, `EntropyString` uses either `SecRandomCopyBytes` or `arc4random_buf`, both of which are cryptographically secure random number generators. `SecRandomCopyBytes` is the stronger of the two, but can fail if the system entropy pool lacks sufficient randomness. Rather than propagate that failure, if `SecRandomCopyBytes` fails `EntropyString` falls back and uses `arc4random_buf` to generate the bytes. Though not as strong, `arc4random_buf` does not fail.
 
-You may, of course, want feedback as to when or if `SecRandomCopyBytes` fails. `RandomString.entropy(of:using:secRand)` provides an additional `inout` parameter that acts as a flag should a `SecRandomCopyBtyes` call fail.
+You may, of course, want feedback as to when or if `SecRandomCopyBytes` fails. `RandomString.entropy(of:using:secRand)` provides an additional `inout` parameter that acts as a flag should a `SecRandomCopyBytes` call fail.
 
 On Linux OSes, `EntropyString` always uses `arc4random_buf`. The `secRand` parameter in the `RandomString.entropy(of:using:secRand)` is ignored.
 
@@ -494,7 +485,7 @@ Rather than have `EntropyString` generate bytes automatically, you can provide y
 
 ## <a name="CustomBytes"></a>Custom Bytes
 
-As described in [Secure Bytes](#SecureBytes), `EntropyString` automatically generates random bytes using either `SecRandomCopyBuf` or `arc4random_buf`. These functions are fine, but you may have a need to provide your own btyes, say for deterministic testing or to use a specialized byte genterator. The `RandomString.entropy(of:using:bytes)` function allows passing in your own bytes to create a string.
+As described in [Secure Bytes](#SecureBytes), `EntropyString` automatically generates random bytes using either `SecRandomCopyBuf` or `arc4random_buf`. These functions are fine, but you may have a need to provide your own bytes, say for deterministic testing or to use a specialized byte genterator. The `RandomString.entropy(of:using:bytes)` function allows passing in your own bytes to create a string.
 
 Suppose we want a string capable of 30 bits of entropy using 32 characters. We pass in 4 bytes (to cover the 30 bits):
 
@@ -521,6 +512,6 @@ The __bytes__ provided can come from any source. However, the number of bytes mu
 
   > error: tooFewBytes
 
-Note how the number of bytes needed is dependent on the number of characters in our set. In using a string to represent entropy, we can only generate entropy in multiples of the bits of entropy per character used. So in the example above, to get at least 32 bits of entropy using a character set of 32 characters (5 bits per char), we'll need enough bytes to cover 35 bits, not 32, so a `tooFewBytes` error is thrown.
+Note how the number of bytes needed is dependent on the number of characters in our set. In using a string to represent entropy, we can only have multiples of the bits of entropy per character used. So in the example above, to get at least 32 bits of entropy using a character set of 32 characters (5 bits per char), we'll need enough bytes to cover 35 bits, not 32, so a `tooFewBytes` error is thrown.
 
 [TOC](#TOC)
