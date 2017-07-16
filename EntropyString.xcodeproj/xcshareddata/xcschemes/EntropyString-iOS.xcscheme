@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E287AD9A1F0E9B9A00DE6DF5"
-               BuildableName = "EntropyStringTests.xctest"
-               BlueprintName = "EntropyStringTests"
+               BuildableName = "EntropyString-iOSTests.xctest"
+               BlueprintName = "EntropyString-iOSTests"
                ReferencedContainer = "container:EntropyString.xcodeproj">
             </BuildableReference>
          </TestableReference>

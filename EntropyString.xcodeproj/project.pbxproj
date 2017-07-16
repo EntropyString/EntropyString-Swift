@@ -32,7 +32,7 @@
 		E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntropyString.h; sourceTree = "<group>"; };
 		E287AD961F0E9B9A00DE6DF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E287AD9B1F0E9B9A00DE6DF5 /* EntropyStringTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EntropyStringTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E287AD9B1F0E9B9A00DE6DF5 /* EntropyString-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EntropyString-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomString.swift; sourceTree = "<group>"; };
 		E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyStringTests.swift; sourceTree = "<group>"; };
 		E287ADB21F0E9DEE00DE6DF5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */,
-				E287AD9B1F0E9B9A00DE6DF5 /* EntropyStringTests.xctest */,
+				E287AD9B1F0E9B9A00DE6DF5 /* EntropyString-iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,9 +149,9 @@
 			productReference = E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		E287AD9A1F0E9B9A00DE6DF5 /* EntropyStringTests */ = {
+		E287AD9A1F0E9B9A00DE6DF5 /* EntropyString-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E287ADA91F0E9B9A00DE6DF5 /* Build configuration list for PBXNativeTarget "EntropyStringTests" */;
+			buildConfigurationList = E287ADA91F0E9B9A00DE6DF5 /* Build configuration list for PBXNativeTarget "EntropyString-iOSTests" */;
 			buildPhases = (
 				E287AD971F0E9B9A00DE6DF5 /* Sources */,
 				E287AD981F0E9B9A00DE6DF5 /* Frameworks */,
@@ -162,9 +162,9 @@
 			dependencies = (
 				E287AD9E1F0E9B9A00DE6DF5 /* PBXTargetDependency */,
 			);
-			name = EntropyStringTests;
+			name = "EntropyString-iOSTests";
 			productName = EntropyStringTests;
-			productReference = E287AD9B1F0E9B9A00DE6DF5 /* EntropyStringTests.xctest */;
+			productReference = E287AD9B1F0E9B9A00DE6DF5 /* EntropyString-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -200,7 +200,7 @@
 			projectRoot = "";
 			targets = (
 				E287AD911F0E9B9A00DE6DF5 /* EntropyString-iOS */,
-				E287AD9A1F0E9B9A00DE6DF5 /* EntropyStringTests */,
+				E287AD9A1F0E9B9A00DE6DF5 /* EntropyString-iOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -440,7 +440,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E287ADA91F0E9B9A00DE6DF5 /* Build configuration list for PBXNativeTarget "EntropyStringTests" */ = {
+		E287ADA91F0E9B9A00DE6DF5 /* Build configuration list for PBXNativeTarget "EntropyString-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E287ADAA1F0E9B9A00DE6DF5 /* Debug */,
