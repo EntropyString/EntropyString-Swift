@@ -13,6 +13,12 @@
 		E205C6BE1F1BFFEC007C139E /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BB88FB1F1162E80084D759 /* CharSet.swift */; };
 		E205C6BF1F1BFFEC007C139E /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2126C131F198EDB00D74CA4 /* Random.swift */; };
 		E205C6C01F1BFFF1007C139E /* EntropyStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */; };
+		E205C6EB1F1C02E4007C139E /* EntropyString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E205C6E21F1C02E3007C139E /* EntropyString.framework */; };
+		E205C6F91F1C030E007C139E /* RandomString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */; };
+		E205C6FA1F1C030E007C139E /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */; };
+		E205C6FB1F1C030E007C139E /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BB88FB1F1162E80084D759 /* CharSet.swift */; };
+		E205C6FC1F1C030E007C139E /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2126C131F198EDB00D74CA4 /* Random.swift */; };
+		E205C6FD1F1C039F007C139E /* EntropyStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */; };
 		E2126C141F198EDB00D74CA4 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2126C131F198EDB00D74CA4 /* Random.swift */; };
 		E287AD9C1F0E9B9A00DE6DF5 /* EntropyString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */; };
 		E287ADA31F0E9B9A00DE6DF5 /* EntropyString.h in Headers */ = {isa = PBXBuildFile; fileRef = E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,6 +37,13 @@
 			remoteGlobalIDString = E205C6A41F1BFF66007C139E;
 			remoteInfo = EntropyString;
 		};
+		E205C6EC1F1C02E4007C139E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E287AD891F0E9B9A00DE6DF5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E205C6E11F1C02E3007C139E;
+			remoteInfo = EntropyString;
+		};
 		E287AD9D1F0E9B9A00DE6DF5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E287AD891F0E9B9A00DE6DF5 /* Project object */;
@@ -43,6 +56,9 @@
 /* Begin PBXFileReference section */
 		E205C6A51F1BFF66007C139E /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E205C6AD1F1BFF66007C139E /* EntropyString-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EntropyString-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E205C6E21F1C02E3007C139E /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E205C6EA1F1C02E4007C139E /* EntropyString-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EntropyString-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E205C7101F1C051B007C139E /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2126C131F198EDB00D74CA4 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntropyString.h; sourceTree = "<group>"; };
@@ -69,6 +85,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				E205C6AE1F1BFF66007C139E /* EntropyString.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C6DE1F1C02E3007C139E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C6E71F1C02E4007C139E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E205C6EB1F1C02E4007C139E /* EntropyString.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C70C1F1C051B007C139E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +144,9 @@
 				E287AD9B1F0E9B9A00DE6DF5 /* EntropyString-iOSTests.xctest */,
 				E205C6A51F1BFF66007C139E /* EntropyString.framework */,
 				E205C6AD1F1BFF66007C139E /* EntropyString-macOSTests.xctest */,
+				E205C6E21F1C02E3007C139E /* EntropyString.framework */,
+				E205C6EA1F1C02E4007C139E /* EntropyString-tvOSTests.xctest */,
+				E205C7101F1C051B007C139E /* EntropyString.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,6 +200,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E205C6DF1F1C02E3007C139E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C70D1F1C051B007C139E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E287AD8F1F0E9B9A00DE6DF5 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -205,6 +260,60 @@
 			productName = EntropyStringTests;
 			productReference = E205C6AD1F1BFF66007C139E /* EntropyString-macOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E205C6E11F1C02E3007C139E /* EntropyString-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E205C6F31F1C02E4007C139E /* Build configuration list for PBXNativeTarget "EntropyString-tvOS" */;
+			buildPhases = (
+				E205C6DD1F1C02E3007C139E /* Sources */,
+				E205C6DE1F1C02E3007C139E /* Frameworks */,
+				E205C6DF1F1C02E3007C139E /* Headers */,
+				E205C6E01F1C02E3007C139E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EntropyString-tvOS";
+			productName = EntropyString;
+			productReference = E205C6E21F1C02E3007C139E /* EntropyString.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E205C6E91F1C02E4007C139E /* EntropyString-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E205C6F61F1C02E4007C139E /* Build configuration list for PBXNativeTarget "EntropyString-tvOSTests" */;
+			buildPhases = (
+				E205C6E61F1C02E4007C139E /* Sources */,
+				E205C6E71F1C02E4007C139E /* Frameworks */,
+				E205C6E81F1C02E4007C139E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E205C6ED1F1C02E4007C139E /* PBXTargetDependency */,
+			);
+			name = "EntropyString-tvOSTests";
+			productName = EntropyStringTests;
+			productReference = E205C6EA1F1C02E4007C139E /* EntropyString-tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E205C70F1F1C051B007C139E /* EntropyString */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E205C7171F1C051B007C139E /* Build configuration list for PBXNativeTarget "EntropyString" */;
+			buildPhases = (
+				E205C70B1F1C051B007C139E /* Sources */,
+				E205C70C1F1C051B007C139E /* Frameworks */,
+				E205C70D1F1C051B007C139E /* Headers */,
+				E205C70E1F1C051B007C139E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EntropyString;
+			productName = EntropyString;
+			productReference = E205C7101F1C051B007C139E /* EntropyString.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		E287AD911F0E9B9A00DE6DF5 /* EntropyString-iOS */ = {
 			isa = PBXNativeTarget;
@@ -260,6 +369,18 @@
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
 					};
+					E205C6E11F1C02E3007C139E = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+					E205C6E91F1C02E4007C139E = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+					E205C70F1F1C051B007C139E = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
 					E287AD911F0E9B9A00DE6DF5 = {
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
@@ -286,6 +407,9 @@
 				E287AD9A1F0E9B9A00DE6DF5 /* EntropyString-iOSTests */,
 				E205C6A41F1BFF66007C139E /* EntropyString-macOS */,
 				E205C6AC1F1BFF66007C139E /* EntropyString-macOSTests */,
+				E205C6E11F1C02E3007C139E /* EntropyString-tvOS */,
+				E205C6E91F1C02E4007C139E /* EntropyString-tvOSTests */,
+				E205C70F1F1C051B007C139E /* EntropyString */,
 			);
 		};
 /* End PBXProject section */
@@ -299,6 +423,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E205C6AB1F1BFF66007C139E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C6E01F1C02E3007C139E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C6E81F1C02E4007C139E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C70E1F1C051B007C139E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -342,6 +487,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E205C6DD1F1C02E3007C139E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E205C6FC1F1C030E007C139E /* Random.swift in Sources */,
+				E205C6FB1F1C030E007C139E /* CharSet.swift in Sources */,
+				E205C6F91F1C030E007C139E /* RandomString.swift in Sources */,
+				E205C6FA1F1C030E007C139E /* Entropy.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C6E61F1C02E4007C139E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E205C6FD1F1C039F007C139E /* EntropyStringTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E205C70B1F1C051B007C139E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E287AD8D1F0E9B9A00DE6DF5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,6 +539,11 @@
 			isa = PBXTargetDependency;
 			target = E205C6A41F1BFF66007C139E /* EntropyString-macOS */;
 			targetProxy = E205C6AF1F1BFF66007C139E /* PBXContainerItemProxy */;
+		};
+		E205C6ED1F1C02E4007C139E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E205C6E11F1C02E3007C139E /* EntropyString-tvOS */;
+			targetProxy = E205C6EC1F1C02E4007C139E /* PBXContainerItemProxy */;
 		};
 		E287AD9E1F0E9B9A00DE6DF5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -450,6 +626,120 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		E205C6F41F1C02E4007C139E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EntropyString/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyString;
+				PRODUCT_NAME = EntropyString;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Debug;
+		};
+		E205C6F51F1C02E4007C139E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EntropyString/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyString;
+				PRODUCT_NAME = EntropyString;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Release;
+		};
+		E205C6F71F1C02E4007C139E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = Tests/EntropyStringTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyStringTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Debug;
+		};
+		E205C6F81F1C02E4007C139E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = Tests/EntropyStringTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyStringTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Release;
+		};
+		E205C7151F1C051B007C139E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EntropyString/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyString;
+				PRODUCT_NAME = EntropyString;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Debug;
+		};
+		E205C7161F1C051B007C139E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EntropyString/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyString;
+				PRODUCT_NAME = EntropyString;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
 			};
 			name = Release;
 		};
@@ -638,6 +928,32 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		E205C6F31F1C02E4007C139E /* Build configuration list for PBXNativeTarget "EntropyString-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E205C6F41F1C02E4007C139E /* Debug */,
+				E205C6F51F1C02E4007C139E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E205C6F61F1C02E4007C139E /* Build configuration list for PBXNativeTarget "EntropyString-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E205C6F71F1C02E4007C139E /* Debug */,
+				E205C6F81F1C02E4007C139E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E205C7171F1C051B007C139E /* Build configuration list for PBXNativeTarget "EntropyString" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E205C7151F1C051B007C139E /* Debug */,
+				E205C7161F1C051B007C139E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E287AD8C1F0E9B9A00DE6DF5 /* Build configuration list for PBXProject "EntropyString" */ = {
 			isa = XCConfigurationList;

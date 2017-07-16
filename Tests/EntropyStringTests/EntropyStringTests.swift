@@ -237,8 +237,6 @@ class EntropyStringTests: XCTestCase {
         _ = Entropy.bits(for: total, risk: risk)
       }
     }
-    
-    entropyBits(UInt.max, .ten15,  177)
   }
 
   func testStringLens() {
@@ -262,13 +260,6 @@ class EntropyStringTests: XCTestCase {
     stringLength(100000, .ten12, .charSet8,   25)
     stringLength(100000, .ten12, .charSet4,   37)
     stringLength(100000, .ten12, .charSet2,   73)
-    
-    stringLength(UInt.max, .ten15, .charSet64,  30)
-    stringLength(UInt.max, .ten15, .charSet32,  36)
-    stringLength(UInt.max, .ten15, .charSet16,  45)
-    stringLength(UInt.max, .ten15, .charSet8,   59)
-    stringLength(UInt.max, .ten15, .charSet4,   89)
-    stringLength(UInt.max, .ten15, .charSet2,  177)
     
     stringLength(.ten05, .ten12, .charSet64, 13)
     stringLength(.ten05, .ten12, .charSet32, 15)
