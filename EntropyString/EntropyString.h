@@ -2,9 +2,10 @@
 //  EntropyString.h
 //  EntropyString
 //
-//  Created by Paul Rogers on 7/6/17.
+//  Created by Paul Rogers on 7/16/17.
 //  Copyright © 2017 Knoxen. All rights reserved.
 //
+
 
 #import <Foundation/Foundation.h>
 
