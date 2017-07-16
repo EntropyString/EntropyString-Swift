@@ -239,20 +239,20 @@ public class RandomString {
   /// - parameter charSet: The character set to alter
   ///
   /// - throws `invalidCharCount` if not the exact number of characters expected for the charSet.
-  public func use(_ characters: String, for charSet: CharSet, force: Bool = false) throws {
+  public func use(_ characters: String, for charSet: CharSet) throws {
     switch charSet {
     case .charSet64:
-      try chars.set(charSet64: characters, force: force)
+      try chars.set(charSet64: characters)
     case .charSet32:
-      try chars.set(charSet32: characters, force: force)
+      try chars.set(charSet32: characters)
     case .charSet16:
-      try chars.set(charSet16: characters, force: force)
+      try chars.set(charSet16: characters)
     case .charSet8:
-      try chars.set(charSet8: characters, force: force)
+      try chars.set(charSet8: characters)
     case .charSet4:
-      try chars.set(charSet4: characters, force: force)
+      try chars.set(charSet4: characters)
     case .charSet2:
-      try chars.set(charSet2: characters, force: force)
+      try chars.set(charSet2: characters)
     }
   }
 

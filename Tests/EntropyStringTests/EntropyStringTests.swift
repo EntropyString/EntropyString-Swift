@@ -461,7 +461,6 @@ class EntropyStringTests: XCTestCase {
     invalidCharCount(.charSet64, "")
     invalidCharCount(.charSet64, String(repeating: "x", count: 65))
     notUniqueChars(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
-    forceNotUnique(.charSet64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ab")
   }
   
   func testCustom32Chars() {
@@ -478,7 +477,6 @@ class EntropyStringTests: XCTestCase {
     invalidCharCount(.charSet32, "0123456789ABCDEF")
     invalidCharCount(.charSet32, String(repeating: "x", count: 33))
     notUniqueChars(.charSet32, "01234567890123456789012345678901")
-    forceNotUnique(.charSet32, "01234567890123456789012345678901")
   }
   
   func testCustom16Chars() {
@@ -495,7 +493,6 @@ class EntropyStringTests: XCTestCase {
     invalidCharCount(.charSet16, "0123456789abcde")
     invalidCharCount(.charSet16, "0123456789abcdefg")
     notUniqueChars(.charSet16, "0123456789abcdee")
-    forceNotUnique(.charSet16, "0123456789abcdee")
   }
   
   func testCustom8Chars() {
@@ -517,7 +514,6 @@ class EntropyStringTests: XCTestCase {
     invalidCharCount(.charSet8, "0123456")
     invalidCharCount(.charSet8, "012345678")
     notUniqueChars(.charSet8, "01233456")
-    forceNotUnique(.charSet8, "01233456")
   }
   
   func testCustom4Chars() {
@@ -538,7 +534,6 @@ class EntropyStringTests: XCTestCase {
     invalidCharCount(.charSet4, "TF")
     invalidCharCount(.charSet4, "AEIOU")
     notUniqueChars(.charSet4, "0120")
-    forceNotUnique(.charSet4, "0120")
   }
   
   func testCustom2Chars() {
@@ -559,7 +554,6 @@ class EntropyStringTests: XCTestCase {
     invalidCharCount(.charSet2, "F")
     invalidCharCount(.charSet2, "TFH")
     notUniqueChars(.charSet2, "aa")
-    forceNotUnique(.charSet2, "aa")
   }
   
   // MARK: - Helper functions -
@@ -653,14 +647,6 @@ class EntropyStringTests: XCTestCase {
     }
   }
   
-  func forceNotUnique(_ charSet: CharSet, _ chars: String) {
-    do {
-      try randomString.use(chars, for: charSet, force: true)
-    }
-    catch {
-      XCTFail("Should not throw")
-    }
-  }
 }
 
 extension EntropyStringTests {

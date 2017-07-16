@@ -17,8 +17,8 @@
 //: of byte values is really efficient, this scheme is quite fast.
 //:
 //: The `EntropyString` scheme is also efficient with regard to the amount of randomness used. Consider
-//: the following common solution to generating random strings. To generated a character, an index into
-//: the available characters is create using `arc4random_uniform`. The code looks something like:
+//: the following common Swift solution to generating random strings. To generated a character, an index
+//: into the available characters is create using `arc4random_uniform`. The code looks something like:
 //:
 //:    for _ in 0 ..< len {
 //:      let offset = Int(arc4random_uniform(charCount))

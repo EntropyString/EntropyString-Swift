@@ -1,5 +1,5 @@
 //: [Previous](@previous)
-//: ## Character Bases
+//: ## Character Sets
 //:
 //: As we've seen in the previous sections, `EntropyString` provides default characters for each of
 //: the supported character sets. Let's see what's under the hood.

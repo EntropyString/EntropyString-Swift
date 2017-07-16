@@ -85,9 +85,9 @@ public enum CharSet: UInt {
     var charSet64: String {
       return _charSet64 ?? Chars.default64
     }
-    mutating func set(charSet64: String, force: Bool) throws {
+    mutating func set(charSet64: String) throws {
       guard charSet64.characters.count == Int(CharSet.charSet64.rawValue) else { throw RandomString.RandomStringError.invalidCharCount }
-      guard force || unique(string: charSet64) else { throw RandomString.RandomStringError.charsNotUnique }
+      guard unique(string: charSet64) else { throw RandomString.RandomStringError.charsNotUnique }
       _charSet64 = charSet64
     }
     
@@ -95,9 +95,9 @@ public enum CharSet: UInt {
     var charSet32: String {
       return _charSet32 ?? Chars.default32
     }
-    mutating func set(charSet32: String, force: Bool) throws {
+    mutating func set(charSet32: String) throws {
       guard charSet32.characters.count == Int(CharSet.charSet32.rawValue) else { throw RandomString.RandomStringError.invalidCharCount }
-      guard force || unique(string: charSet32) else { throw RandomString.RandomStringError.charsNotUnique }
+      guard unique(string: charSet32) else { throw RandomString.RandomStringError.charsNotUnique }
       _charSet32 = charSet32
     }
     
@@ -105,9 +105,9 @@ public enum CharSet: UInt {
     var charSet16: String {
       return _charSet16 ?? Chars.default16
     }
-    mutating func set(charSet16: String, force: Bool) throws {
+    mutating func set(charSet16: String) throws {
       guard charSet16.characters.count == Int(CharSet.charSet16.rawValue) else { throw RandomString.RandomStringError.invalidCharCount }
-      guard force || unique(string: charSet16) else { throw RandomString.RandomStringError.charsNotUnique }
+      guard unique(string: charSet16) else { throw RandomString.RandomStringError.charsNotUnique }
       _charSet16 = charSet16
     }
     
@@ -115,9 +115,9 @@ public enum CharSet: UInt {
     var charSet8: String {
       return _charSet8 ?? Chars.default8
     }
-    mutating func set(charSet8: String, force: Bool) throws {
+    mutating func set(charSet8: String) throws {
       guard charSet8.characters.count == Int(CharSet.charSet8.rawValue) else { throw RandomString.RandomStringError.invalidCharCount }
-      guard force || unique(string: charSet8) else { throw RandomString.RandomStringError.charsNotUnique }
+      guard unique(string: charSet8) else { throw RandomString.RandomStringError.charsNotUnique }
       _charSet8 = charSet8
     }
     
@@ -125,9 +125,9 @@ public enum CharSet: UInt {
     var charSet4: String {
       return _charSet4 ?? Chars.default4
     }
-    mutating func set(charSet4: String, force: Bool) throws {
+    mutating func set(charSet4: String) throws {
       guard charSet4.characters.count == Int(CharSet.charSet4.rawValue) else { throw RandomString.RandomStringError.invalidCharCount }
-      guard force || unique(string: charSet4) else { throw RandomString.RandomStringError.charsNotUnique }
+      guard unique(string: charSet4) else { throw RandomString.RandomStringError.charsNotUnique }
       _charSet4 = charSet4
     }
     
@@ -135,9 +135,9 @@ public enum CharSet: UInt {
     var charSet2: String {
       return _charSet2 ?? Chars.default2
     }
-    mutating func set(charSet2: String, force: Bool) throws {
+    mutating func set(charSet2: String) throws {
       guard charSet2.characters.count == Int(CharSet.charSet2.rawValue) else { throw RandomString.RandomStringError.invalidCharCount }
-      guard force || unique(string: charSet2) else { throw RandomString.RandomStringError.charsNotUnique }
+      guard unique(string: charSet2) else { throw RandomString.RandomStringError.charsNotUnique }
       _charSet2 = charSet2
     }
     

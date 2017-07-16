@@ -18,7 +18,6 @@ EntropyString provides easy creation of randomly generated strings of specific e
  - [More Examples](#MoreExamples)
  - [Character Sets](#CharacterSets)
  - [Custom Characters](#CustomCharacters)
- - [Unique Characters](#UniqueCharacters)
  - [Efficiency](#Efficiency)
  - [Secure Bytes](#SecureBytes)
  - [Custom Bytes](#CustomBytes)
@@ -365,7 +364,7 @@ You may, of course, want to choose the characters used, which is covered next in
 
 ## <a name="CustomCharacters"></a>Custom Characters
 
-Being able to easily generate random strings is great, but what if you want to specify your own characters. For example, suppose you want to visualize flipping a coin to produce entropy of 10 bits.
+Being able to easily generate random strings is great, but what if you want to specify your own characters? For example, suppose you want to visualize flipping a coin to produce 10 bits of entropy.
 
   ```swift
   import EntropyString
@@ -409,57 +408,27 @@ Or suppose you want a random password with numbers, lowercase letters and specia
 
   > password: }4?0x*$o_=w
 
-Note that `randomString.use(_,for:)` can throw an `Error`. The throw is actually a `RandomStringError` and will occur if the number of characters doesn't match the number required for the CharSet or if the characters are not all unique. The section on [Unique Characters](#UniqueCharacters) discusses these errors further.
-
-[TOC](#TOC)
-
-## <a name="UniqueCharacters"></a>Unique Characters
-
-As noted in [Custom Characters](#CustomCharacters), specifying the characters to use for a set can fail if the number of characters is invalid or if any character repeats.  The desire for unique characters is due to the calculation of entropy, which includes the probability of the occurrence of each character. `EntropyString` assumes the characters are unique so that each has the exact same probability of occurrence.
-
+Note that `randomString.use(_,for:)` throws a `RandomStringError` if the number of characters doesn't match the number required for the character set or if the characters are not unique.
   ```swift
-  import EntropyString
-
-  let randomString = RandomString()
   do {
-    try randomString.use("0120", for: .charSet4)
+    try randomString.use("abcdefg", for: .charSet8)
   }
   catch {
     print(error)
   }
   ```
-
-  > error: charsNotUnique
-
-You can force the use of repeat characters. (BTW, don't do this unless you really know what you are doing.)
+  > invalidCharCount
 
   ```swift
-  try! randomString.use("0120", for: .charSet4, force: true)
+  do {
+    try randomString.use("01233210", for: .charSet8)
+  }
+  catch {
+    print(error)
+  }
   ```
-
-Now we'll create a string by specifying an __entropy__ of __128__ bits and print the result.
-
-  ```swift
-  let string = randomString.entropy(of: 128, using: .charSet4)
-
-  print("string: \(string)\n")
-  ```
-
-  > string: 2201121012112100012022010002011020212002200212100110022121201221
-
-Looking at the string may not reveal a problem, but the display of the various character counts sure does!
-
-  ```swift
-  let zeros = string.characters.filter { $0 == "0" }.count
-  let ones = string.characters.filter { $0 == "1" }.count
-  let twos = string.characters.filter { $0 == "2" }.count
-
-  print("counts:  0 -> \(zeros)  |  1 -> \(ones)  |  2 -> \(twos)\n")
-  ```
-
-  > counts:  0 -> 32  |  1 -> 15  |  2 -> 17
-
-The string *does not have* __128 bits of entropy__! If all 4 characters in use are unique, we would expect each character in the string to provide __2 bits__ of information (entropy).  But since the character __0__ is *twice* as likely to occur as either __1__ or __2__, the actual entropy per character has been reduced to __1.5 bits__. So the strings generated only have __96__ bits of entropy.
+  
+  > charsNotUnique
 
 [TOC](#TOC)
 
@@ -470,7 +439,7 @@ for each string and uses those bytes in a bit shifting scheme to index into a ch
 
 To generate the indices, `EntropyString` slices just enough bits from the array of bytes to create each index. In the example at hand, 5 bits are needed to create an index in the range `[0,31]`. `EntropyString` processes the byte array 5 bits at a time to create the indices. The first index comes from the first 5 bits of the first byte, the second index comes from the last 3 bits of the first byte combined with the first 2 bits of the second byte, and so on as the byte array is systematically sliced to form indices into the character set. And since bit shifting and addition of byte values is really efficient, this scheme is quite fast.
 
-The `EntropyString` scheme is also efficient with regard to the amount of randomness used. Consider the following common solution to generating random strings. To generated a character, an index into the available characters is create using `arc4random_uniform`. The code looks something like:
+The `EntropyString` scheme is also efficient with regard to the amount of randomness used. Consider the following common Swift solution to generating random strings. To generated a character, an index into the available characters is create using `arc4random_uniform`. The code looks something like:
 
   ```swift
   for _ in 0 ..< len {

@@ -2,8 +2,8 @@
 //: ## Custom Characters
 //:
 //: Being able to easily generate random strings is great, but what if you want to specify your
-//: own characters. For example, suppose you want to visualize flipping a coin to produce entropy
-//: of 10 bits.
+//: own characters? For example, suppose you want to visualize flipping a coin to produce 10 bits
+//: of entropy.
 import EntropyString
 
 let randomString = RandomString()
@@ -23,7 +23,7 @@ print("flips: \(flips)\n")
 //: function signatures are the same in each case, but you can't change the static character sets
 //: used in the class `RandomString` (i.e., there is no `RandomString.use(_,for:)` function).
 //:
-//: As another example, we saw in [Character Bases](Character%20Bases) the default characters for
+//: As another example, we saw in [Character Sets](Character%20Sets) the default characters for
 //: charSet 16 are **01234567890abcdef**. Suppose you like uppercase hexadecimal letters instead.
 try! randomString.use("0123456789ABCDEF", for: .charSet16)
 let hex = randomString.entropy(of: 48, using: .charSet16)
@@ -36,9 +36,22 @@ let password = randomString.entropy(of: 64, using: .charSet64)
 print("password: \(password)")
 //: * callout(password): }4?0x*$o_=w
 //:
-//: Note that `randomString.use(_,for:)` can throw an `Error`. The throw is actually a
-//: `RandomStringError` and will occur if the number of characters doesn't match the number
-//: required for the character set or if the characters are not all unique. The section on [Unique
-//: Characters](Unique%20Characters) discusses these errors further.
+//: Note that `randomString.use(_,for:)` throws a `RandomStringError` if the number of characters
+//: doesn't match the number required for the character set or if the characters are not unique.
+do {
+  try randomString.use("abcdefg", for: .charSet8)
+}
+catch {
+  print(error)
+}
+//: * callout(error): invalidCharCount
+//:
+do {
+  try randomString.use("01233210", for: .charSet8)
+}
+catch {
+  print(error)
+}
+//: * callout(error): charsNotUnique
 //:
 //: [TOC](Table%20of%20Contents) | [Next](@next)
