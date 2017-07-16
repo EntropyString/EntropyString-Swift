@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/EntropyString/EntropyString-Swift.svg?branch=master)](https://travis-ci.org/EntropyString/EntropyString-Swift) &nbsp; <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage"></a> &nbsp; <a href="https://cocoapods.org/pods/EntropyString"><img src="https://img.shields.io/cocoapods/v/EntropyString.svg" alt="CocoaPods - EntropyString"></a>
 
-EntropyString provides easy creation of randomly generated strings of specific entropy using various character sets.
+Efficiently generate cryptographically strong random strings of specified entropy from various character sets.
 
 ## <a name="TOC"></a>
  - [Installation](#Installation)

@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "EntropyString"
-  s.version      = "1.1.0"
+  s.version      = "1.2.0"
   s.summary      = "Efficiently generate cryptographically strong random strings of specified entropy from various character sets."
 
   s.description  = <<-DESC
@@ -15,9 +15,9 @@ Efficiently generate cryptographically strong and secure random strings of speci
   s.social_media_url   = "http://twitter.com/knoxen"
 
   s.ios.deployment_target = "9.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
-  # s.tvos.deployment_target = "9.0"
+  s.osx.deployment_target = "10.11"
+  s.watchos.deployment_target = "2.0"
+  s.tvos.deployment_target = "9.0"
 
   s.source = { :git => "https://github.com/EntropyString/EntropyString-Swift.git", :tag => "#{s.version}" }
 
