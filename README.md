@@ -15,6 +15,7 @@ Efficiently generate cryptographically strong random strings of specified entrop
  - [Efficiency](#Efficiency)
  - [Secure Bytes](#SecureBytes)
  - [Custom Bytes](#CustomBytes)
+ - [TL;DR 2](#TLDR2)
 
 [TOC](#TOC)
 
@@ -514,4 +515,32 @@ The __bytes__ provided can come from any source. However, the number of bytes mu
 
 Note how the number of bytes needed is dependent on the number of characters in our set. In using a string to represent entropy, we can only have multiples of the bits of entropy per character used. So in the example above, to get at least 32 bits of entropy using a character set of 32 characters (5 bits per char), we'll need enough bytes to cover 35 bits, not 32, so a `tooFewBytes` error is thrown.
 
+[TOC](#TOC)
+
+## <a name="TLDR2"></a>TL;DR 2
+
+### Take Away
+
+  - You don't need random strings of length L.
+    - String length is a by-product, not a goal.
+  - You need unique strings.
+    - Uniqueness is too onerous. You'll do fine with probabilistically unique strings.
+  - Probabilistic uniqueness involves measured risk.
+    - Risk is measured as *"1 in __n__ chance of generating a repeat"*
+    - Bits of entropy gives you that measure.
+  - You need to a total of **_N_** strings with a risk **_1/n_** of repeat.
+    - The characters are arbitrary.
+  - You need `EntropyString`.
+  
+```swift
+  import EntropyString
+
+  let N: Entropy.Power = .ten06
+  let n: Entropy.Power = .ten09
+  var bits = Entropy.bits(for: N, risk: n)
+  let string = RandomString.entropy(of: bits, using: .charSet32)
+```
+
+  > DdHrT2NdrHf8tM
+  
 [TOC](#TOC)
