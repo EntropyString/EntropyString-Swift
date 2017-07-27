@@ -297,9 +297,9 @@
 			productReference = E205C6EA1F1C02E4007C139E /* EntropyString-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		E205C70F1F1C051B007C139E /* EntropyString */ = {
+		E205C70F1F1C051B007C139E /* EntropyString-watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E205C7171F1C051B007C139E /* Build configuration list for PBXNativeTarget "EntropyString" */;
+			buildConfigurationList = E205C7171F1C051B007C139E /* Build configuration list for PBXNativeTarget "EntropyString-watchOS" */;
 			buildPhases = (
 				E205C70B1F1C051B007C139E /* Sources */,
 				E205C70C1F1C051B007C139E /* Frameworks */,
@@ -310,7 +310,7 @@
 			);
 			dependencies = (
 			);
-			name = EntropyString;
+			name = "EntropyString-watchOS";
 			productName = EntropyString;
 			productReference = E205C7101F1C051B007C139E /* EntropyString.framework */;
 			productType = "com.apple.product-type.framework";
@@ -358,7 +358,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Knoxen;
 				TargetAttributes = {
 					E205C6A41F1BFF66007C139E = {
@@ -383,10 +383,12 @@
 					};
 					E287AD911F0E9B9A00DE6DF5 = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					E287AD9A1F0E9B9A00DE6DF5 = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -409,7 +411,7 @@
 				E205C6AC1F1BFF66007C139E /* EntropyString-macOSTests */,
 				E205C6E11F1C02E3007C139E /* EntropyString-tvOS */,
 				E205C6E91F1C02E4007C139E /* EntropyString-tvOSTests */,
-				E205C70F1F1C051B007C139E /* EntropyString */,
+				E205C70F1F1C051B007C139E /* EntropyString-watchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -753,7 +755,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -761,7 +765,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -807,7 +815,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -815,7 +825,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -860,7 +874,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyString;
 				PRODUCT_NAME = EntropyString;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -880,7 +895,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyString;
 				PRODUCT_NAME = EntropyString;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -892,7 +908,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyStringTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -904,7 +921,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyStringTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -947,13 +965,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E205C7171F1C051B007C139E /* Build configuration list for PBXNativeTarget "EntropyString" */ = {
+		E205C7171F1C051B007C139E /* Build configuration list for PBXNativeTarget "EntropyString-watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E205C7151F1C051B007C139E /* Debug */,
 				E205C7161F1C051B007C139E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E287AD8C1F0E9B9A00DE6DF5 /* Build configuration list for PBXProject "EntropyString" */ = {
 			isa = XCConfigurationList;
