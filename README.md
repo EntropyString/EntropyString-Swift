@@ -532,12 +532,11 @@ Note how the number of bytes needed is dependent on the number of characters in 
     - The characters are arbitrary.
   - You need `EntropyString`.
   
+##### In a *million* strings, a *1 in a billion* chance of a repeat (using 32 possible characters):
 ```swift
   import EntropyString
 
-  let N: Entropy.Power = .ten06
-  let n: Entropy.Power = .ten09
-  var bits = Entropy.bits(for: N, risk: n)
+  let bits = Entropy.bits(for: .ten06, risk: .ten09)
   let string = RandomString.entropy(of: bits, using: .charSet32)
 ```
 
