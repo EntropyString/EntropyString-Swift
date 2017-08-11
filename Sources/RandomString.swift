@@ -32,7 +32,7 @@ public class RandomString {
   public typealias Bytes = Random.Bytes
 
   typealias CharNdx = UInt8
-  
+
   // MARK: - Enums
   /// Errors thrown by RandomString
   public enum RandomStringError: Error {
@@ -46,7 +46,7 @@ public class RandomString {
   private static let instance = RandomString()
   
   // MARK: - Private Vars (Instance)
-  private var chars: CharSet.Chars
+  private var chars: Chars
 
   // MARK: - Public API (Class)
   //
@@ -106,7 +106,7 @@ public class RandomString {
   }
   
   public init() {
-    chars = CharSet.Chars()
+    chars = Chars()
   }
   
   // MARK: - Public API (Instance)

@@ -20,6 +20,10 @@
 		E205C6FC1F1C030E007C139E /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2126C131F198EDB00D74CA4 /* Random.swift */; };
 		E205C6FD1F1C039F007C139E /* EntropyStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */; };
 		E2126C141F198EDB00D74CA4 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2126C131F198EDB00D74CA4 /* Random.swift */; };
+		E238A8191F3E016500FCCF33 /* Chars.swift in Sources */ = {isa = PBXBuildFile; fileRef = E238A8181F3E016500FCCF33 /* Chars.swift */; };
+		E238A81A1F3E016500FCCF33 /* Chars.swift in Sources */ = {isa = PBXBuildFile; fileRef = E238A8181F3E016500FCCF33 /* Chars.swift */; };
+		E238A81B1F3E016500FCCF33 /* Chars.swift in Sources */ = {isa = PBXBuildFile; fileRef = E238A8181F3E016500FCCF33 /* Chars.swift */; };
+		E238A81C1F3E016500FCCF33 /* Chars.swift in Sources */ = {isa = PBXBuildFile; fileRef = E238A8181F3E016500FCCF33 /* Chars.swift */; };
 		E287AD9C1F0E9B9A00DE6DF5 /* EntropyString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */; };
 		E287ADA31F0E9B9A00DE6DF5 /* EntropyString.h in Headers */ = {isa = PBXBuildFile; fileRef = E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E287ADAE1F0E9DDC00DE6DF5 /* RandomString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */; };
@@ -60,6 +64,7 @@
 		E205C6EA1F1C02E4007C139E /* EntropyString-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EntropyString-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E205C7101F1C051B007C139E /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2126C131F198EDB00D74CA4 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
+		E238A8181F3E016500FCCF33 /* Chars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chars.swift; sourceTree = "<group>"; };
 		E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EntropyString.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntropyString.h; sourceTree = "<group>"; };
 		E287AD961F0E9B9A00DE6DF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -165,10 +170,11 @@
 		E287ADAC1F0E9DDC00DE6DF5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */,
 				E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */,
+				E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */,
 				E2BB88FB1F1162E80084D759 /* CharSet.swift */,
 				E2126C131F198EDB00D74CA4 /* Random.swift */,
+				E238A8181F3E016500FCCF33 /* Chars.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -379,6 +385,7 @@
 					};
 					E205C70F1F1C051B007C139E = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					E287AD911F0E9B9A00DE6DF5 = {
@@ -478,6 +485,7 @@
 				E205C6BE1F1BFFEC007C139E /* CharSet.swift in Sources */,
 				E205C6BC1F1BFFEC007C139E /* RandomString.swift in Sources */,
 				E205C6BD1F1BFFEC007C139E /* Entropy.swift in Sources */,
+				E238A81A1F3E016500FCCF33 /* Chars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +505,7 @@
 				E205C6FB1F1C030E007C139E /* CharSet.swift in Sources */,
 				E205C6F91F1C030E007C139E /* RandomString.swift in Sources */,
 				E205C6FA1F1C030E007C139E /* Entropy.swift in Sources */,
+				E238A81B1F3E016500FCCF33 /* Chars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E238A81C1F3E016500FCCF33 /* Chars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +533,7 @@
 				E2BB88FC1F1162E80084D759 /* CharSet.swift in Sources */,
 				E287ADAE1F0E9DDC00DE6DF5 /* RandomString.swift in Sources */,
 				E287ADB91F0EDCAB00DE6DF5 /* Entropy.swift in Sources */,
+				E238A8191F3E016500FCCF33 /* Chars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +716,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -717,6 +729,7 @@
 				PRODUCT_NAME = EntropyString;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.2;
@@ -727,6 +740,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
