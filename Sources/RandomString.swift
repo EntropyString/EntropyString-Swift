@@ -139,7 +139,7 @@ public class RandomString {
   ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
   public func entropy(of bits: Float, using charSet: CharSet, secRand: inout Bool) -> String {
-    let count: UInt = UInt(ceil(bits / Float(charSet.entropyPerChar)))
+    let count: UInt = UInt(ceil(bits / Float(charSet.bitsPerChar)))
     guard 0 < count else { return "" }
     
     // genBytes sets secRand
@@ -163,10 +163,10 @@ public class RandomString {
   public func entropy(of bits: Float, using charSet: CharSet, bytes: Bytes) throws -> String {
     guard 0 < bits else { throw RandomStringError.negativeEntropy }
     
-    let count: Int = Int(ceil(bits / Float(charSet.entropyPerChar)))
+    let count: Int = Int(ceil(bits / Float(charSet.bitsPerChar)))
     guard 0 < count else { return "" }
 
-    let needed = Int(ceil(Float(charSet.entropyPerChar)/8 * Float(count)))
+    let needed = Int(ceil(Float(charSet.bitsPerChar)/8 * Float(count)))
     guard needed <= bytes.count else { throw RandomStringError.tooFewBytes }
     
     let chunks   = count / charSet.charsPerChunk

@@ -37,25 +37,24 @@ public enum CharSet: UInt {
   case charSet4  =  4
   case charSet2  =  2
   
-  // Entropy per character for the supported character bases
-  public var entropyPerChar: Int {
+  // Entropy bits per character
+  public var bitsPerChar: Int {
     return Int(log2(Float(rawValue)))
   }
   
   // Characters per chunk of bytes. A slice of bits is used to create a single character. A chunk
   // of bytes is the number of Bytes required for a exact multiple of character slice.
   var charsPerChunk: Int {
-    return CharSet.lcm(entropyPerChar,8) / entropyPerChar
+    let bitsPerByte: Int = 8
+    return CharSet.lcm(bitsPerChar, bitsPerByte) / bitsPerChar
   }
 
-  // Greatest common divisor. Needed for least common multiple
-  static func gcd(_ a: Int, _ b: Int) -> Int {
-    let r = a % b
-    return r != 0 ? gcd(b, r) : b
-  }
-  
   // Least common multiple
   static func lcm(_ a: Int, _ b: Int) -> Int {
+    func gcd(_ a: Int, _ b: Int) -> Int {
+      let r = a % b
+      return r != 0 ? gcd(b, r) : b
+    }
     return a / gcd(a,b) * b
   }
   

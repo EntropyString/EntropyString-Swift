@@ -418,7 +418,7 @@ class EntropyStringTests: XCTestCase {
       for i in 0 ..< Int(iters) {
         var string = RandomString.entropy(of: Float(i), using: charSet)
         var count = string.characters.count
-        let expected: Int = Int(ceil(Float(i) / Float(charSet.entropyPerChar)))
+        let expected: Int = Int(ceil(Float(i) / Float(charSet.bitsPerChar)))
         XCTAssertEqual(count, expected)
         
         string = randomString.entropy(of: Float(i), using: charSet)
@@ -583,13 +583,13 @@ class EntropyStringTests: XCTestCase {
 
   func stringLength(_ total: UInt, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
     let bits = Entropy.bits(for: total, risk: risk)
-    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
+    let len = UInt(ceil(bits / Float(charSet.bitsPerChar)))
     XCTAssertEqual(len,  expected)
   }
   
   func stringLength(_ power: Entropy.Power, _ risk: Entropy.Power, _ charSet: CharSet, _ expected: UInt) {
     let bits = Entropy.bits(for: power, risk: risk)
-    let len = UInt(ceil(bits / Float(charSet.entropyPerChar)))
+    let len = UInt(ceil(bits / Float(charSet.bitsPerChar)))
     XCTAssertEqual(len,  expected)
   }
   
