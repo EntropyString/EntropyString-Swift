@@ -53,8 +53,8 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-  public static func entropy(of bits: Float, using charSet: CharSet) -> String {
-    return RandomString.instance.entropy(of: bits, using: charSet)
+  public static func string(bits: Float, using charSet: CharSet) -> String {
+    return RandomString.instance.string(bits: bits, using: charSet)
   }
   
   /// Generates a random string.
@@ -71,8 +71,8 @@ public class RandomString {
   ///
   ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
-  public static func entropy(of bits: Float, using charSet: CharSet, secRand: inout Bool) -> String {
-    return RandomString.instance.entropy(of: bits, using: charSet, secRand: &secRand)
+  public static func string(bits: Float, using charSet: CharSet, secRand: inout Bool) -> String {
+    return RandomString.instance.string(bits: bits, using: charSet, secRand: &secRand)
   }
 
   /// Generates a random string.
@@ -86,7 +86,7 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-  public static func entropy(of bits: Float, using charSet: CharSet, bytes: [UInt8]) throws -> String {
+  public static func string(bits: Float, using charSet: CharSet, bytes: [UInt8]) throws -> String {
     guard 0 < bits else { throw RandomStringError.negativeEntropy }
     
     let count: Int = Int(ceil(bits / Float(charSet.bitsPerChar)))
@@ -126,9 +126,9 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-    public func entropy(of bits: Float, using charSet: CharSet) -> String {
+    public func string(bits: Float, using charSet: CharSet) -> String {
     var secRand = true
-    return entropy(of: bits, using: charSet, secRand: &secRand)
+    return string(bits: bits, using: charSet, secRand: &secRand)
   }
   
   /// Generates a random string.
@@ -145,7 +145,7 @@ public class RandomString {
   ///
   ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
-  public func entropy(of bits: Float, using charSet: CharSet, secRand: inout Bool) -> String {
+  public func string(bits: Float, using charSet: CharSet, secRand: inout Bool) -> String {
     let count: UInt = UInt(ceil(bits / Float(charSet.bitsPerChar)))
     guard 0 < count else { return "" }
     
@@ -153,7 +153,7 @@ public class RandomString {
     let bytes = Bytes.random(count, charSet.bitsPerChar, &secRand)
     
     // genBytes ensures enough bytes so this call will not fail
-    return try! RandomString.entropy(of: bits, using: charSet, bytes: bytes)
+    return try! RandomString.string(bits: bits, using: charSet, bytes: bytes)
   }
   
   /// Generates a random string.
@@ -167,8 +167,8 @@ public class RandomString {
   /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
-  public func entropy(of bits: Float, using charSet: CharSet, bytes: [UInt8]) throws -> String {
-    return try RandomString.entropy(of: bits, using: charSet, bytes: bytes)
+  public func string(bits: Float, using charSet: CharSet, bytes: [UInt8]) throws -> String {
+    return try RandomString.string(bits: bits, using: charSet, bytes: bytes)
   }
   
   /// Gets a character from the character set.

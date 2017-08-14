@@ -27,12 +27,12 @@
 		E287ADB91F0EDCAB00DE6DF5 /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */; };
 		E2B8C8171F3E2B8500171502 /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8161F3E2B8500171502 /* CharSet.swift */; };
 		E2B8C81A1F3E60A100171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
-		E2B8C81C1F3E6C9800171502 /* BitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C81B1F3E6C9800171502 /* BitsTests.swift */; };
-		E2B8C81D1F3E6C9800171502 /* BitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C81B1F3E6C9800171502 /* BitsTests.swift */; };
-		E2B8C81E1F3E6C9800171502 /* BitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C81B1F3E6C9800171502 /* BitsTests.swift */; };
 		E2B8C81F1F3E6E2C00171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
 		E2B8C8201F3E6E2E00171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
 		E2B8C8211F3E6E2E00171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
+		E2E1404F1F422C70003E02B0 /* EntropyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1404E1F422C70003E02B0 /* EntropyTests.swift */; };
+		E2E140501F422C70003E02B0 /* EntropyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1404E1F422C70003E02B0 /* EntropyTests.swift */; };
+		E2E140511F422C70003E02B0 /* EntropyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1404E1F422C70003E02B0 /* EntropyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +78,7 @@
 		E2B8C8161F3E2B8500171502 /* CharSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharSet.swift; sourceTree = "<group>"; };
 		E2B8C8181F3E2D3400171502 /* Futz.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Futz.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E2B8C8191F3E60A100171502 /* Bits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bits.swift; sourceTree = "<group>"; };
-		E2B8C81B1F3E6C9800171502 /* BitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitsTests.swift; sourceTree = "<group>"; };
+		E2E1404E1F422C70003E02B0 /* EntropyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntropyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,9 +195,9 @@
 		E287ADB01F0E9DEE00DE6DF5 /* EntropyStringTests */ = {
 			isa = PBXGroup;
 			children = (
+				E2E1404E1F422C70003E02B0 /* EntropyTests.swift */,
 				E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */,
 				E287ADB21F0E9DEE00DE6DF5 /* Info.plist */,
-				E2B8C81B1F3E6C9800171502 /* BitsTests.swift */,
 			);
 			path = EntropyStringTests;
 			sourceTree = "<group>";
@@ -498,8 +498,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E140501F422C70003E02B0 /* EntropyTests.swift in Sources */,
 				E205C6C01F1BFFF1007C139E /* EntropyStringTests.swift in Sources */,
-				E2B8C81D1F3E6C9800171502 /* BitsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,8 +518,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E140511F422C70003E02B0 /* EntropyTests.swift in Sources */,
 				E205C6FD1F1C039F007C139E /* EntropyStringTests.swift in Sources */,
-				E2B8C81E1F3E6C9800171502 /* BitsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,8 +548,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E1404F1F422C70003E02B0 /* EntropyTests.swift in Sources */,
 				E287ADB71F0E9E8500DE6DF5 /* EntropyStringTests.swift in Sources */,
-				E2B8C81C1F3E6C9800171502 /* BitsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

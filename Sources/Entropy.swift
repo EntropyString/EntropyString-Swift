@@ -55,8 +55,8 @@ public struct Entropy {
   /// - parameter risk: Accepted probability expressed as 1 in *10^risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
-  public static func bits(for total: Float , risk: Float) -> Float {
-    return Bits.total(of: total, risk: risk)
+  public static func bits(for numStrings: Float , risk: Float) -> Float {
+    return total(numStrings: numStrings, log2Risk: log2(risk))
   }
   
   /// Calculates required bits of entropy
@@ -65,8 +65,9 @@ public struct Entropy {
   /// - parameter risk: Accepted probability expressed as 1 in *10^risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
-  public static func bits(for total: Float, risk: Power) -> Float {
-    return Bits.total(of: total, risk: risk)
+  public static func bits(for numStrings: Float, risk: Power) -> Float {
+    let log2Risk = Float(risk.rawValue) * log2_10
+    return total(numStrings: numStrings, log2Risk: log2Risk)
   }
   
   /// Calculates required bits of entropy
@@ -75,12 +76,19 @@ public struct Entropy {
   /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
-  public static func bits(for total: Power, risk: Power) -> Float {
-    return Bits.total(of: total, risk: risk)
-  }
-
-  public static func string(of bits: Float) {
-//    return RandomString.entropy(of: bits, using: Entropy.ch)
+  public static func bits(for numStrings: Power, risk: Power) -> Float {
+    if numStrings < .ten05 {
+      return bits(for: powf(10, Float(numStrings.rawValue)), risk: risk)
+    }
+    else {
+      return Float(2 * numStrings.rawValue + risk.rawValue) * log2_10 - 1
+    }
   }
   
+  private static func total(numStrings: Float, log2Risk: Float) -> Float {
+    guard 0 < numStrings else { return 0 }
+    let N = numStrings < 10001 ? log2(Float(numStrings)) + log2(Float(numStrings-1)) : 2 * log2(Float(numStrings))
+    return N + log2Risk - 1
+  }
+
 }
