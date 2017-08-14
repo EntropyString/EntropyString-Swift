@@ -1,75 +1,82 @@
 //
-//  Random.swift
+//  Bytes.swift
 //  EntropyString
 //
-//  Created by Paul Rogers on 7/14/17.
 //  Copyright © 2017 Knoxen. All rights reserved.
 //
-
+//  The MIT License (MIT)
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 import Foundation
 
-public struct Random {
-  
-  // MARK: - Types
-  public typealias Byte = UInt8
-  public typealias Bytes = [Byte]
-  
+public struct Bytes {
   #if os(Linux)
-  
-  // On first use, Random will attempt to load `arc4random_buf`
-  
+  // On first use will attempt to load `arc4random_buf`
   private typealias Arc4Random_Buf = @convention(c) (ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>, Int) -> ()
   private var arc4random_buf: Arc4Random_Buf?
-  public static var instance = Random()
+  public static var instance = Bytes()
   
   private init() {
     if let handle = dlopen(nil, RTLD_NOW), let result = dlsym(handle, "arc4random_buf") {
       arc4random_buf = unsafeBitCast(result, to: Arc4Random_Buf.self)
     }
   }
-
   #endif
   
-  /// Generates __Bytes__.
+  /// Generates random bytes
   ///
-  /// The number of __Bytes__ returned is sufficient to generate _count_ characters from the `charSet`.
+  /// The number of bytes returned is sufficient to generate _count_ characters from the `charSet`.
   ///
   /// - parameter count: The number of characters that can be generated.
   /// - paramater charSet: The character set that will be used.
   /// - parameter secRand: On Apple OSes, if _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
   ///     generate random bytes; if `false` use `arc4random_buf`. This parameter is ignored on Linux OS.
   ///
-  /// - return: Random __Bytes__. On Apple OSes, if _secRand_ is passed as `true`, the value on return
+  /// - return: Random bytes. On Apple OSes, if _secRand_ is passed as `true`, the value on return
   ///     indicates whether `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
   ///
-  public static func bytes(_ count: UInt, _ charSet: CharSet, _ secRand: inout Bool) -> Bytes {
+  static func random(_ count: UInt, _ entropyBits: UInt8, _ secRand: inout Bool) -> [UInt8] {
     // Each slice forms a chars and requires entropy per char bits
-    let bytesPerSlice = Double(charSet.bitsPerChar)/8;
+    let bytesPerSlice = Double(entropyBits / Entropy.bitsPerByte)
     
     let bytesNeeded = Int(ceil(Double(count) * bytesPerSlice))
-    var bytes = [Byte](repeating: 0, count: bytesNeeded)
-
+    var bytes = [UInt8](repeating: 0, count: bytesNeeded)
+    
     #if os(Linux)
       let buf = UnsafeMutableRawPointer(mutating: bytes)
       fill(buffer: buf, size: bytes.count)
     #else
       fill(&bytes, &secRand)
     #endif
-
+    
     return bytes
   }
   
   // MARK: - Private
   
   #if os(Linux)
-
   private static func fill(buffer: UnsafeMutableRawPointer, size: Int) {
-    Random.instance.arc4random_buf?(buffer, size)
+    Bytes.instance.arc4random_buf?(buffer, size)
   }
-
   #else
-
-  private static func fill(_ bytes: inout Bytes, _ secRand: inout Bool) {
+  private static func fill(_ bytes: inout [UInt8], _ secRand: inout Bool) {
     // If `secRand` requested, attempt to form bytes using `SecRandomCopyBytes`, which can potentially
     // fail; and if so, use `arc4random` and set the `inout secRand Bool` to `false`
     // to notify that `SecRandomCopyBytes` wasn't used.
@@ -83,7 +90,5 @@ public struct Random {
       arc4random_buf(&bytes, bytes.count)
     }
   }
-  
   #endif
-  
 }

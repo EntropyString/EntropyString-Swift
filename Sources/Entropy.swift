@@ -6,8 +6,6 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright © 2017 Knoxen. All rights reserved.
-//
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -30,106 +28,59 @@ import Foundation
 
 public struct Entropy {
   
+  static let bitsPerByte: UInt8 = 8
+  private static let log2_10: Float = log2(10)
+  
+  public enum Tmp: UInt {
+    case one = 1, two, three, four
+  }
+  
   /// Powers of ten
   public enum Power: UInt {
-    case ten01 =  1
-    case ten02 =  2
-    case ten03 =  3
-    case ten04 =  4
-    case ten05 =  5
-    case ten06 =  6
-    case ten07 =  7
-    case ten08 =  8
-    case ten09 =  9
-    case ten10 = 10
-    case ten11 = 11
-    case ten12 = 12
-    case ten13 = 13
-    case ten14 = 14
-    case ten15 = 15
-    case ten16 = 16
-    case ten17 = 17
-    case ten18 = 18
-    case ten19 = 19
-    case ten20 = 20
-    case ten21 = 21
-    case ten22 = 22
-    case ten23 = 23
-    case ten24 = 24
-    case ten25 = 25
-    case ten26 = 26
-    case ten27 = 27
-    case ten28 = 28
-    case ten29 = 29
-    case ten30 = 30
+    case ten01 = 1,
+    ten02, ten03, ten04, ten05, ten06, ten07, ten08, ten09, ten10, ten11,
+    ten12, ten13, ten14, ten15, ten16, ten17, ten18, ten19, ten20, ten21,
+    ten22, ten23, ten24, ten25, ten26, ten27, ten28, ten29, ten30
     
     static func <(lhs: Power, rhs: Power) -> Bool {
       return lhs.rawValue < rhs.rawValue
     }
   }
-  
-  private static let log2_10: Float = log2(10)
 
   // MARK: - Public API (Static)
   //
-  /// Calculates bits of entropy
+  /// Calculates required bits of entropy
   ///
   /// - parameter total: Number of total items expressed as *10^power*
   /// - parameter risk: Accepted probability expressed as 1 in *10^risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
-  public static func bits(for total: UInt , risk: UInt) -> Float {
-    guard 0 < total else { return 0 }
-    guard 0 < risk else { return 0 }
-
-    var N: Float
-    if total < 10000 {
-      N = log2(Float(total)) + log2(Float(total-1)) + (log10(Float(risk)) * log2_10) - 1
-    }
-    else {
-      let n = 2 * log10(Float(total)) + log10(Float(risk))
-      N = n * log2_10 - 1
-    }
-    return N
+  public static func bits(for total: Float , risk: Float) -> Float {
+    return Bits.total(of: total, risk: risk)
   }
   
-  // MARK: - Public API (Static)
-  //
-  /// Calculates bits of entropy
+  /// Calculates required bits of entropy
   ///
   /// - parameter total: Number of total items
   /// - parameter risk: Accepted probability expressed as 1 in *10^risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
-  public static func bits(for total: UInt, risk: Power) -> Float {
-    guard 0 < total else { return 0 }
-    var N: Float
-    if total < 10000 {
-      N = log2(Float(total)) + log2(Float(total-1)) + (Float(risk.rawValue) * log2_10) - 1
-    }
-    else {
-      let n = 2 * log10(Float(total)) + Float(risk.rawValue)
-      N = n * log2_10 - 1
-    }
-    return N
+  public static func bits(for total: Float, risk: Power) -> Float {
+    return Bits.total(of: total, risk: risk)
   }
   
-  /// Calculates bits of entropy
+  /// Calculates required bits of entropy
   ///
   /// - parameter total: Number of total items
   /// - parameter risk: Accepted probability expressed as 1 in *risk* chance of repeat
   ///
   /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
   public static func bits(for total: Power, risk: Power) -> Float {
-    var N: Float
-    if total < .ten04 {
-      return bits(for: UInt(powf(10, Float(total.rawValue))), risk: risk)
-    }
-    else {
-      let n = Float(2 * total.rawValue + risk.rawValue)
-      N = n * log2_10 - 1
-    }
-    return N
+    return Bits.total(of: total, risk: risk)
   }
 
+  public static func string(of bits: Float) {
+//    return RandomString.entropy(of: bits, using: Entropy.ch)
+  }
+  
 }
