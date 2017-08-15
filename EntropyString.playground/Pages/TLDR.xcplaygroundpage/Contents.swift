@@ -2,51 +2,55 @@
 //:## TL;DR
 import EntropyString
 
-var descr = "48-bit string using base32 characters"
+//: ###### OWASP session ID using base 32 characters:
+var random = Random()
+var string = random.sessionID()
 
-var string = RandomString.entropy(of: 48, using: .charSet32)
-
+var descr = "OWASP session ID using base 32 characters"
 print("\n  \(descr): \(string)")
-//: * callout(string): MRd272t4G3
+//: * callout(string): NPgHpr37TNPL7DpgDh3q6T4h2B
 //:
+//:
+//: ##### OWASP session ID using [RFC 4648](https://tools.ietf.org/html/rfc4648#section-5) file system and URL safe characters:
+random = Random(charSet: .charSet64)
+string = random.sessionID()
+
+descr = "OWASP session ID using RFC 4648 file system and URL safe characters"
+print("\n  \(descr): \(string)")
+//: * callout(string): 9gTtKf_LGD19GCt26LEo1d
+//:
+//: ##### 48-bit string using hex characters:
+random = Random(charSet: .charSet16)
+string = random.string(bits: 48)
+
 descr = "48-bit string using hex characters"
-
-string = RandomString.entropy(of: 48, using: .charSet16)
-
 print("\n  \(descr): \(string)")
-//: * callout(string): 7973b7cf643c
+//: * callout(string): b16851e3ac98
 //:
-descr = "48-bit string using uppercase hex characters"
+//: ##### 96-bit string using uppercase hex characters:
+random = try! Random(chars: "0123456789ABCDEF")
+string = random.string(bits: 96)
 
-let randomString = RandomString()
-try! randomString.use("1234567890ABCDEF", for: .charSet16)
-
-string = randomString.entropy(of: 48, using: .charSet16)
-
+descr = "96-bit string using uppercase hex characters"
 print("\n  \(descr): \(string)")
-//: * callout(string): 6D98AA8E6A46
+//: * callout(string): 134BBC6465B0DF101BFBC44B
 //:
-descr = "Base 32 character string a with 1 in a million chance of a repeat in 30 such strings"
-
+//: ##### Base 32 character string with a 1 in a million chance of a repeat in 30 strings:
 var bits = Entropy.bits(for: 30, risk: 1000000)
-string = RandomString.entropy(of: bits, using: .charSet32)
+random = Random()
+string = random.string(bits: bits)
 
+descr = "Base 32 character string with a 1 in a million chance of a repeat in 30 strings"
 print("\n  \(descr): \(string)")
-//: * callout(string): BqMhJM
+//: * callout(string): QmtGhb
 //:
-descr = "Base 32 character string with a 1 in a trillion chance of a repeat in 10 million such strings"
+//: ##### Base 64 character string with a 1 in a trillion chance of a repeat in 100 million strings:
 bits = Entropy.bits(for: .ten07, risk: .ten12)
+random = Random(charSet: .charSet64)
+string = random.string(bits: bits)
 
-string = RandomString.entropy(of: bits, using: .charSet32)
-
+descr = "Base 64 character string with a 1 in a trillion chance of a repeat in 100 million strings"
 print("\n  \(descr): \(string)")
-//: * callout(string): H9fT8qmMBd9qLfqmpm
-//:
-descr = "OWASP session ID using file system and URL safe characters"
-
-string = RandomString.entropy(of: 128, using: .charSet64)
-
-print("\n  \(descr): \(string)")
-//: * callout(string): RX3FzLm2YZmeBT2Y5n_79C
+//: * callout(string): Datt9RQXWXm5Etj
 //:
 //: [TOC](Table%20of%20Contents) | [Next](@next)

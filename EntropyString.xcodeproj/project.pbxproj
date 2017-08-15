@@ -179,9 +179,9 @@
 		E287ADAC1F0E9DDC00DE6DF5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */,
-				E2B8C8161F3E2B8500171502 /* CharSet.swift */,
 				E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */,
+				E2B8C8161F3E2B8500171502 /* CharSet.swift */,
+				E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */,
 				E21779C71F3E7E260019CC42 /* Bytes.swift */,
 			);
 			path = Sources;

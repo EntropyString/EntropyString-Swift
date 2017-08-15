@@ -61,8 +61,6 @@ Efficiently generate cryptographically strong random strings of specified entrop
 
 ### Swift Package Manager
 
-##### CxNote: Linux not yet supported until random byte generation issue resolved.
-
 The [Swift Package Manager](https://swift.org/package-manager/) is a decentralized dependency manager for Swift.
 
 1. Add the project to your `Package.swift`.
@@ -89,7 +87,7 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a decentraliz
 
 ----
 
-The remainer of this README is included in the project as a Swift playground for interactive exploration.
+The remainer of this README is included in the project as a Swift playground for interactive exploration XCode.
 
 ----
 
@@ -100,71 +98,68 @@ The remainer of this README is included in the project as a Swift playground for
   import EntropyString
   ```
 
-48-bit string using base32 characters:
+OWASP session ID using base 32 characters:
 
   ```swift
-  var bits = 48
-  var string = RandomString.entropy(of: bits, using: .charSet32)
+  var random = Random()
+  var string = random.sessionID()
   ```
 
-  > MRd272t4G3
+  > NPgHpr37TNPL7DpgDh3q6T4h2B
+
+OWASP session ID using [RFC 4648](https://tools.ietf.org/html/rfc4648#section-5) file system and URL safe characters:
+  ```swift
+  random = Random(charSet: .charSet64)
+  string = random.sessionID()
+  ```
+
+  > 9gTtKf_LGD19GCt26LEo1d
 
 48-bit string using hex characters:
-
   ```swift
-  string = RandomString.entropy(of: bits, using: .charSet16)
+  random = Random(charSet: .charSet16)
+  string = random.string(bits: 48)
   ```
 
-  > 7973b7cf643c
+  > b16851e3ac98
 
-48-bit string using uppercase hex characters:
-
+96-bit string using uppercase hex characters:
   ```swift
-  let randomString = RandomString()
-  try! randomString.use("0123456789ABCDEF", for: .charSet16)
-  string = randomString.entropy(of: bits, using: .charSet16)
+  random = try! Random(chars: "0123456789ABCDEF")
+  string = random.string(bits: 96)
   ```
 
-  > 6D98AA8E6A46
-
-Base 32 character string with a 1 in a million chance of a repeat in 30 such strings:
-
-  ```swift
-  bits = Entropy.bits(for: 30, risk: 1000000)
-  string = RandomString.entropy(of: bits, using: .charSet32)
-  ```
-
-  > BqMhJM
+  > 134BBC6465B0DF101BFBC44B
   
-Base 32 character string with a 1 in a trillion chance of a repeat in 10 million such strings:
+Base 32 character string with a 1 in a million chance of a repeat in 30 strings:
+  ```swift
+  var bits = Entropy.bits(for: 30, risk: 1000000)
+  random = Random()
+  string = random.string(bits: bits)
+  ```
 
+  > QmtGhb
+
+Base 64 character string with a 1 in a trillion chance of a repeat in 100 million strings:
   ```swift
   bits = Entropy.bits(for: .ten07, risk: .ten12)
-  string = RandomString.entropy(of: bits, using: .charSet32)
+  random = Random(charSet: .charSet64)
+  string = random.string(bits: bits)
   ```
 
-  > H9fT8qmMBd9qLfqmpm
-
-OWASP session ID using file system and URL safe characters:
-
-  ```swift
-  bits = 128
-  string = RandomString.entropy(of: bits, using: .charSet64)
-  ```
-
-  > RX3FzLm2YZmeBT2Y5n_79C
+  > Datt9RQXWXm5Etj
 
 [TOC](#TOC)
 
 ## <a name="Overview"></a>Overview
 
-`EntropyString` provides easy creation of randomly generated strings of specific entropy using various character sets. Such strings are needed when generating, for example, random IDs and you don't want the overkill of a GUID, or for ensuring that some number of items have unique names.
+`EntropyString` provides easy creation of randomly generated strings of specific entropy using various character sets. Such strings are needed when generating, for example, random IDs and you don't want the overkill of a GUID, or for ensuring that some number of items have unique identifiers.
 
-A key concern when generating such strings is that they be unique. To truly guarantee uniqueness requires that each newly created string be compared against all existing strings. The overhead of storing and comparing strings in this manner is often too onerous and a different tack is needed.
+A key concern when generating such strings is that they be unique. To truly guarantee uniqueness requires either deterministic generation (e.g., a counter) that is not random, or that each newly created random string be compared against all existing strings. When ramdoness is required, the overhead of storing and comparing strings is often too onerous and a different tack is needed.
 
-A common strategy is to replace the *guarantee of uniqueness* with a weaker but hopefully sufficient *probabilistic uniqueness*. Specifically, rather than being absolutely sure of uniqueness, we settle for a statement such as *"there is less than a 1 in a billion chance that two of my strings are the same"*. This strategy requires much less overhead, but does require we have some manner of qualifying what we mean by, for example, *"there is less than a 1 in a billion chance that 1 million strings of this form will have a repeat"*.
+A common strategy is to replace the *guarantee of uniqueness* with a weaker but often sufficient *probabilistic uniqueness*. Specifically, rather than being absolutely sure of uniqueness, we settle for a statement such as *"there is less than a 1 in a billion chance that two of my strings are the same"*. This strategy requires much less overhead, but does require we have some manner of qualifying what we mean by, for example, *"there is less than a 1 in a billion chance that 1 million strings of this form will have a repeat"*.
 
-Understanding probabilistic uniqueness requires some understanding of [*entropy*](https://en.wikipedia.org/wiki/Entropy_(information_theory)) and of estimating the probability of a [*collision*](https://en.wikipedia.org/wiki/Birthday_problem#Cast_as_a_collision_problem) (i.e., the probability that two strings in a set of randomly generated strings might be the same).  Happily, you can use `EntropyString` without a deep understanding of these topics.
+Understanding probabilistic uniqueness requires some understanding of [*entropy*](https://en.wikipedia.org/wiki/Entropy_(information_theory)) and of estimating the probability of a [*collision*](https://en.wikipedia.org/wiki/Birthday_problem#Cast_as_a_collision_problem) (i.e., the probability that two strings in a set of randomly generated strings might be the same).  Happily, you can use `entropy-string` without a deep understanding of these topics.
 
 We'll begin investigating `EntropyString` by considering our [Real Need](Read%20Need) when generating random strings.
 
