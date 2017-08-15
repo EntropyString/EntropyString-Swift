@@ -198,9 +198,9 @@
 		E287ADB01F0E9DEE00DE6DF5 /* EntropyStringTests */ = {
 			isa = PBXGroup;
 			children = (
-				E2E140521F422FB1003E02B0 /* RandomTests.swift */,
 				E2E1404E1F422C70003E02B0 /* EntropyTests.swift */,
 				E2E140561F433A6D003E02B0 /* CharSetTests.swift */,
+				E2E140521F422FB1003E02B0 /* RandomTests.swift */,
 				E287ADB21F0E9DEE00DE6DF5 /* Info.plist */,
 			);
 			path = EntropyStringTests;

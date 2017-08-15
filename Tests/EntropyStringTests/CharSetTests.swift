@@ -97,3 +97,15 @@ class CharSetTests: XCTestCase {
     XCTAssertNotNil(CharSet.charSet2)
   }
 }
+
+extension CharSetTests {
+// Adopt XCTestCaseProvider to run test on  Linux
+  static var tests: [(String, (CharSetTests) -> () throws -> ())] {
+    return [
+      ("testInitChars",      testInitChars),
+      ("testNonUniqueChars", testNonUniqueChars),
+      ("testInvalidChars",   testInvalidChars),
+      ("testStatics",        testStatics)
+    ]
+  }
+}

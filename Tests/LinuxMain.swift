@@ -28,5 +28,7 @@ import XCTest
 @testable import EntropyStringTests
 
 XCTMain([
-  testCase(EntropyStringTests.allTests)
+  testCase(EntropyTests.tests),
+  testCase(CharSetTests.tests),
+  testCase(RandomTests.tests)
 ])

@@ -194,8 +194,6 @@ class EntropyTests: XCTestCase {
     entropyBits0(.ten09, .ten30, 158)
   }
 
-
-
   func entropyBits0(_ numStrings: Float, _ risk: Float, _ expected: Float) {
     let bits = Entropy.bits(for: numStrings, risk: risk)
     XCTAssertEqual(roundf(bits), expected)
@@ -232,10 +230,14 @@ class EntropyTests: XCTestCase {
 }
 
 extension EntropyTests {
-  // Adopt XCTestCaseProvider to run test on  Linux
-//  static var allTests: [(String, (EntropyTests) -> () throws -> ()] {
-//  return [
-//    ("testZeroEntropy",         EntropyTests.testZeroEntropy)
-//  
-//  ]}
+// Adopt XCTestCaseProvider to run test on  Linux
+  static var tests: [(String, (EntropyTests) -> () throws -> ())] {
+    return [
+      ("testZeroEntropy",    testZeroEntropy),
+      ("testBitsFloatFloat", testBitsFloatFloat),
+      ("testBitsFloatPower", testBitsFloatPower),
+      ("testBitsPowerPower", testBitsPowerPower),
+      ("testPreshingTable",  testPreshingTable)
+    ]
+  }
 }

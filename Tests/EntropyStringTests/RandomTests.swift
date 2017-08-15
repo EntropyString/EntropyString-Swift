@@ -289,3 +289,23 @@ class RandomTests: XCTestCase {
   }
 
 }
+
+extension RandomTests {
+// Adopt XCTestCaseProvider to run test on  Linux
+  static var tests: [(String, (RandomTests) -> () throws -> ())] {
+    return [
+      ("testCharSet64",        testCharSet64),
+      ("testCharSet32",        testCharSet32),
+      ("testCharSet16",        testCharSet16),
+      ("testCharSet8",         testCharSet8),
+      ("testCharSet4",         testCharSet4),
+      ("testCharSet2",         testCharSet2),
+      ("testStringLengths",    testStringLengths),
+      ("testCustomChars",      testCustomChars),
+      ("testInvalidCharCount", testInvalidCharCount),
+      ("testNonUniqueChars",   testNonUniqueChars),
+      ("testInvalidBytes",     testInvalidBytes),
+      ("testNegativeEntropy",  testNegativeEntropy)
+    ]
+  }
+}
