@@ -32,12 +32,22 @@ public class Random {
 
   // MARK: - Public Initializers
   //
-  public init(chars: String) throws {
-    charSet = try CharSet(chars)
-  }
 
   public init(charSet: CharSet) {
     self.charSet = charSet
+  }
+  
+  convenience public init() {
+    self.init(charSet: CharSet.charSet32)
+  }
+  
+  convenience public init(chars: String) throws {
+    let charSet = try CharSet(chars)
+    self.init(charSet: charSet)
+  }
+  
+  public var chars: String {
+    return charSet.chars
   }
   
   // MARK: - Public API
