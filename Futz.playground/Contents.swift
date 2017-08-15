@@ -2,5 +2,12 @@
 
 import EntropyString
 
-Bits.total(of: 100000, risk: 1000000)
+Entropy.bits(for: 100000, risk: 1000000)
+
+var random = Random(charSet: .charSet64)
+random.sessionID()
+
+random = Random(charSet: .charSet16)
+random.sessionID()
+
 

@@ -26,6 +26,15 @@
 //
 import Foundation
 
+// MARK: - Enums
+/// Errors thrown by Random
+public enum EntropyStringError: Error {
+  case tooFewBytes
+  case negativeEntropy
+  case invalidCharCount
+  case charsNotUnique
+}
+
 public struct Entropy {
   
   static let bitsPerByte: UInt8 = 8

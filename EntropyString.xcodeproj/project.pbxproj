@@ -8,31 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		E205C6AE1F1BFF66007C139E /* EntropyString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E205C6A51F1BFF66007C139E /* EntropyString.framework */; };
-		E205C6BC1F1BFFEC007C139E /* RandomString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */; };
+		E205C6BC1F1BFFEC007C139E /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */; };
 		E205C6BD1F1BFFEC007C139E /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */; };
-		E205C6C01F1BFFF1007C139E /* EntropyStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */; };
 		E205C6EB1F1C02E4007C139E /* EntropyString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E205C6E21F1C02E3007C139E /* EntropyString.framework */; };
-		E205C6F91F1C030E007C139E /* RandomString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */; };
+		E205C6F91F1C030E007C139E /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */; };
 		E205C6FA1F1C030E007C139E /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */; };
-		E205C6FD1F1C039F007C139E /* EntropyStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */; };
 		E21779C81F3E7E260019CC42 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21779C71F3E7E260019CC42 /* Bytes.swift */; };
 		E21779C91F3E7E260019CC42 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21779C71F3E7E260019CC42 /* Bytes.swift */; };
 		E21779CA1F3E7E260019CC42 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21779C71F3E7E260019CC42 /* Bytes.swift */; };
 		E21779CB1F3E7E260019CC42 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21779C71F3E7E260019CC42 /* Bytes.swift */; };
 		E287AD9C1F0E9B9A00DE6DF5 /* EntropyString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E287AD921F0E9B9A00DE6DF5 /* EntropyString.framework */; };
 		E287ADA31F0E9B9A00DE6DF5 /* EntropyString.h in Headers */ = {isa = PBXBuildFile; fileRef = E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E287ADAE1F0E9DDC00DE6DF5 /* RandomString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */; };
+		E287ADAE1F0E9DDC00DE6DF5 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */; };
 		E287ADB51F0E9DEE00DE6DF5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E287ADB21F0E9DEE00DE6DF5 /* Info.plist */; };
-		E287ADB71F0E9E8500DE6DF5 /* EntropyStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */; };
 		E287ADB91F0EDCAB00DE6DF5 /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */; };
 		E2B8C8171F3E2B8500171502 /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8161F3E2B8500171502 /* CharSet.swift */; };
-		E2B8C81A1F3E60A100171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
-		E2B8C81F1F3E6E2C00171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
-		E2B8C8201F3E6E2E00171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
-		E2B8C8211F3E6E2E00171502 /* Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8191F3E60A100171502 /* Bits.swift */; };
+		E2D2DD461F436A5F006846F7 /* Entropy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */; };
+		E2D2DD471F436AB3006846F7 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */; };
+		E2D2DD481F436AB6006846F7 /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8161F3E2B8500171502 /* CharSet.swift */; };
+		E2D2DD491F436AB7006846F7 /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8161F3E2B8500171502 /* CharSet.swift */; };
+		E2D2DD4A1F436AB8006846F7 /* CharSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8C8161F3E2B8500171502 /* CharSet.swift */; };
 		E2E1404F1F422C70003E02B0 /* EntropyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1404E1F422C70003E02B0 /* EntropyTests.swift */; };
 		E2E140501F422C70003E02B0 /* EntropyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1404E1F422C70003E02B0 /* EntropyTests.swift */; };
 		E2E140511F422C70003E02B0 /* EntropyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E1404E1F422C70003E02B0 /* EntropyTests.swift */; };
+		E2E140531F422FB1003E02B0 /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140521F422FB1003E02B0 /* RandomTests.swift */; };
+		E2E140541F422FB1003E02B0 /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140521F422FB1003E02B0 /* RandomTests.swift */; };
+		E2E140551F422FB1003E02B0 /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140521F422FB1003E02B0 /* RandomTests.swift */; };
+		E2E140571F433A6D003E02B0 /* CharSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140561F433A6D003E02B0 /* CharSetTests.swift */; };
+		E2E140581F433A6D003E02B0 /* CharSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140561F433A6D003E02B0 /* CharSetTests.swift */; };
+		E2E140591F433A6D003E02B0 /* CharSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140561F433A6D003E02B0 /* CharSetTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,15 +74,15 @@
 		E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntropyString.h; sourceTree = "<group>"; };
 		E287AD961F0E9B9A00DE6DF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E287AD9B1F0E9B9A00DE6DF5 /* EntropyString-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EntropyString-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomString.swift; sourceTree = "<group>"; };
-		E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyStringTests.swift; sourceTree = "<group>"; };
+		E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		E287ADB21F0E9DEE00DE6DF5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entropy.swift; sourceTree = "<group>"; };
 		E287ADBA1F0EE3B600DE6DF5 /* EntropyString.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EntropyString.playground; sourceTree = "<group>"; };
 		E2B8C8161F3E2B8500171502 /* CharSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharSet.swift; sourceTree = "<group>"; };
 		E2B8C8181F3E2D3400171502 /* Futz.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Futz.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		E2B8C8191F3E60A100171502 /* Bits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bits.swift; sourceTree = "<group>"; };
 		E2E1404E1F422C70003E02B0 /* EntropyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntropyTests.swift; sourceTree = "<group>"; };
+		E2E140521F422FB1003E02B0 /* RandomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
+		E2E140561F433A6D003E02B0 /* CharSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharSetTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,11 +179,10 @@
 		E287ADAC1F0E9DDC00DE6DF5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E287ADAD1F0E9DDC00DE6DF5 /* RandomString.swift */,
+				E287ADAD1F0E9DDC00DE6DF5 /* Random.swift */,
 				E2B8C8161F3E2B8500171502 /* CharSet.swift */,
 				E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */,
 				E21779C71F3E7E260019CC42 /* Bytes.swift */,
-				E2B8C8191F3E60A100171502 /* Bits.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -195,8 +198,9 @@
 		E287ADB01F0E9DEE00DE6DF5 /* EntropyStringTests */ = {
 			isa = PBXGroup;
 			children = (
+				E2E140521F422FB1003E02B0 /* RandomTests.swift */,
 				E2E1404E1F422C70003E02B0 /* EntropyTests.swift */,
-				E287ADB11F0E9DEE00DE6DF5 /* EntropyStringTests.swift */,
+				E2E140561F433A6D003E02B0 /* CharSetTests.swift */,
 				E287ADB21F0E9DEE00DE6DF5 /* Info.plist */,
 			);
 			path = EntropyStringTests;
@@ -487,9 +491,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2B8C81F1F3E6E2C00171502 /* Bits.swift in Sources */,
-				E205C6BC1F1BFFEC007C139E /* RandomString.swift in Sources */,
+				E205C6BC1F1BFFEC007C139E /* Random.swift in Sources */,
 				E205C6BD1F1BFFEC007C139E /* Entropy.swift in Sources */,
+				E2D2DD481F436AB6006846F7 /* CharSet.swift in Sources */,
 				E21779C91F3E7E260019CC42 /* Bytes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,8 +502,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E140541F422FB1003E02B0 /* RandomTests.swift in Sources */,
 				E2E140501F422C70003E02B0 /* EntropyTests.swift in Sources */,
-				E205C6C01F1BFFF1007C139E /* EntropyStringTests.swift in Sources */,
+				E2E140581F433A6D003E02B0 /* CharSetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,9 +512,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2B8C8201F3E6E2E00171502 /* Bits.swift in Sources */,
-				E205C6F91F1C030E007C139E /* RandomString.swift in Sources */,
+				E205C6F91F1C030E007C139E /* Random.swift in Sources */,
 				E205C6FA1F1C030E007C139E /* Entropy.swift in Sources */,
+				E2D2DD491F436AB7006846F7 /* CharSet.swift in Sources */,
 				E21779CA1F3E7E260019CC42 /* Bytes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,8 +523,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E140551F422FB1003E02B0 /* RandomTests.swift in Sources */,
 				E2E140511F422C70003E02B0 /* EntropyTests.swift in Sources */,
-				E205C6FD1F1C039F007C139E /* EntropyStringTests.swift in Sources */,
+				E2E140591F433A6D003E02B0 /* CharSetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,7 +534,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E21779CB1F3E7E260019CC42 /* Bytes.swift in Sources */,
-				E2B8C8211F3E6E2E00171502 /* Bits.swift in Sources */,
+				E2D2DD461F436A5F006846F7 /* Entropy.swift in Sources */,
+				E2D2DD4A1F436AB8006846F7 /* CharSet.swift in Sources */,
+				E2D2DD471F436AB3006846F7 /* Random.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,8 +545,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2B8C8171F3E2B8500171502 /* CharSet.swift in Sources */,
-				E287ADAE1F0E9DDC00DE6DF5 /* RandomString.swift in Sources */,
-				E2B8C81A1F3E60A100171502 /* Bits.swift in Sources */,
+				E287ADAE1F0E9DDC00DE6DF5 /* Random.swift in Sources */,
 				E287ADB91F0EDCAB00DE6DF5 /* Entropy.swift in Sources */,
 				E21779C81F3E7E260019CC42 /* Bytes.swift in Sources */,
 			);
@@ -548,8 +555,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E140531F422FB1003E02B0 /* RandomTests.swift in Sources */,
 				E2E1404F1F422C70003E02B0 /* EntropyTests.swift in Sources */,
-				E287ADB71F0E9E8500DE6DF5 /* EntropyStringTests.swift in Sources */,
+				E2E140571F433A6D003E02B0 /* CharSetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,6 +829,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -873,6 +882,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -897,7 +907,7 @@
 				PRODUCT_NAME = EntropyString;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -918,7 +928,7 @@
 				PRODUCT_NAME = EntropyString;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -931,7 +941,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyStringTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -944,7 +954,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.knoxen.EntropyStringTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

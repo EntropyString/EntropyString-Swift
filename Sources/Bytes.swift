@@ -54,7 +54,7 @@ public struct Bytes {
   ///
   static func random(_ count: UInt, _ entropyBits: UInt8, _ secRand: inout Bool) -> [UInt8] {
     // Each slice forms a chars and requires entropy per char bits
-    let bytesPerSlice = Double(entropyBits / Entropy.bitsPerByte)
+    let bytesPerSlice = Double(entropyBits) / Double(Entropy.bitsPerByte)
     
     let bytesNeeded = Int(ceil(Double(count) * bytesPerSlice))
     var bytes = [UInt8](repeating: 0, count: bytesNeeded)

@@ -24,16 +24,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+import Foundation
+
 public struct CharSet {
-  public enum CharSetError: Error {
-    case invalidCharCount
-    case charsNotUnique
-  }
-  
   public typealias Ndx = UInt8
   public typealias NdxFn = ([UInt8], Int, UInt8) -> Ndx
-  
-  public private(set) var chars: String
   
   public static let charSet64 = try! CharSet("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
   public static let charSet32 = try! CharSet("2346789bdfghjmnpqrtBDFGHJLMNPQRT")
@@ -41,14 +36,20 @@ public struct CharSet {
   public static let charSet8  = try! CharSet("01234567")
   public static let charSet4  = try! CharSet("ATCG")
   public static let charSet2  = try! CharSet("01")
+
+  public private(set) var chars: String
+
+  public let bitsPerChar: UInt8
+  public let charsPerChunk: UInt8
+  public let ndxFn: NdxFn
   
   public init(_ chars: String) throws {
-    let length = chars.count
-    guard [2,4,8,16,32,64].contains(length) else { throw CharSetError.invalidCharCount }
-    guard CharSet.unique(chars) else { throw CharSetError.charsNotUnique }
+    let length = chars.characters.count
+    guard [2,4,8,16,32,64].contains(length) else { throw EntropyStringError.invalidCharCount }
+    guard CharSet.unique(chars) else { throw EntropyStringError.charsNotUnique }
     
     self.chars = chars
-    bitsPerChar = UInt8(log2(Float(chars.count)))
+    bitsPerChar = UInt8(log2(Float(length)))
     charsPerChunk = CharSet.lcm(bitsPerChar, Entropy.bitsPerByte) / bitsPerChar
     
     if CharSet.lcm(bitsPerChar, Entropy.bitsPerByte) == Entropy.bitsPerByte {
@@ -58,17 +59,7 @@ public struct CharSet {
       ndxFn = CharSet.ndxFnForNonDivisor(bitsPerChar)
     }
   }
-  
-  public mutating func use(_ chars: String) throws {
-    guard chars.count == self.chars.count else { throw CharSetError.invalidCharCount }
-    guard CharSet.unique(chars) else { throw CharSetError.charsNotUnique }
-    self.chars = chars
-  }
-  
-  public let bitsPerChar: UInt8
-  public let charsPerChunk: UInt8
-  public let ndxFn: NdxFn
-  
+
   /// Determines index into `CharSet` characters when base is a multiple of 8.
   ///
   /// Each `slice` of bits is used to create a single character. A `chunk` is the number of
@@ -104,11 +95,11 @@ public struct CharSet {
   /// - return: The a function to index into the `CharSet` characters.
   private static func ndxFnForNonDivisor(_ bitsPerChar: UInt8) -> NdxFn {
     func ndxFn(bytes: [UInt8], chunk: Int, slice: UInt8) -> Ndx {
-      let bitsPerByte = UInt8(Entropy.bitsPerByte)
+      let bitsPerByte = Entropy.bitsPerByte
       let slicesPerChunk = lcm(bitsPerChar, bitsPerByte) / bitsPerByte
       let bNum = chunk * Int(slicesPerChunk)
       
-      let offset = Double((slice*bitsPerChar)/bitsPerByte)
+      let offset = Double(slice*bitsPerChar) / Double(bitsPerByte)
       let lOffset = Int(floor(offset))
       let rOffset = Int(ceil(offset))
       
@@ -116,10 +107,10 @@ public struct CharSet {
       let lShift = (slice*bitsPerChar) % bitsPerByte
       
       var ndx = ((bytes[bNum+lOffset]<<lShift)&0xff)>>rShift
-      
-      let rOffsetNext = rOffset + 1
+
+      let rOffsetNext = UInt8(rOffset + 1)
       let sliceNext = slice + 1
-      let rShiftIt = (UInt8(rOffsetNext)*bitsPerByte - sliceNext*bitsPerChar) % bitsPerByte
+      let rShiftIt = (rOffsetNext*bitsPerByte - sliceNext*bitsPerChar) % bitsPerByte
       if (rShift < rShiftIt) {
         ndx += bytes[bNum+rOffset]>>rShiftIt
       }
