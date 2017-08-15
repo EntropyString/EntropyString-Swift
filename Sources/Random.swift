@@ -33,17 +33,17 @@ public class Random {
   // MARK: - Public Initializers
   //
 
-  public init(charSet: CharSet) {
+  public init(_ charSet: CharSet) {
     self.charSet = charSet
   }
   
   convenience public init() {
-    self.init(charSet: CharSet.charSet32)
+    self.init(CharSet.charSet32)
   }
   
-  convenience public init(chars: String) throws {
+  convenience public init(_ chars: String) throws {
     let charSet = try CharSet(chars)
-    self.init(charSet: charSet)
+    self.init(charSet)
   }
   
   public var chars: String {
