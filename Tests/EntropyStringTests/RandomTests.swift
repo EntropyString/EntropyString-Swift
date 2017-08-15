@@ -218,7 +218,20 @@ class RandomTests: XCTestCase {
         XCTFail("Error not a EntropyStringError")
       }
     }
+  }
   
+  func testUseCharSet() {
+    random = Random(.charSet32)
+    XCTAssertEqual(random.chars, CharSet.charSet32.chars)
+    random.use(.charSet16)
+    XCTAssertEqual(random.chars, CharSet.charSet16.chars)
+  }
+  
+  func testUseChars() {
+    random = try! Random("abce")
+    XCTAssertEqual(random.chars, "abce")
+    try! random.use("ECBA")
+    XCTAssertEqual(random.chars, "ECBA")
   }
 
   #if !os(Linux)

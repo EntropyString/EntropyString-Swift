@@ -50,6 +50,15 @@ public class Random {
     return charSet.chars
   }
   
+  public func use(_ charSet: CharSet) {
+    self.charSet = charSet
+  }
+  
+  public func use(_ chars: String) throws {
+    let charSet = try CharSet(chars)
+    self.charSet = charSet
+  }
+  
   // MARK: - Public API
   //
   /// Generates a random string.
