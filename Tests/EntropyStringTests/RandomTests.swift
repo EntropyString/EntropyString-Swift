@@ -13,6 +13,21 @@ class RandomTests: XCTestCase {
   var random: Random!
   var charSets = [.charSet64, .charSet32, .charSet16, .charSet8,  .charSet4,  .charSet2] as [CharSet]
 
+  func testInit() {
+    let random = Random()
+    XCTAssertEqual(random.chars, CharSet.charSet32.chars)
+  }
+  
+  func testSessionID() {
+    for charSet in charSets {
+      let sessionIDBits = Float(128)
+      let random = Random(charSet: charSet)
+      let id = random.sessionID()
+      let count = Int(ceilf(sessionIDBits / Float(charSet.bitsPerChar)))
+      XCTAssertEqual(id.characters.count, count)
+    }
+  }
+  
   func testCharSet64() {
     random = Random(charSet: .charSet64)
     entropyString( 6, [0xdd],                                                 "3")
@@ -294,6 +309,8 @@ extension RandomTests {
 // Adopt XCTestCaseProvider to run test on  Linux
   static var tests: [(String, (RandomTests) -> () throws -> ())] {
     return [
+      ("testInit",             testInit),
+      ("testSessionID",        testSessionID),
       ("testCharSet64",        testCharSet64),
       ("testCharSet32",        testCharSet32),
       ("testCharSet16",        testCharSet16),
