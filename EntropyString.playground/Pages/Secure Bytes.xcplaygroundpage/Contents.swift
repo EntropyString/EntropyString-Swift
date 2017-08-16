@@ -7,7 +7,7 @@
 //:
 //: You may, of course, want feedback as to when or if `SecRandomCopyBytes` fails. `RandomString.entropy(of:using:secRand)` provides an additional `inout` parameter that acts as  a flag should a `SecRandomCopyBtyes` call fail.
 //:
-//: On Linux OSes, `EntropyString` always uses `arc4random_buf`. The `secRand` parameter in the `RandomString.entropy(of:using:secRand)` is ignored.
+//: On Linux, `EntropyString` always uses `arc4random_buf`. The `secRand` parameter is ignored.
 //:
   import EntropyString
 

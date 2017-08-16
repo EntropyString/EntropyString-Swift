@@ -47,7 +47,6 @@ Efficiently generate cryptographically strong random strings of specified entrop
 
     ```ruby
     use_frameworks!
-
     pod 'EntropyString', '~> 1.0.0'
     ```
 
@@ -446,7 +445,7 @@ As described in [Efficiency](#Efficiency), `EntropyString` uses an underlying ar
 
 You may, of course, want feedback as to when or if `SecRandomCopyBytes` fails. `RandomString.entropy(of:using:secRand)` provides an additional `inout` parameter that acts as a flag should a `SecRandomCopyBytes` call fail.
 
-On Linux OSes, `EntropyString` always uses `arc4random_buf`. The `secRand` parameter in the `RandomString.entropy(of:using:secRand)` is ignored.
+On Linux OSes, `EntropyString` always uses `arc4random_buf`. The `secRand` parameter is ignored.
 
 
   ```swift
@@ -521,7 +520,7 @@ Note the number of bytes needed is dependent on the number of characters in our 
     - The characters are arbitrary.
   - You need `EntropyString`.
   
-##### In a *million* strings, a *1 in a billion* chance of a repeat (using 32 possible characters):
+##### Base 32 character string with a 1 in a million chance of a repeat a billion strings:
 ```swift
   import EntropyString
 
