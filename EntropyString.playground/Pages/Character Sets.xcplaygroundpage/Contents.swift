@@ -1,19 +1,15 @@
 //: [Previous](@previous)
 //: ## Character Sets
 //:
-//: As we've seen in the previous sections, `EntropyString` provides default characters for each of
-//: the supported character sets. Let's see what's under the hood.
-import EntropyString
+//: As we\'ve seen in the previous sections, `EntropyString` provides default characters for each of the supported character sets. Let\'s see what\'s under the hood. The available `CharSet`s are *.charSet64*, *.charSet32*, *.charSet16*, *.charSet8*, *.charSet4* and *.charSet2*. The default characters for each were chosen as follows:
+  import EntropyString
 
-print("Base 64: \(RandomString.characters(for: .charSet64))\n")
-//: The call to `RandomString.characters(for:)` returns the characters used for any of the
-//: character sets defined by the `RandomString.CharBase enum`. The following code reveals all the
-//: character sets.
-print("Base 32: \(RandomString.characters(for: .charSet32))\n")
-print("Base 16: \(RandomString.characters(for: .charSet16))\n")
-print("Base  8: \(RandomString.characters(for: .charSet8))\n")
-print("Base  4: \(RandomString.characters(for: .charSet4))\n")
-print("Base  2: \(RandomString.characters(for: .charSet2))\n")
+  print("Base 64 chars: \(CharSet.charSet64.chars)\n")
+  print("Base 32 chars: \(CharSet.charSet32.chars)\n")
+  print("Base 16 chars: \(CharSet.charSet16.chars)\n")
+  print("Base  8 chars: \(CharSet.charSet8.chars)\n")
+  print("Base  4 chars: \(CharSet.charSet4.chars)\n")
+  print("Base  2 chars: \(CharSet.charSet2.chars)\n")
 //: The default character sets were chosen as follows:
 //:  - Base 64: **ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_**
 //:     - The file system and URL safe char set from
@@ -33,7 +29,6 @@ print("Base  2: \(RandomString.characters(for: .charSet2))\n")
 //:  - Base  2: **01**
 //:     - Binary
 //:
-//: You may, of course, want to choose the characters used, which is covered next in [Custom
-//: Characters](Custom%20Characters).
+//: You may, of course, want to choose the characters used, which is covered next in [Custom Characters](Custom%20Characters).
 //:
 //: [TOC](Table%20of%20Contents) | [Next](@next)

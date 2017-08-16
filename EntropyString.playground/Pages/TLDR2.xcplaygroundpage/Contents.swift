@@ -12,9 +12,14 @@
 //:    - The characters are arbitrary.
 //:  - You need `EntropyString`.
 //: ##### In a million strings, a 1 in a billion chance of a repeat (using 32 possible characters):
-import EntropyString
+  import EntropyString
 
-let bits = Entropy.bits(for: .ten06, risk: .ten09)
-let string = RandomString.entropy(of: bits, using: .charSet32)
+  let random = Random()
+  let bits = Entropy.bits(for: .ten06, risk: .ten09)
+  let string = random.string(bits: bits)
+
+  print("String: \(string)\n")
 //: * callout(string): DdHrT2NdrHf8tM
+//:
+//: [TOC](Table%20of%20Contents)
 

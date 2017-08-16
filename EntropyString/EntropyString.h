@@ -5,9 +5,7 @@
 //  Created by Paul Rogers on 7/16/17.
 //  Copyright © 2017 Knoxen. All rights reserved.
 //
-
-
-#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for EntropyString.
 FOUNDATION_EXPORT double EntropyStringVersionNumber;
