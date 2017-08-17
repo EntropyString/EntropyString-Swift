@@ -37,6 +37,9 @@
 		E2E140571F433A6D003E02B0 /* CharSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140561F433A6D003E02B0 /* CharSetTests.swift */; };
 		E2E140581F433A6D003E02B0 /* CharSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140561F433A6D003E02B0 /* CharSetTests.swift */; };
 		E2E140591F433A6D003E02B0 /* CharSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E140561F433A6D003E02B0 /* CharSetTests.swift */; };
+		E2E265341F450FBB00FB64AC /* EntropyString.h in Headers */ = {isa = PBXBuildFile; fileRef = E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2E265351F450FBC00FB64AC /* EntropyString.h in Headers */ = {isa = PBXBuildFile; fileRef = E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2E265361F450FC100FB64AC /* EntropyString.h in Headers */ = {isa = PBXBuildFile; fileRef = E287AD951F0E9B9A00DE6DF5 /* EntropyString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +216,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E265341F450FBB00FB64AC /* EntropyString.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +224,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E265351F450FBC00FB64AC /* EntropyString.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +232,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2E265361F450FC100FB64AC /* EntropyString.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

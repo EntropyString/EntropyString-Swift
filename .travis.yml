@@ -1,3 +1,6 @@
+branches:
+  only:
+    - master
 dependencies:
   pre:
     - xcrun instruments -w 'iPhone 7 (10.3)' || sleep 15
@@ -11,7 +14,7 @@ matrix:
       sudo: required
       dist: trusty
       env:
-        - SWIFT_VERSIONS="3.0.2 3.1"
+        - SWIFT_VERSIONS="3.1.1"
         - SWIFTENV_ROOT="$HOME/.swiftenv"
         - PATH="$SWIFTENV_ROOT/bin:$SWIFTENV_ROOT/shims:$PATH"
 env:
