@@ -96,13 +96,12 @@ public class Random {
   ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
   public func string(bits: Float, secRand: inout Bool) -> String {
-    let count: UInt = UInt(ceil(bits / Float(charSet.bitsPerChar)))
-    guard 0 < count else { return "" }
+    guard 0 < bits else { return "" }
     
-    // genBytes sets secRand
-    let bytes = Bytes.random(count, charSet.bitsPerChar, &secRand)
+    // `Bytes.random` sets `secRand`
+    let bytes = Bytes.random(bits, charSet, &secRand)
     
-    // genBytes ensures enough bytes so this call will not fail
+    // `Bytes.random` ensures enough bytes so this call will not fail
     return try! string(bits: bits, using: bytes)
   }
 
@@ -142,6 +141,8 @@ public class Random {
     }
     return string
   }
+  
+  // MARK: - Private
   
   /// Gets a character from the current `CharSet` characters.
   ///

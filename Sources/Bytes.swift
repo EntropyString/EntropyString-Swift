@@ -26,12 +26,12 @@
 //
 import Foundation
 
-public struct Bytes {
+internal struct Bytes {
   #if os(Linux)
   // On first use will attempt to load `arc4random_buf`
   private typealias Arc4Random_Buf = @convention(c) (ImplicitlyUnwrappedOptional<UnsafeMutableRawPointer>, Int) -> ()
   private var arc4random_buf: Arc4Random_Buf?
-  public static var instance = Bytes()
+  private static var instance = Bytes()
   
   private init() {
     if let handle = dlopen(nil, RTLD_NOW), let result = dlsym(handle, "arc4random_buf") {
@@ -42,9 +42,9 @@ public struct Bytes {
   
   /// Generates random bytes
   ///
-  /// The number of bytes returned is sufficient to generate _count_ characters from the `charSet`.
+  /// The number of bytes returned is sufficient to generate a string with `bits` of entropy using `CharSet`
   ///
-  /// - parameter count: The number of characters that can be generated.
+  /// - parameter bits: Entropy bits
   /// - paramater charSet: The character set that will be used.
   /// - parameter secRand: On Apple OSes, if _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
   ///     generate random bytes; if `false` use `arc4random_buf`. This parameter is ignored on Linux OS.
@@ -52,11 +52,8 @@ public struct Bytes {
   /// - return: Random bytes. On Apple OSes, if _secRand_ is passed as `true`, the value on return
   ///     indicates whether `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
   ///
-  static func random(_ count: UInt, _ entropyBits: UInt8, _ secRand: inout Bool) -> [UInt8] {
-    // Each slice forms a chars and requires entropy per char bits
-    let bytesPerSlice = Double(entropyBits) / Double(Entropy.bitsPerByte)
-    
-    let bytesNeeded = Int(ceil(Double(count) * bytesPerSlice))
+  static func random(_ bits: Float, _ charSet: CharSet, _ secRand: inout Bool) -> [UInt8] {
+    let bytesNeeded = charSet.bytesNeeded(bits: bits)
     var bytes = [UInt8](repeating: 0, count: bytesNeeded)
     
     #if os(Linux)

@@ -59,7 +59,12 @@ public struct CharSet {
       ndxFn = CharSet.ndxFnForNonDivisor(bitsPerChar)
     }
   }
-
+  
+  public func bytesNeeded(bits: Float) -> Int {
+    let count = ceil(bits / Float(bitsPerChar))
+    return Int(ceil(count * Float(bitsPerChar) / Float(Entropy.bitsPerByte)))
+  }
+  
   /// Determines index into `CharSet` characters when base is a multiple of 8.
   ///
   /// Each `slice` of bits is used to create a single character. A `chunk` is the number of

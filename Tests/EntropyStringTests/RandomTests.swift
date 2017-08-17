@@ -11,7 +11,7 @@ import XCTest
 
 class RandomTests: XCTestCase {
   var random: Random!
-  var charSets = [.charSet64, .charSet32, .charSet16, .charSet8,  .charSet4,  .charSet2] as [CharSet]
+  let charSets = [.charSet64, .charSet32, .charSet16, .charSet8,  .charSet4,  .charSet2] as [CharSet]
 
   func testInit() {
     let random = Random()

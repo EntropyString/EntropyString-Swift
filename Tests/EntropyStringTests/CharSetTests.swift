@@ -87,7 +87,27 @@ class CharSetTests: XCTestCase {
       }
     }
   }
+  
+  func testBytesNeeded() {
+    let doTest: (CharSet, Float) -> () = { (charSet: CharSet, bits: Float) -> () in
+      let bytesNeeded = charSet.bytesNeeded(bits: bits)
+      let atLeast = Int(ceil(bits / Float(Entropy.bitsPerByte)))
+      XCTAssertTrue(atLeast <= bytesNeeded)
+      let atMost = atLeast + 1
+      XCTAssertTrue(bytesNeeded <= atMost)
+    }
 
+    let charSets = [.charSet64, .charSet32, .charSet16, .charSet8,  .charSet4,  .charSet2] as [CharSet]
+    for charSet in charSets {
+      for bits in 0 ... 10 {
+        doTest(charSet, Float(bits))
+      }
+      for bits in stride(from: 12, through: 132, by: 5) {
+        doTest(charSet, Float(bits))
+      }
+    }
+  }
+  
   func testStatics() {
     XCTAssertNotNil(CharSet.charSet64)
     XCTAssertNotNil(CharSet.charSet32)
