@@ -15,7 +15,7 @@
   import EntropyString
 
   let random = Random()
-  let bits = Entropy.bits(for: .ten06, risk: .ten09)
+  let bits = Entropy.bits(for: 1.0e6, risk: 1.0e9)
   let string = random.string(bits: bits)
 
   print("String: \(string)\n")

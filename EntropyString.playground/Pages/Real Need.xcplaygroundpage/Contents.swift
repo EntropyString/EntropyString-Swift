@@ -45,7 +45,7 @@
   import EntropyString
 
   let random = Random(.charSet16)
-  let bits = Entropy.bits(for: 10000, risk: .ten06)
+  let bits = Entropy.bits(for: 10000, risk: 1.0e6)
   var strings = [String]()
   for i in 0 ..< 5 {
     let string = random.string(bits: bits)
@@ -58,7 +58,7 @@
 //: To generate the IDs, we first use
 //:
 //: ```swift
-//: let bits = Entropy.bits(total: 10000, risk: .ten06)
+//: let bits = Entropy.bits(total: 10000, risk: 1.0e6)
 //: ```
 //:
 //: to determine the bits of entropy needed to satisfy our probabilistic uniqueness of **10,000** strings with a **1 in a million** (ten to the sixth power) risk of repeat. We didn't print the result, but if you did you'd see it's about **45.51**. Then inside a loop we used
