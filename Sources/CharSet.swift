@@ -30,19 +30,48 @@ public struct CharSet {
   public typealias Ndx = UInt8
   public typealias NdxFn = ([UInt8], Int, UInt8) -> Ndx
   
+  // Predefined `CharSet`s
+  /// RFC 4648 URL and file system safe characters
   public static let charSet64 = try! CharSet("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
+  
+  /// From a..z,A..Z,0..9
+  ///  Remove all upper and lower case vowels (including y)
+  ///  Remove all numbers that look like letters
+  ///  Remove all letters that look like numbers
+  ///  Remove all letters that have poor distinction between upper and lower case values
   public static let charSet32 = try! CharSet("2346789bdfghjmnpqrtBDFGHJLMNPQRT")
+  
+  /// Hexadecimal
   public static let charSet16 = try! CharSet("0123456789abcdef")
+  
+  /// Octal
   public static let charSet8  = try! CharSet("01234567")
+  
+  /// DNA alphabet
   public static let charSet4  = try! CharSet("ATCG")
+  
+  /// Binary
   public static let charSet2  = try! CharSet("01")
 
+  /// String of characters in this `CharSet`
   public private(set) var chars: String
 
+  /// Entropy bits per character in this `CharSet`
   public let bitsPerChar: UInt8
-  public let charsPerChunk: UInt8
-  public let ndxFn: NdxFn
+
+  /// The number of characters in a chunk of bytes. A chunk is the number of bytes needed for an exact multiple
+  /// of bits per character.
+  internal let charsPerChunk: UInt8
   
+  /// Function to index into `CharSet`
+  internal let ndxFn: NdxFn
+
+  /// Create  from String of characters
+  ///
+  /// - parmater chars: The characters to use
+  ///
+  /// - throws: `.invalidCharCount` if String length not a multiple of 2
+  /// - throws: `.charsNotUnique` if any character repeats
   public init(_ chars: String) throws {
     let length = chars.characters.count
     guard [2,4,8,16,32,64].contains(length) else { throw EntropyStringError.invalidCharCount }
@@ -60,6 +89,8 @@ public struct CharSet {
     }
   }
   
+  /// The bytes needed to form a String of entropy `bits` using this `CharSet`
+  ///
   public func bytesNeeded(bits: Float) -> Int {
     let count = ceil(bits / Float(bitsPerChar))
     return Int(ceil(count * Float(bitsPerChar) / Float(Entropy.bitsPerByte)))
@@ -68,12 +99,12 @@ public struct CharSet {
   /// Determines index into `CharSet` characters when base is a multiple of 8.
   ///
   /// Each `slice` of bits is used to create a single character. A `chunk` is the number of
-  /// __Bytes__ required for a exact multiple of `slice`s. This function returns a function
-  /// that indexes into the _chunk_ chunk of __Bytes__ to get the _slice_ of bits for
+  /// `Bytes` required for a exact multiple of `slice`s. This function returns a function
+  /// that indexes into the _chunk_ chunk of `Bytes` to get the _slice_ of bits for
   /// generating a character.
   ///
-  /// - parameter bytes: The __Bytes__ used for character generation
-  /// - parameter chunk: The _chunk_ into the __Bytes__.
+  /// - parameter bytes: The `Bytes` used for character generation
+  /// - parameter chunk: The _chunk_ into the `Bytes`.
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The a function to index into the `CharSet` characters.
@@ -89,12 +120,12 @@ public struct CharSet {
   /// Determines index into `CharSet` characters when base is not a multiple of 8.
   ///
   /// Each `slice` of bits is used to create a single character. A `chunk` is the number of
-  /// __Bytes__ required for a exact multiple of `slice`s. This function returns a function
-  /// that indexes into the _chunk_ chunk of __Bytes__ to get the _slice_ of bits for
+  /// `Bytes` required for a exact multiple of `slice`s. This function returns a function
+  /// that indexes into the _chunk_ chunk of `Bytes` to get the _slice_ of bits for
   /// generating a character.
   ///
-  /// - parameter bytes: The __Bytes__ used for character generation
-  /// - parameter chunk: The _chunk_ into the __Bytes__.
+  /// - parameter bytes: The `Bytes` used for character generation
+  /// - parameter chunk: The _chunk_ into the `Bytes`.
   /// - parameter slice: The _slice_ of the _chunk_.
   ///
   /// - return: The a function to index into the `CharSet` characters.
@@ -124,6 +155,9 @@ public struct CharSet {
     return ndxFn
   }
   
+  /// Determines if characters in `CharSet` are unique
+  ///
+  /// - return: `true` if no repeat characters in `CharSet`
   private static func unique(_ string: String) -> Bool {
     var charSet = Set<Character>()
     var unique = true
