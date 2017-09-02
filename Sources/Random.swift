@@ -128,7 +128,7 @@ public class Random {
     guard needed <= bytes.count else { throw EntropyStringError.tooFewBytes }
     
     let chunks   = count / Int(charSet.charsPerChunk)
-    let partials = UInt8(count) % charSet.charsPerChunk
+    let partials = UInt8(count % Int(charSet.charsPerChunk))
     
     var string = ""
     for chunk in 0 ..< chunks {
