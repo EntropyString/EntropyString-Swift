@@ -14,7 +14,7 @@
 //:      string += String(char)
 //:    }
 //:
-//: In the code above, `arc4random_uniform` generates 32 bits of randomness, returned as an `UInt32`. The returned value is used to create **index**. Suppose we're creating strings with **len=16** and **charCount=32**. Each **char** consumes 32 bits of randomness (`UInt32`) while only injecting 5 bits (`log2(32)`) of entropy into **string**. The resulting string has an information carrying capacity of 80 bits. So creating each string requires a *total* of 512 bits of randomness while only actually *carrying* 80 bits of that entropy forward in the string itself. That means 432 bits (84% of the total!) of the generated randomness is simply wasted.
+//: In the code above, `arc4random_uniform` generates 32 bits of randomness, returned as an `UInt32`. The returned value is used to create **index**. Suppose we're creating strings with **len = 16** and **charCount = 32**. Each **char** consumes 32 bits of randomness (`UInt32`) while only injecting 5 bits (`log2(32)`) of entropy into **string**. The resulting string has an information carrying capacity of 80 bits. So creating each string requires a *total* of 512 bits of randomness while only actually *carrying* 80 bits of that entropy forward in the string itself. That means 432 bits (84% of the total!) of the generated randomness is simply wasted.
 //:
 //: Compare that to the `EntropyString` scheme. For the example above, slicing off 5 bits at a time requires a total of 80 bits (10 bytes). Creating the same strings as above, `EntropyString` uses 80 bits of randomness per string with no wasted bits. In general, the `EntropyString` scheme can waste up to 7 bits per string, but that's the worst case scenario and that's *per string*, not *per character*!
 //:

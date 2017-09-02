@@ -23,7 +23,7 @@
 //:
 //: *I need to generate 10,000 random, unique IDs*.
 //:
-//: And the cat's out of the bag. We're getting at the real need, and it's not the same as the original statement. The developer needs *uniqueness* across a total of some number of strings. The length of the string is a by-product of the uniqueness, not the goal.
+//: And the cat's out of the bag. We're getting at the real need, and it's not the same as the original statement. The developer needs *uniqueness* across some potential number of strings. The length of the string is a by-product of the uniqueness, not the goal.
 //: 
 //: As noted in the [Overview](Overview), guaranteeing uniqueness is difficult, so we'll replace that declaration with one of *probabilistic uniqueness* by asking:
 //:
@@ -42,17 +42,17 @@
 //: How do you address this need using a library designed to generate strings of specified length? Well, you don't directly, because that library was designed to answer the originally stated need, not the real need we've uncovered. We need a library that deals with probabilistic uniqueness of a total number of some strings. And that's exactly what `EntropyString` does.
 //:
 //: Let's use `EntropyString` to help this developer:
-  import EntropyString
+import EntropyString
 
-  let random = Random(.charSet16)
-  let bits = Entropy.bits(for: 10000, risk: 1.0e6)
-  var strings = [String]()
-  for i in 0 ..< 5 {
-    let string = random.string(bits: bits)
-    strings.append(string)
-  }
+let random = Random(.charSet16)
+let bits = Entropy.bits(for: 10000, risk: 1.0e6)
+var strings = [String]()
+for i in 0 ..< 5 {
+  let string = random.string(bits: bits)
+  strings.append(string)
+}
   
-  print("Strings: \(strings)")
+print("Strings: \(strings)")
 //: * callout(strings): ["85e442fa0e83", "a74dc126af1e", "368cd13b1f6e", "81bf94e1278d", "fe7dec099ac9"]
 //:
 //: To generate the IDs, we first use

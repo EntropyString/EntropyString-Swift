@@ -44,7 +44,7 @@ descr = "String with 1 in a trillion chance of repeat in 10 billion strings"
 print("\n  \(descr): \(string)\n")
 //: * callout(string): frN7L8b9bHrpnBHPmR9RnM
 //:
-//: Finally, let say we're generating session IDs. Since session IDs are ephemeral, we aren't interested in uniqueness per se, but in ensuring our IDs aren't predictable since we can't have the bad guys guessing a valid session ID. In this case, we're using entropy as a measure of unpredictability of the IDs. Rather than calculate our entropy, we declare it as 128 bits (since we read on the OWASP web site that session IDs should be 128 bits).
+//: Finally, let say we're generating session IDs. Since session IDs are ephemeral, we aren't interested in uniqueness per se, but in ensuring our IDs aren't predict0able since we can't have the bad guys guessing a valid session ID. In this case, we're using entropy as a measure of unpredictability of the IDs. Rather than calculate our entropy, we declare it as 128 bits (since we read on the OWASP web site that session IDs should be 128 bits).
 string = random.sessionID(.charSet64)
 
 descr = "OWASP URL and file system safe session ID"

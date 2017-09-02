@@ -9,20 +9,20 @@
 //:
 //: On Linux, `EntropyString` always uses `arc4random_buf`. The `secRand` parameter is ignored.
 //:
-  import EntropyString
+import EntropyString
 
-  let random = Random()
-  var secRand = true
-  random.string(bits: 20, secRand: &secRand)
+let random = Random()
+var secRand = true
+random.string(bits: 20, secRand: &secRand)
   
-  print("secRand: \(secRand)")
+print("secRand: \(secRand)")
 //: * callout(secRand): true
 //:
 //: If `SecRandomCopyBytes` is used, the __secRand__ parameter will remain `true`; otherwise it will be set to `false`.
 //:
 //: You can also pass in __secRand__ as `false`, in which case the `entropy` call will not attempt to use `SecRandomCopyBytes` and will use `arc4random_buf`.
-  secRand = false
-  random.string(bits: 20, secRand: &secRand)
+secRand = false
+random.string(bits: 20, secRand: &secRand)
 //:
 //: Rather than have `EntropyString` generate bytes automatically, you can provide your own [Custom Bytes](Custom%20Bytes) to create a string, which is the next topic.
 //:

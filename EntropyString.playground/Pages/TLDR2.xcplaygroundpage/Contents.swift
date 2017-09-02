@@ -11,15 +11,14 @@
 //:  - You need to a total of **_N_** strings with a risk **_1/n_** of repeat.
 //:    - The characters are arbitrary.
 //:  - You need `EntropyString`.
-//: ##### Base 32 character string with a 1 in a million chance of a repeat a billion strings:
-  import EntropyString
+//: ##### A million potential strings with a 1 billion chance of a repeat:
+import EntropyString
 
-  let random = Random()
-  let bits = Entropy.bits(for: 1.0e6, risk: 1.0e9)
-  let string = random.string(bits: bits)
+let random = Random()
+let bits = Entropy.bits(for: 1.0e6, risk: 1.0e9)
+let string = random.string(bits: bits)
 
-  print("String: \(string)\n")
+print("String: \(string)\n")
 //: * callout(string): DdHrT2NdrHf8tM
 //:
 //: [TOC](Table%20of%20Contents)
-
