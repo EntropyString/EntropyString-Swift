@@ -62,8 +62,95 @@ public class Random {
   }
   
   // MARK: - Public API
-  //
-  /// Generates a random string.
+  
+  /// Generates a small ID
+  ///
+  /// - return: A string with a one in a million chance of repeat in 30 strings.
+  public func smallID() -> String {
+    var secRand = true
+    return string(bits: 29, secRand: &secRand)
+  }
+  
+  /// Generates a small ID
+  ///
+  /// - parameter charSet: The `CharSet` to use
+  ///
+  /// - return: A string with a one in a million chance of repeat in 30 strings.
+  public func smallID(_ charSet: CharSet) -> String {
+    var secRand = true
+    return string(bits: 29, charSet: charSet, secRand: &secRand)
+  }
+  
+  /// Generates a medium ID
+  ///
+  /// - return: A string with a one in a billion chance of repeat in a million strings.
+  public func mediumID() -> String {
+    return mediumID(self.charSet)
+  }
+
+  /// Generates a medium ID
+  ///
+  ///
+  /// - return: A string with a one in a billion chance of repeat in a million strings.
+  public func mediumID(_ charSet: CharSet) -> String {
+    var secRand = true
+    return string(bits: 69, charSet: charSet, secRand: &secRand)
+  }
+  
+  /// Generates a large ID
+  ///
+    
+  /// - return: A string with a one in a trillion chance of repeat in a billion strings.
+  public func largeID() -> String {
+    
+    return largeID(self.charSet)
+  }
+
+  /// Generates a large ID
+  ///
+  /// - parameter charSet: The `CharSet` to use
+  ///
+  /// - return: A string with a one in a trillion chance of repeat in a billion strings.
+  public func largeID(_ charSet: CharSet) -> String {
+    var secRand = true
+    return string(bits: 99, charSet: charSet, secRand: &secRand)
+  }
+
+  /// Generates a 128 bit random session ID.
+  ///
+  /// - return: A string suitable for a OWASP recommended session ID.
+  public func sessionID() -> String {
+    return sessionID(self.charSet)
+  }
+
+  /// Generates a 128 bit random session ID.
+  ///
+  /// - parameter charSet: The `CharSet` to use
+  ///
+  /// - return: A string suitable for a OWASP recommended session ID.
+  public func sessionID(_ charSet: CharSet) -> String {
+    var secRand = true
+    return string(bits: 128, charSet: charSet, secRand: &secRand)
+  }
+
+  /// Generates a 256 bit random token
+  ///
+  /// - return: A 256 bit string
+  public func token() -> String {
+    return token(self.charSet)
+  }
+  
+  /// Generates a 256 bit random token
+  ///
+  /// - parameter charSet: The `CharSet` to use
+  ///
+  /// - return: A 256 bit string
+  public func token(_ charSet: CharSet) -> String {
+    var secRand = true
+    return string(bits: 256, charSet: charSet, secRand: &secRand)
+  }
+  
+  /// Generates a random session ID.
   ///
   /// - parameter bits: Minimum bits of entropy.
   ///
