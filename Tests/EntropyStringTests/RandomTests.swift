@@ -15,7 +15,7 @@ class RandomTests: XCTestCase {
 
   func testInit() {
     let random = Random()
-    XCTAssertEqual(random.chars, CharSet.charSet32.chars)
+    XCTAssertEqual(random.charSet.chars, CharSet.charSet32.chars)
   }
   
   func testSessionID() {
@@ -222,16 +222,16 @@ class RandomTests: XCTestCase {
   
   func testUseCharSet() {
     random = Random(.charSet32)
-    XCTAssertEqual(random.chars, CharSet.charSet32.chars)
+    XCTAssertEqual(random.charSet.chars, CharSet.charSet32.chars)
     random.use(.charSet16)
-    XCTAssertEqual(random.chars, CharSet.charSet16.chars)
+    XCTAssertEqual(random.charSet.chars, CharSet.charSet16.chars)
   }
   
   func testUseChars() {
     random = try! Random("abce")
-    XCTAssertEqual(random.chars, "abce")
+    XCTAssertEqual(random.charSet.chars, "abce")
     try! random.use("ECBA")
-    XCTAssertEqual(random.chars, "ECBA")
+    XCTAssertEqual(random.charSet.chars, "ECBA")
   }
 
   #if !os(Linux)

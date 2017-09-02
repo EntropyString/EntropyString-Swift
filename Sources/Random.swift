@@ -27,8 +27,8 @@
 import Foundation
 
 public class Random {
-  
-  private var charSet: CharSet
+
+  public private(set) var charSet: CharSet
 
   // MARK: - Public Initializers
   //
@@ -45,7 +45,9 @@ public class Random {
     let charSet = try CharSet(chars)
     self.init(charSet)
   }
-  
+
+  /// The characters of the default `CharSet`
+  @available(*, deprecated, message: "use charSet.chars instead")
   public var chars: String {
     return charSet.chars
   }
