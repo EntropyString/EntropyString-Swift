@@ -20,13 +20,13 @@ class RandomTests: XCTestCase {
 
   func testSmallID() {
     random = Random()
-    XCTAssertEqual( 6, random.smallID().count)
-    XCTAssertEqual( 5, random.smallID(.charSet64).count)
-    XCTAssertEqual( 6, random.smallID(.charSet32).count)
-    XCTAssertEqual( 8, random.smallID(.charSet16).count)
-    XCTAssertEqual(10, random.smallID(.charSet8).count)
-    XCTAssertEqual(15, random.smallID(.charSet4).count)
-    XCTAssertEqual(29, random.smallID(.charSet2).count)
+    XCTAssertEqual( 6, random.smallID().characters.count)
+    XCTAssertEqual( 5, random.smallID(.charSet64).characters.count)
+    XCTAssertEqual( 6, random.smallID(.charSet32).characters.count)
+    XCTAssertEqual( 8, random.smallID(.charSet16).characters.count)
+    XCTAssertEqual(10, random.smallID(.charSet8).characters.count)
+    XCTAssertEqual(15, random.smallID(.charSet4).characters.count)
+    XCTAssertEqual(29, random.smallID(.charSet2).characters.count)
     
     for charSet in charSets {
       let smallIDBits = Float(29)
@@ -39,13 +39,13 @@ class RandomTests: XCTestCase {
   
   func testMediumID() {
     random = Random()
-    XCTAssertEqual(14, random.mediumID().count)
-    XCTAssertEqual(12, random.mediumID(.charSet64).count)
-    XCTAssertEqual(14, random.mediumID(.charSet32).count)
-    XCTAssertEqual(18, random.mediumID(.charSet16).count)
-    XCTAssertEqual(23, random.mediumID(.charSet8).count)
-    XCTAssertEqual(35, random.mediumID(.charSet4).count)
-    XCTAssertEqual(69, random.mediumID(.charSet2).count)
+    XCTAssertEqual(14, random.mediumID().characters.count)
+    XCTAssertEqual(12, random.mediumID(.charSet64).characters.count)
+    XCTAssertEqual(14, random.mediumID(.charSet32).characters.count)
+    XCTAssertEqual(18, random.mediumID(.charSet16).characters.count)
+    XCTAssertEqual(23, random.mediumID(.charSet8).characters.count)
+    XCTAssertEqual(35, random.mediumID(.charSet4).characters.count)
+    XCTAssertEqual(69, random.mediumID(.charSet2).characters.count)
     
     for charSet in charSets {
       let mediumIDBits = Float(69)
@@ -58,13 +58,13 @@ class RandomTests: XCTestCase {
   
   func testLargeID() {
     random = Random()
-    XCTAssertEqual(20, random.largeID().count)
-    XCTAssertEqual(17, random.largeID(.charSet64).count)
-    XCTAssertEqual(20, random.largeID(.charSet32).count)
-    XCTAssertEqual(25, random.largeID(.charSet16).count)
-    XCTAssertEqual(33, random.largeID(.charSet8).count)
-    XCTAssertEqual(50, random.largeID(.charSet4).count)
-    XCTAssertEqual(99, random.largeID(.charSet2).count)
+    XCTAssertEqual(20, random.largeID().characters.count)
+    XCTAssertEqual(17, random.largeID(.charSet64).characters.count)
+    XCTAssertEqual(20, random.largeID(.charSet32).characters.count)
+    XCTAssertEqual(25, random.largeID(.charSet16).characters.count)
+    XCTAssertEqual(33, random.largeID(.charSet8).characters.count)
+    XCTAssertEqual(50, random.largeID(.charSet4).characters.count)
+    XCTAssertEqual(99, random.largeID(.charSet2).characters.count)
     
     for charSet in charSets {
       let largeIDBits = Float(99)
@@ -77,13 +77,13 @@ class RandomTests: XCTestCase {
   
   func testSessionID() {
     random = Random()
-    XCTAssertEqual( 26, random.sessionID().count)
-    XCTAssertEqual( 22, random.sessionID(.charSet64).count)
-    XCTAssertEqual( 26, random.sessionID(.charSet32).count)
-    XCTAssertEqual( 32, random.sessionID(.charSet16).count)
-    XCTAssertEqual( 43, random.sessionID(.charSet8).count)
-    XCTAssertEqual( 64, random.sessionID(.charSet4).count)
-    XCTAssertEqual(128, random.sessionID(.charSet2).count)
+    XCTAssertEqual( 26, random.sessionID().characters.count)
+    XCTAssertEqual( 22, random.sessionID(.charSet64).characters.count)
+    XCTAssertEqual( 26, random.sessionID(.charSet32).characters.count)
+    XCTAssertEqual( 32, random.sessionID(.charSet16).characters.count)
+    XCTAssertEqual( 43, random.sessionID(.charSet8).characters.count)
+    XCTAssertEqual( 64, random.sessionID(.charSet4).characters.count)
+    XCTAssertEqual(128, random.sessionID(.charSet2).characters.count)
     
     for charSet in charSets {
       let sessionIDBits = Float(128)
@@ -96,13 +96,13 @@ class RandomTests: XCTestCase {
     
   func testToken() {
     random = Random()
-    XCTAssertEqual( 52, random.token().count)
-    XCTAssertEqual( 43, random.token(.charSet64).count)
-    XCTAssertEqual( 52, random.token(.charSet32).count)
-    XCTAssertEqual( 64, random.token(.charSet16).count)
-    XCTAssertEqual( 86, random.token(.charSet8).count)
-    XCTAssertEqual(128, random.token(.charSet4).count)
-    XCTAssertEqual(256, random.token(.charSet2).count)
+    XCTAssertEqual( 52, random.token().characters.count)
+    XCTAssertEqual( 43, random.token(.charSet64).characters.count)
+    XCTAssertEqual( 52, random.token(.charSet32).characters.count)
+    XCTAssertEqual( 64, random.token(.charSet16).characters.count)
+    XCTAssertEqual( 86, random.token(.charSet8).characters.count)
+    XCTAssertEqual(128, random.token(.charSet4).characters.count)
+    XCTAssertEqual(256, random.token(.charSet2).characters.count)
     
     for charSet in charSets {
       let tokenBits = Float(256)
