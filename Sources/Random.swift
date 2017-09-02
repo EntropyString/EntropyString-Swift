@@ -32,15 +32,25 @@ public class Random {
 
   // MARK: - Public Initializers
   //
-
+  /// Create a `Random` instance
+  ///
+  /// - parameter charSet: The default `CharSet`
   public init(_ charSet: CharSet) {
     self.charSet = charSet
   }
   
+  /// Create a `Random` instance with default `CharSet` set to `.charSet32`
+  ///
   convenience public init() {
     self.init(CharSet.charSet32)
   }
   
+  /// Create a `Random` instance
+  ///
+  /// - paramter chars: String of characters for the `CharSet`
+  ///
+  /// - throws: `.invalidCharCount` if String length not a multiple of 2
+  /// - throws: `.charsNotUnique` if any character repeats
   convenience public init(_ chars: String) throws {
     let charSet = try CharSet(chars)
     self.init(charSet)
@@ -51,11 +61,20 @@ public class Random {
   public var chars: String {
     return charSet.chars
   }
-  
+
+  /// Sets the default `CharSet` for generating random strings
+  ///
+  /// - paramter charSet: The `CharSet` to use
   public func use(_ charSet: CharSet) {
     self.charSet = charSet
   }
   
+  /// Sets the default `CharSet` to use
+  ///
+  /// - paramter chars: String of characters for the `CharSet`
+  ///
+  /// - throws: `.invalidCharCount` if String length not a multiple of 2
+  /// - throws: `.charsNotUnique` if any character repeats
   public func use(_ chars: String) throws {
     let charSet = try CharSet(chars)
     self.charSet = charSet
@@ -90,6 +109,7 @@ public class Random {
 
   /// Generates a medium ID
   ///
+  /// - parameter charSet: The `CharSet` to use
   ///
   /// - return: A string with a one in a billion chance of repeat in a million strings.
   public func mediumID(_ charSet: CharSet) -> String {
@@ -99,10 +119,8 @@ public class Random {
   
   /// Generates a large ID
   ///
-    
   /// - return: A string with a one in a trillion chance of repeat in a billion strings.
   public func largeID() -> String {
-    
     return largeID(self.charSet)
   }
 
@@ -150,7 +168,7 @@ public class Random {
     return string(bits: 256, charSet: charSet, secRand: &secRand)
   }
   
-  /// Generates a random session ID.
+  /// Generates a random string.
   ///
   /// - parameter bits: Minimum bits of entropy.
   ///
@@ -160,15 +178,6 @@ public class Random {
   public func string(bits: Float) -> String {
     var secRand = true
     return string(bits: bits, secRand: &secRand)
-  }
-  
-  /// Generates a random session ID.
-  ///
-  /// - return: A string suitable for a OWASP recommended session ID. The returned string's characters
-  ///     are from the character set in use.
-  public func sessionID() -> String {
-    var secRand = true
-    return string(bits: 128, secRand: &secRand)
   }
   
   /// Generates a random string.
@@ -185,19 +194,35 @@ public class Random {
   ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
   ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
   public func string(bits: Float, secRand: inout Bool) -> String {
+    return string(bits:bits, charSet: self.charSet, secRand: &secRand)
+  }
+  
+  /// Generates a random string.
+  ///
+  /// - parameter bits: Minimum bits of entropy.
+  /// - parameter charSet: The `CharSet` to use
+  /// - parameter secRand: If _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
+  ///     generate the random bytes used to generate the random characters for the returned string;
+  ///     otherwise use `arc4random_buf` to generate random bytes.
+  ///
+  /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
+  ///     for the character set in use. The entropy returned is the smallest such multiple larger
+  ///     than `bits`.
+  ///
+  ///     If _secRand_ is passed in as `true`, the value of _secRand_ on return indicates whether
+  ///     `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
+  public func string(bits: Float, charSet: CharSet, secRand: inout Bool) -> String {
     guard 0 < bits else { return "" }
-    
     // `Bytes.random` sets `secRand`
     let bytes = Bytes.random(bits, charSet, &secRand)
-    
     // `Bytes.random` ensures enough bytes so this call will not fail
-    return try! string(bits: bits, using: bytes)
+    return try! string(bits: bits, charSet: charSet, using: bytes)
   }
 
   /// Generates a random string.
   ///
   /// - parameter bits: Minimum bits of entropy.
-  /// - parameter bytes: __Bytes__ used to generate characters.
+  /// - parameter bytes: `Bytes` used to generate characters.
   ///
   /// - throws: `.tooFewBytes` if there are an insufficient number of bytes to generate the string.
   ///
@@ -205,6 +230,21 @@ public class Random {
   ///     for the character set in use. The entropy returned is the smallest such multiple larger
   ///     than `bits`.
   public func string(bits: Float, using bytes: [UInt8]) throws -> String {
+    return try string(bits: bits, charSet: self.charSet, using: bytes)
+  }
+  
+  /// Generates a random string.
+  ///
+  /// - parameter bits: Minimum bits of entropy.
+  /// - parameter charSet: The `CharSet` to use
+  /// - parameter bytes: `Bytes` used to generate characters.
+  ///
+  /// - throws: `.tooFewBytes` if there are an insufficient number of bytes to generate the string.
+  ///
+  /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
+  ///     for the character set in use. The entropy returned is the smallest such multiple larger
+  ///     than `bits`.
+  public func string(bits: Float, charSet: CharSet, using bytes: [UInt8]) throws -> String {
     guard !(bits < 0) else { throw EntropyStringError.negativeEntropy }
     guard 0 < bytes.count else { return "" }
     
@@ -221,12 +261,12 @@ public class Random {
     for chunk in 0 ..< chunks {
       for slice in 0 ..< charSet.charsPerChunk {
         let ndx = charSet.ndxFn(bytes, chunk, slice)
-        string.append(char(ndx))
+        string.append(char(ndx, charSet))
       }
     }
     for slice in 0 ..< partials {
       let ndx = charSet.ndxFn(bytes, chunks, slice)
-      string.append(char(ndx))
+      string.append(char(ndx, charSet))
     }
     return string
   }
@@ -236,13 +276,23 @@ public class Random {
   /// Gets a character from the current `CharSet` characters.
   ///
   /// - parameter ndx: The index of the character
-  /// - parameter chars: The characters string
   ///
   /// - return: The character
   private func char(_ ndx: CharSet.Ndx) -> Character {
+    return char(ndx, self.charSet)
+  }
+  
+  /// Gets a character from the specified `CharSet` characters.
+  ///
+  /// - parameter ndx: The index of the character
+  /// - parameter chars: The characters string
+  ///
+  /// - return: The character
+  private func char(_ ndx: CharSet.Ndx, _ charSet: CharSet) -> Character {
     let chars = charSet.chars
     guard Int(ndx) < chars.characters.count else { fatalError("Index out of bounds") }
     let charIndex = chars.index(chars.startIndex, offsetBy: Int(ndx))
     return chars[charIndex]
   }
+  
 }
