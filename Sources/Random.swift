@@ -183,6 +183,18 @@ public class Random {
   /// Generates a random string.
   ///
   /// - parameter bits: Minimum bits of entropy.
+  ///
+  /// - return: A string. The returned string's entropy is a multiple of the _entropy per char_
+  ///     for the character set in use. The entropy returned is the smallest such multiple larger
+  ///     than `bits`.
+  public func string(bits: Float, charSet: CharSet) -> String {
+    var secRand = true
+    return string(bits: bits, charSet: charSet, secRand: &secRand)
+  }
+  
+  /// Generates a random string.
+  ///
+  /// - parameter bits: Minimum bits of entropy.
   /// - parameter secRand: If _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
   ///     generate the random bytes used to generate the random characters for the returned string;
   ///     otherwise use `arc4random_buf` to generate random bytes.
