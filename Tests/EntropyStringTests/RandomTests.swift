@@ -400,7 +400,6 @@ class RandomTests: XCTestCase {
       }
     }
   }
-
 }
 
 extension RandomTests {
