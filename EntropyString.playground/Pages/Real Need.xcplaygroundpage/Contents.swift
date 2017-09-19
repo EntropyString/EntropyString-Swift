@@ -44,8 +44,8 @@
 //: Let's use `EntropyString` to help this developer:
 import EntropyString
 
-let random = Random(.charSet16)
 let bits = Entropy.bits(for: 10000, risk: 1.0e6)
+let random = Random(.charSet16)
 var strings = [String]()
 for i in 0 ..< 5 {
   let string = random.string(bits: bits)
@@ -55,20 +55,22 @@ for i in 0 ..< 5 {
 print("Strings: \(strings)")
 //: * callout(strings): ["85e442fa0e83", "a74dc126af1e", "368cd13b1f6e", "81bf94e1278d", "fe7dec099ac9"]
 //:
-//: To generate the IDs, we first use
-//:
+//: Examining the above code,
 //: ```swift
 //: let bits = Entropy.bits(total: 10000, risk: 1.0e6)
 //: ```
-//:
-//: to determine the bits of entropy needed to satisfy our probabilistic uniqueness of **10,000** strings with a **1 in a million** (ten to the sixth power) risk of repeat. We didn't print the result, but if you did you'd see it's about **45.51**. Then inside a loop we used
-//:
+//: is used to determine how much entropy is needed to satisfy the probabilistic uniqueness of a **1 in a million** risk of repeat in a total of **10,000** strings. We didn't print the result, but if you did you'd see it's about **45.51** bits. Then
+//: ```swift
+//: let random = Random(.charSet16)
+//: ```
+//: creates a `Random` instance configured to generated strings using the predefined hexadecimal characters provided by `.charSet16`. Finally
 //: ```swift
 //: let string = random.string(bits: bits)
 //: ```
+//: is used to actually generate the random strings of the specified entropy.
 //:
-//: to actually generate random strings using hexadecimal (charSet16) characters. Looking at the IDs, we can see each is 12 characters long. Again, the string length is a by-product of the characters used to represent the entropy we needed. And it seems the developer didn't really need 16 characters after all.
+//: Looking at the IDs, we can see each is 12 characters long. Again, the string length is a by-product of the characters used to represent the entropy we needed. And it seems the developer didn't really need 16 characters after all.
 //:
-//: Finally, given that the strings are 12 hexadecimals long, each string actually has an information carrying capacity of 12 * 4 = 48 bits of entropy (a hexadecimal character carries 4 bits). That's fine. Assuming all characters are equally probable, a string can only carry entropy equal to a multiple of the amount of entropy represented per character. `EntropyString` produces the smallest strings that *exceed* the specified entropy.
+//: Given that the strings are 12 hexadecimals long, each string actually has an information carrying capacity of 12 * 4 = 48 bits of entropy (a hexadecimal character carries 4 bits). That's fine. Assuming all characters are equally probable, a string can only carry entropy equal to a multiple of the amount of entropy represented per character. `EntropyString` produces the smallest strings that *exceed* the specified entropy.
 //:
 //: [TOC](Table%20of%20Contents) | [Next](@next)

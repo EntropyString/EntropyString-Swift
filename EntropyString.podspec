@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "EntropyString"
-  s.version      = "2.3.0"
+  s.version      = "2.3.1"
   s.summary      = "Efficiently generate cryptographically strong random strings of specified entropy from various character sets."
 
   s.description = <<-DESC

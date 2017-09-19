@@ -82,7 +82,7 @@
 		E287ADB81F0EDCAB00DE6DF5 /* Entropy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entropy.swift; sourceTree = "<group>"; };
 		E287ADBA1F0EE3B600DE6DF5 /* EntropyString.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = EntropyString.playground; sourceTree = "<group>"; };
 		E2B8C8161F3E2B8500171502 /* CharSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharSet.swift; sourceTree = "<group>"; };
-		E2B8C8181F3E2D3400171502 /* Futz.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Futz.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E2DDF28D1F68EDD700CE76CB /* Presentation.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Presentation.playground; path = ../Presentation/Swift/Presentation.playground; sourceTree = "<group>"; };
 		E2E1404E1F422C70003E02B0 /* EntropyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntropyTests.swift; sourceTree = "<group>"; };
 		E2E140521F422FB1003E02B0 /* RandomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
 		E2E140561F433A6D003E02B0 /* CharSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharSetTests.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		E287AD881F0E9B9A00DE6DF5 = {
 			isa = PBXGroup;
 			children = (
-				E2B8C8181F3E2D3400171502 /* Futz.playground */,
+				E2DDF28D1F68EDD700CE76CB /* Presentation.playground */,
 				E287AD941F0E9B9A00DE6DF5 /* EntropyString */,
 				E287AD931F0E9B9A00DE6DF5 /* Products */,
 				E287ADBA1F0EE3B600DE6DF5 /* EntropyString.playground */,
