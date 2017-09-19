@@ -10,93 +10,75 @@ import XCTest
 @testable import EntropyString
 
 class EntropyTests: XCTestCase {
-  var powers: [Entropy.Power]!
-
-  override func setUp() {
-    super.setUp()
-    powers = [.ten01, .ten02, .ten03, .ten04, .ten05, .ten06, .ten07, .ten08, .ten09, .ten10,
-              .ten11, .ten12, .ten13, .ten14, .ten15, .ten16, .ten17, .ten18, .ten19, .ten10,
-              .ten21, .ten22, .ten23, .ten24, .ten25, .ten26, .ten27, .ten28, .ten29, .ten30] as [Entropy.Power]
-
-  }
   
   func testZeroEntropy() {
-    entropyBits0(0, 0, 0)
-    for power in powers {
-      entropyBits0(0, power, 0)
-    }
+    entropyBits_r0(0, 0, 0)
+  }
+  
+  func testBitsIntInt() {
+    entropyBits_r2(    10,   1000, 15.46)
+    entropyBits_r2(    10,  10000, 18.78)
+    entropyBits_r2(    10, 100000, 22.10)
+    
+    entropyBits_r2(   100,   1000, 22.24)
+    entropyBits_r2(   100,  10000, 25.56)
+    entropyBits_r2(   100, 100000, 28.88)
+    
+    entropyBits_r2(  1000,   1000, 28.90)
+    entropyBits_r2(  1000,  10000, 32.22)
+    entropyBits_r2(  1000, 100000, 35.54)
+    
+    entropyBits_r2( 10000,   1000, 35.54)
+    entropyBits_r2( 10000,  10000, 38.86)
+    entropyBits_r2( 10000, 100000, 42.18)
+    
+    entropyBits_r2(100000,   1000, 42.19)
+    entropyBits_r2(100000,  10000, 45.51)
+    entropyBits_r2(100000, 100000, 48.83)
+  }
+  
+  func testBitsIntFloat() {
+    entropyBits_r2(    10, 1.0e03, 15.46)
+    entropyBits_r2(    10, 1.0e04, 18.78)
+    entropyBits_r2(    10, 1.0e05, 22.10)
+    
+    entropyBits_r2(   100, 1.0e03, 22.24)
+    entropyBits_r2(   100, 1.0e04, 25.56)
+    entropyBits_r2(   100, 1.0e05, 28.88)
+    
+    entropyBits_r2(  1000, 1.0e03, 28.90)
+    entropyBits_r2(  1000, 1.0e04, 32.22)
+    entropyBits_r2(  1000, 1.0e05, 35.54)
+    
+    entropyBits_r2( 10000, 1.0e03, 35.54)
+    entropyBits_r2( 10000, 1.0e04, 38.86)
+    entropyBits_r2( 10000, 1.0e05, 42.18)
+    
+    entropyBits_r2(100000, 1.0e03, 42.19)
+    entropyBits_r2(100000, 1.0e04, 45.51)
+    entropyBits_r2(100000, 1.0e05, 48.83)
   }
   
   func testBitsFloatFloat() {
-    entropyBits2(    10,   1000, 15.46)
-    entropyBits2(    10,  10000, 18.78)
-    entropyBits2(    10, 100000, 22.10)
+    entropyBits_r2(1.0e01, 1.0e03, 15.46)
+    entropyBits_r2(1.0e01, 1.0e04, 18.78)
+    entropyBits_r2(1.0e01, 1.0e05, 22.10)
     
-    entropyBits2(   100,   1000, 22.24)
-    entropyBits2(   100,  10000, 25.56)
-    entropyBits2(   100, 100000, 28.88)
+    entropyBits_r2(1.0e02, 1.0e03, 22.24)
+    entropyBits_r2(1.0e02, 1.0e04, 25.56)
+    entropyBits_r2(1.0e02, 1.0e05, 28.88)
     
-    entropyBits2(  1000,   1000, 28.90)
-    entropyBits2(  1000,  10000, 32.22)
-    entropyBits2(  1000, 100000, 35.54)
+    entropyBits_r2(1.0e03, 1.0e03, 28.90)
+    entropyBits_r2(1.0e03, 1.0e04, 32.22)
+    entropyBits_r2(1.0e03, 1.0e05, 35.54)
     
-    entropyBits2( 10000,   1000, 35.54)
-    entropyBits2( 10000,  10000, 38.86)
-    entropyBits2( 10000, 100000, 42.18)
+    entropyBits_r2(1.0e04, 1.0e03, 35.54)
+    entropyBits_r2(1.0e04, 1.0e04, 38.86)
+    entropyBits_r2(1.0e04, 1.0e05, 42.18)
     
-    entropyBits2(100000,   1000, 42.19)
-    entropyBits2(100000,  10000, 45.51)
-    entropyBits2(100000, 100000, 48.83)
-  }
-  
-  func testBitsFloatPower() {
-    entropyBits2(    10, .ten03, 15.46)
-    entropyBits2(    10, .ten04, 18.78)
-    entropyBits2(    10, .ten05, 22.10)
-    
-    entropyBits2(   100, .ten03, 22.24)
-    entropyBits2(   100, .ten04, 25.56)
-    entropyBits2(   100, .ten05, 28.88)
-    
-    entropyBits2(  1000, .ten03, 28.90)
-    entropyBits2(  1000, .ten04, 32.22)
-    entropyBits2(  1000, .ten05, 35.54)
-    
-    entropyBits2( 10000, .ten03, 35.54)
-    entropyBits2( 10000, .ten04, 38.86)
-    entropyBits2( 10000, .ten05, 42.18)
-    
-    entropyBits2(100000, .ten03, 42.19)
-    entropyBits2(100000, .ten04, 45.51)
-    entropyBits2(100000, .ten05, 48.83)
-  }
-  
-  func testBitsPowerPower() {
-    entropyBits2(.ten01, .ten03, 15.46)
-    entropyBits2(.ten01, .ten04, 18.78)
-    entropyBits2(.ten01, .ten05, 22.10)
-    
-    entropyBits2(.ten02, .ten03, 22.24)
-    entropyBits2(.ten02, .ten04, 25.56)
-    entropyBits2(.ten02, .ten05, 28.88)
-    
-    entropyBits2(.ten03, .ten03, 28.90)
-    entropyBits2(.ten03, .ten04, 32.22)
-    entropyBits2(.ten03, .ten05, 35.54)
-    
-    entropyBits2(.ten04, .ten03, 35.54)
-    entropyBits2(.ten04, .ten04, 38.86)
-    entropyBits2(.ten04, .ten05, 42.18)
-    
-    entropyBits2(.ten05, .ten03, 42.19)
-    entropyBits2(.ten05, .ten04, 45.51)
-    entropyBits2(.ten05, .ten05, 48.83)
-    
-    for total in powers {
-      for risk in powers {
-        _ = Entropy.bits(for: total, risk: risk)
-      }
-    }
+    entropyBits_r2(1.0e05, 1.0e03, 42.19)
+    entropyBits_r2(1.0e05, 1.0e04, 45.51)
+    entropyBits_r2(1.0e05, 1.0e05, 48.83)
   }
   
   func testPreshingTable() {
@@ -194,38 +176,17 @@ class EntropyTests: XCTestCase {
     entropyBits0(.ten09, .ten30, 158)
   }
 
-  func entropyBits0(_ numStrings: Float, _ risk: Float, _ expected: Float) {
+
+  }
+
+  func entropyBits_r0(_ numStrings: Float, _ risk: Float, _ expected: Float) {
     let bits = Entropy.bits(for: numStrings, risk: risk)
     XCTAssertEqual(roundf(bits), expected)
   }
 
-  func entropyBits0(_ numStrings: Float, _ risk: Entropy.Power, _ expected: Float) {
+  func entropyBits_r2(_ numStrings: Float, _ risk: Float, _ expected: Float) {
     let bits = Entropy.bits(for: numStrings, risk: risk)
-    XCTAssertEqual(roundf(bits), expected)
-  }
-
-  func entropyBits0(_ numStrings: Entropy.Power, _ risk: Entropy.Power, _ expected: Float) {
-    let bits = Entropy.bits(for: numStrings, risk: risk)
-    XCTAssertEqual(roundf(bits), expected)
-  }
-
-  func checkEqual2(_ num: Float, _ expected: Float) {
-    XCTAssertEqual(roundf(num * 100)/100, expected)
-  }
-  
-  func entropyBits2(_ numStrings: Float, _ risk: Float, _ expected: Float) {
-    let bits = Entropy.bits(for: numStrings, risk: risk)
-    checkEqual2(bits, expected)
-  }
-
-  func entropyBits2(_ numStrings: Float, _ risk: Entropy.Power, _ expected: Float) {
-    let bits = Entropy.bits(for: numStrings, risk: risk)
-    checkEqual2(bits, expected)
-  }
-  
-  func entropyBits2(_ numStrings: Entropy.Power, _ risk: Entropy.Power, _ expected: Float) {
-    let bits = Entropy.bits(for: numStrings, risk: risk)
-    checkEqual2(bits, expected)
+    XCTAssertEqual(roundf(bits * 100)/100, expected)
   }
 }
 
@@ -234,9 +195,9 @@ extension EntropyTests {
   static var tests: [(String, (EntropyTests) -> () throws -> ())] {
     return [
       ("testZeroEntropy",    testZeroEntropy),
+      ("testBitsIntInt",     testBitsIntInt),
+      ("testBitsIntFloat",   testBitsIntFloat),
       ("testBitsFloatFloat", testBitsFloatFloat),
-      ("testBitsFloatPower", testBitsFloatPower),
-      ("testBitsPowerPower", testBitsPowerPower),
       ("testPreshingTable",  testPreshingTable)
     ]
   }
