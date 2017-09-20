@@ -80,9 +80,9 @@ class EntropyTests: XCTestCase {
     entropyBits_r2(1.0e05, 1.0e04, 45.51)
     entropyBits_r2(1.0e05, 1.0e05, 48.83)
   }
-  
-  func testPreshingTable() {
-    // From table at http://preshing.com/20110504/hash-collision-probabilities/
+
+  // From table at http://preshing.com/20110504/hash-collision-probabilities/
+  func testPreshing32Bit() {
     // 32-bit column
     entropyBits_r0(30084, 1.0e01, 32)
     entropyBits_r0( 9292, 1.0e02, 32)
@@ -92,7 +92,9 @@ class EntropyTests: XCTestCase {
     entropyBits_r0(   93, 1.0e06, 32)
     entropyBits_r0(   30, 1.0e07, 32)
     entropyBits_r0(   10, 1.0e08, 32)
+  }
 
+  func testPreshing64Bit() {
     // 64-bit column
     entropyBits_r0( 1.97e09, 1.0e01, 64)
     entropyBits_r0( 6.09e08, 1.0e02, 64)
@@ -112,7 +114,9 @@ class EntropyTests: XCTestCase {
     entropyBits_r0(      61, 1.0e16, 64)
     entropyBits_r0(      20, 1.0e17, 64)
     entropyBits_r0(       7, 1.0e18, 64)
-
+  }
+  
+  func testPreshing160Bit() {
     // 160-bit column
     entropyBits_r0(1.42e24,      2, 160)
     entropyBits_r0(5.55e23,     10, 160)
@@ -154,7 +158,9 @@ extension EntropyTests {
       ("testBitsIntInt",     testBitsIntInt),
       ("testBitsIntFloat",   testBitsIntFloat),
       ("testBitsFloatFloat", testBitsFloatFloat),
-      ("testPreshingTable",  testPreshingTable)
+      ("testPreshing32Bit",  testPreshing32Bit),
+      ("testPreshing64Bit",  testPreshing64Bit),
+      ("testPreshing160Bit", testPreshing160Bit)
     ]
   }
 }
