@@ -14,10 +14,10 @@ Efficiently generate cryptographically strong and secure random strings of speci
   s.authors = { "knoxen" => "paul@knoxen.com", "dingo sky" => "paul@dingosky.com" }
   s.social_media_url = "http://twitter.com/knoxen"
 
-  s.ios.deployment_target = "9.0"
+  s.ios.deployment_target = "11.0"
   s.osx.deployment_target = "10.11"
   s.watchos.deployment_target = "2.0"
-  s.tvos.deployment_target = "9.0"
+  s.tvos.deployment_target = "1.0"
 
   s.source = { :git => "https://github.com/EntropyString/EntropyString-Swift.git", :tag => "#{s.version}" }
 
