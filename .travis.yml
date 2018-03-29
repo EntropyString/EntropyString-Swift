@@ -14,7 +14,7 @@ matrix:
       sudo: required
       dist: trusty
       env:
-        - SWIFT_VERSIONS="4.0.0"
+        - SWIFT_VERSION="4.0"
         - SWIFTENV_ROOT="$HOME/.swiftenv"
         - PATH="$SWIFTENV_ROOT/bin:$SWIFTENV_ROOT/shims:$PATH"
 env:
