@@ -325,7 +325,7 @@ public class Entropy {
   /// - return: The character
   private func char(_ ndx: CharSet.Ndx, _ charSet: CharSet) -> Character {
     let chars = charSet.chars
-    guard Int(ndx) < chars.characters.count else { fatalError("Index out of bounds") }
+    guard Int(ndx) < chars.count else { fatalError("Index out of bounds") }
     let charIndex = chars.index(chars.startIndex, offsetBy: Int(ndx))
     return chars[charIndex]
   }

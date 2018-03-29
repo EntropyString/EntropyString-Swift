@@ -73,7 +73,7 @@ public struct CharSet {
   /// - throws: `.invalidCharCount` if String length not a multiple of 2
   /// - throws: `.charsNotUnique` if any character repeats
   public init(_ chars: String) throws {
-    let length = chars.characters.count
+    let length = chars.count
     guard [2,4,8,16,32,64].contains(length) else { throw EntropyStringError.invalidCharCount }
     guard CharSet.unique(chars) else { throw EntropyStringError.charsNotUnique }
     
@@ -161,7 +161,7 @@ public struct CharSet {
   private static func unique(_ string: String) -> Bool {
     var charSet = Set<Character>()
     var unique = true
-    for char in string.characters {
+    for char in string {
       let (inserted, _) = charSet.insert(char)
       unique = unique && inserted
       if !unique {
