@@ -32,26 +32,26 @@ public struct CharSet {
   
   // Predefined `CharSet`s
   /// RFC 4648 URL and file system safe characters
-  public static let charSet64 = try! CharSet("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
+  public static let charset64 = try! CharSet("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
   
   /// From a..z,A..Z,0..9
   ///  Remove all upper and lower case vowels (including y)
   ///  Remove all numbers that look like letters
   ///  Remove all letters that look like numbers
   ///  Remove all letters that have poor distinction between upper and lower case values
-  public static let charSet32 = try! CharSet("2346789bdfghjmnpqrtBDFGHJLMNPQRT")
+  public static let charset32 = try! CharSet("2346789bdfghjmnpqrtBDFGHJLMNPQRT")
   
   /// Hexadecimal
-  public static let charSet16 = try! CharSet("0123456789abcdef")
+  public static let charset16 = try! CharSet("0123456789abcdef")
   
   /// Octal
-  public static let charSet8  = try! CharSet("01234567")
+  public static let charset8  = try! CharSet("01234567")
   
   /// DNA alphabet
-  public static let charSet4  = try! CharSet("ATCG")
+  public static let charset4  = try! CharSet("ATCG")
   
   /// Binary
-  public static let charSet2  = try! CharSet("01")
+  public static let charset2  = try! CharSet("01")
 
   /// String of characters in this `CharSet`
   public private(set) var chars: String
@@ -159,10 +159,10 @@ public struct CharSet {
   ///
   /// - return: `true` if no repeat characters in `CharSet`
   private static func unique(_ string: String) -> Bool {
-    var charSet = Set<Character>()
+    var charset = Set<Character>()
     var unique = true
     for char in string {
-      let (inserted, _) = charSet.insert(char)
+      let (inserted, _) = charset.insert(char)
       unique = unique && inserted
       if !unique {
         break

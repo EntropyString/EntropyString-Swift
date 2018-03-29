@@ -11,11 +11,11 @@ import XCTest
 
 class EntropyTests: XCTestCase {
   var random: Entropy!
-  let charSets = [.charSet64, .charSet32, .charSet16, .charSet8,  .charSet4,  .charSet2] as [CharSet]
+  let charsets = [.charset64, .charset32, .charset16, .charset8,  .charset4,  .charset2] as [CharSet]
 
   func testInit() {
     let random = Entropy()
-    XCTAssertEqual(random.charSet.chars, CharSet.charSet32.chars)
+    XCTAssertEqual(random.charset.chars, CharSet.charset32.chars)
   }
   
   // Test bits calculation
@@ -162,18 +162,18 @@ class EntropyTests: XCTestCase {
   func testSmallID() {
     random = Entropy()
     XCTAssertEqual( 6, random.smallID().count)
-    XCTAssertEqual( 5, random.smallID(.charSet64).count)
-    XCTAssertEqual( 6, random.smallID(.charSet32).count)
-    XCTAssertEqual( 8, random.smallID(.charSet16).count)
-    XCTAssertEqual(10, random.smallID(.charSet8).count)
-    XCTAssertEqual(15, random.smallID(.charSet4).count)
-    XCTAssertEqual(29, random.smallID(.charSet2).count)
+    XCTAssertEqual( 5, random.smallID(.charset64).count)
+    XCTAssertEqual( 6, random.smallID(.charset32).count)
+    XCTAssertEqual( 8, random.smallID(.charset16).count)
+    XCTAssertEqual(10, random.smallID(.charset8).count)
+    XCTAssertEqual(15, random.smallID(.charset4).count)
+    XCTAssertEqual(29, random.smallID(.charset2).count)
     
-    for charSet in charSets {
+    for charset in charsets {
       let smallIDBits = Float(29)
-      let random = Entropy(charSet)
+      let random = Entropy(charset)
       let id = random.smallID()
-      let count = Int(ceilf(smallIDBits / Float(charSet.bitsPerChar)))
+      let count = Int(ceilf(smallIDBits / Float(charset.bitsPerChar)))
       XCTAssertEqual(id.count, count)
     }
   }
@@ -181,18 +181,18 @@ class EntropyTests: XCTestCase {
   func testMediumID() {
     random = Entropy()
     XCTAssertEqual(14, random.mediumID().count)
-    XCTAssertEqual(12, random.mediumID(.charSet64).count)
-    XCTAssertEqual(14, random.mediumID(.charSet32).count)
-    XCTAssertEqual(18, random.mediumID(.charSet16).count)
-    XCTAssertEqual(23, random.mediumID(.charSet8).count)
-    XCTAssertEqual(35, random.mediumID(.charSet4).count)
-    XCTAssertEqual(69, random.mediumID(.charSet2).count)
+    XCTAssertEqual(12, random.mediumID(.charset64).count)
+    XCTAssertEqual(14, random.mediumID(.charset32).count)
+    XCTAssertEqual(18, random.mediumID(.charset16).count)
+    XCTAssertEqual(23, random.mediumID(.charset8).count)
+    XCTAssertEqual(35, random.mediumID(.charset4).count)
+    XCTAssertEqual(69, random.mediumID(.charset2).count)
     
-    for charSet in charSets {
+    for charset in charsets {
       let mediumIDBits = Float(69)
-      let random = Entropy(charSet)
+      let random = Entropy(charset)
       let id = random.mediumID()
-      let count = Int(ceilf(mediumIDBits / Float(charSet.bitsPerChar)))
+      let count = Int(ceilf(mediumIDBits / Float(charset.bitsPerChar)))
       XCTAssertEqual(id.count, count)
     }
   }
@@ -200,18 +200,18 @@ class EntropyTests: XCTestCase {
   func testLargeID() {
     random = Entropy()
     XCTAssertEqual(20, random.largeID().count)
-    XCTAssertEqual(17, random.largeID(.charSet64).count)
-    XCTAssertEqual(20, random.largeID(.charSet32).count)
-    XCTAssertEqual(25, random.largeID(.charSet16).count)
-    XCTAssertEqual(33, random.largeID(.charSet8).count)
-    XCTAssertEqual(50, random.largeID(.charSet4).count)
-    XCTAssertEqual(99, random.largeID(.charSet2).count)
+    XCTAssertEqual(17, random.largeID(.charset64).count)
+    XCTAssertEqual(20, random.largeID(.charset32).count)
+    XCTAssertEqual(25, random.largeID(.charset16).count)
+    XCTAssertEqual(33, random.largeID(.charset8).count)
+    XCTAssertEqual(50, random.largeID(.charset4).count)
+    XCTAssertEqual(99, random.largeID(.charset2).count)
     
-    for charSet in charSets {
+    for charset in charsets {
       let largeIDBits = Float(99)
-      let random = Entropy(charSet)
+      let random = Entropy(charset)
       let id = random.largeID()
-      let count = Int(ceilf(largeIDBits / Float(charSet.bitsPerChar)))
+      let count = Int(ceilf(largeIDBits / Float(charset.bitsPerChar)))
       XCTAssertEqual(id.count, count)
     }
   }
@@ -219,18 +219,18 @@ class EntropyTests: XCTestCase {
   func testSessionID() {
     random = Entropy()
     XCTAssertEqual( 26, random.sessionID().count)
-    XCTAssertEqual( 22, random.sessionID(.charSet64).count)
-    XCTAssertEqual( 26, random.sessionID(.charSet32).count)
-    XCTAssertEqual( 32, random.sessionID(.charSet16).count)
-    XCTAssertEqual( 43, random.sessionID(.charSet8).count)
-    XCTAssertEqual( 64, random.sessionID(.charSet4).count)
-    XCTAssertEqual(128, random.sessionID(.charSet2).count)
+    XCTAssertEqual( 22, random.sessionID(.charset64).count)
+    XCTAssertEqual( 26, random.sessionID(.charset32).count)
+    XCTAssertEqual( 32, random.sessionID(.charset16).count)
+    XCTAssertEqual( 43, random.sessionID(.charset8).count)
+    XCTAssertEqual( 64, random.sessionID(.charset4).count)
+    XCTAssertEqual(128, random.sessionID(.charset2).count)
     
-    for charSet in charSets {
+    for charset in charsets {
       let sessionIDBits = Float(128)
-      let random = Entropy(charSet)
+      let random = Entropy(charset)
       let id = random.sessionID()
-      let count = Int(ceilf(sessionIDBits / Float(charSet.bitsPerChar)))
+      let count = Int(ceilf(sessionIDBits / Float(charset.bitsPerChar)))
       XCTAssertEqual(id.count, count)
     }
   }
@@ -238,24 +238,24 @@ class EntropyTests: XCTestCase {
   func testToken() {
     random = Entropy()
     XCTAssertEqual( 52, random.token().count)
-    XCTAssertEqual( 43, random.token(.charSet64).count)
-    XCTAssertEqual( 52, random.token(.charSet32).count)
-    XCTAssertEqual( 64, random.token(.charSet16).count)
-    XCTAssertEqual( 86, random.token(.charSet8).count)
-    XCTAssertEqual(128, random.token(.charSet4).count)
-    XCTAssertEqual(256, random.token(.charSet2).count)
+    XCTAssertEqual( 43, random.token(.charset64).count)
+    XCTAssertEqual( 52, random.token(.charset32).count)
+    XCTAssertEqual( 64, random.token(.charset16).count)
+    XCTAssertEqual( 86, random.token(.charset8).count)
+    XCTAssertEqual(128, random.token(.charset4).count)
+    XCTAssertEqual(256, random.token(.charset2).count)
     
-    for charSet in charSets {
+    for charset in charsets {
       let tokenBits = Float(256)
-      let random = Entropy(charSet)
+      let random = Entropy(charset)
       let id = random.token()
-      let count = Int(ceilf(tokenBits / Float(charSet.bitsPerChar)))
+      let count = Int(ceilf(tokenBits / Float(charset.bitsPerChar)))
       XCTAssertEqual(id.count, count)
     }
   }
   
   func testCharSet64() {
-    random = Entropy(.charSet64)
+    random = Entropy(.charset64)
     entropyString( 6, [0xdd],                                                 "3")
     entropyString(12, [0x78, 0xfc],                                           "eP")
     entropyString(18, [0xc5, 0x6f, 0x21],                                     "xW8")
@@ -271,7 +271,7 @@ class EntropyTests: XCTestCase {
   }
 
   func testCharSet32() {
-    random = Entropy(.charSet32)
+    random = Entropy(.charset32)
     entropyString( 5, [0xdd],                                     "N")
     entropyString(10, [0x78, 0xfc],                               "p6")
     entropyString(15, [0x78, 0xfc],                               "p6R")
@@ -286,7 +286,7 @@ class EntropyTests: XCTestCase {
   }
 
   func testCharSet16() {
-    random = Entropy(.charSet16)
+    random = Entropy(.charset16)
     entropyString( 4, [0x9d],             "9")
     entropyString( 8, [0xae],             "ae")
     entropyString(12, [0x01, 0xf2],       "01f")
@@ -295,7 +295,7 @@ class EntropyTests: XCTestCase {
   }
   
   func testCharSet8() {
-    random = Entropy(.charSet8)
+    random = Entropy(.charset8)
     entropyString( 3, [0x5a],                   "2")
     entropyString( 6, [0x5a],                   "26")
     entropyString( 9, [0x21, 0xa4],             "103")
@@ -309,7 +309,7 @@ class EntropyTests: XCTestCase {
   }
   
   func testCharSet4() {
-    random = Entropy(.charSet4)
+    random = Entropy(.charset4)
     entropyString( 2, [0x5a],       "T")
     entropyString( 4, [0x5a],       "TT")
     entropyString( 6, [0x93],       "CTA")
@@ -321,7 +321,7 @@ class EntropyTests: XCTestCase {
   }
   
   func testCharSet2() {
-    random = Entropy(.charSet2)
+    random = Entropy(.charset2)
     entropyString( 1, [0x27],       "0")
     entropyString( 2, [0x27],       "00")
     entropyString( 3, [0x27],       "001")
@@ -335,13 +335,13 @@ class EntropyTests: XCTestCase {
   }
   
   func testStringLengths() {
-    for charSet in charSets {
-      let random = Entropy(charSet)
+    for charset in charsets {
+      let random = Entropy(charset)
       let iters = 128
       for i in 0 ..< iters {
         let string = random.string(bits: Float(i))
         let count = string.count
-        let expected: Int = Int(ceil(Float(i) / Float(charSet.bitsPerChar)))
+        let expected: Int = Int(ceil(Float(i) / Float(charset.bitsPerChar)))
         XCTAssertEqual(count, expected)
       }
     }
@@ -404,36 +404,36 @@ class EntropyTests: XCTestCase {
   }
   
   func testInvalidBytes() {
-    invalidBytes( 7, .charSet64, [1])
-    invalidBytes(13, .charSet64, [1,2])
-    invalidBytes(25, .charSet64, [1,2,3])
-    invalidBytes(31, .charSet64, [1,2,3,4])
+    invalidBytes( 7, .charset64, [1])
+    invalidBytes(13, .charset64, [1,2])
+    invalidBytes(25, .charset64, [1,2,3])
+    invalidBytes(31, .charset64, [1,2,3,4])
     
-    invalidBytes( 6, .charSet32, [1])
-    invalidBytes(16, .charSet32, [1,2])
-    invalidBytes(21, .charSet32, [1,2,3])
-    invalidBytes(31, .charSet32, [1,2,3,4])
-    invalidBytes(41, .charSet32, [1,2,3,4,5])
-    invalidBytes(46, .charSet32, [1,2,3,4,5,6])
+    invalidBytes( 6, .charset32, [1])
+    invalidBytes(16, .charset32, [1,2])
+    invalidBytes(21, .charset32, [1,2,3])
+    invalidBytes(31, .charset32, [1,2,3,4])
+    invalidBytes(41, .charset32, [1,2,3,4,5])
+    invalidBytes(46, .charset32, [1,2,3,4,5,6])
     
-    invalidBytes( 9, .charSet16, [1])
-    invalidBytes(17, .charSet16, [1,2])
+    invalidBytes( 9, .charset16, [1])
+    invalidBytes(17, .charset16, [1,2])
     
-    invalidBytes( 7, .charSet8,  [1])
-    invalidBytes(16, .charSet8,  [1,2])
-    invalidBytes(25, .charSet8,  [1,2,3])
-    invalidBytes(31, .charSet8,  [1,2,3,4])
+    invalidBytes( 7, .charset8,  [1])
+    invalidBytes(16, .charset8,  [1,2])
+    invalidBytes(25, .charset8,  [1,2,3])
+    invalidBytes(31, .charset8,  [1,2,3,4])
     
-    invalidBytes( 9, .charSet4,  [1])
-    invalidBytes(17, .charSet4,  [1,2])
+    invalidBytes( 9, .charset4,  [1])
+    invalidBytes(17, .charset4,  [1,2])
     
-    invalidBytes( 9, .charSet2,  [1])
-    invalidBytes(17, .charSet2,  [1,2])
+    invalidBytes( 9, .charset2,  [1])
+    invalidBytes(17, .charset2,  [1,2])
   }
   
   func testNegativeEntropy() {
     do {
-      let random = Entropy(.charSet32)
+      let random = Entropy(.charset32)
       let _ = try random.string(bits: -6, using: [0x33])
     }
     catch {
@@ -447,23 +447,23 @@ class EntropyTests: XCTestCase {
   }
   
   func testUseCharSet() {
-    random = Entropy(.charSet32)
-    XCTAssertEqual(random.charSet.chars, CharSet.charSet32.chars)
-    random.use(.charSet16)
-    XCTAssertEqual(random.charSet.chars, CharSet.charSet16.chars)
+    random = Entropy(.charset32)
+    XCTAssertEqual(random.charset.chars, CharSet.charset32.chars)
+    random.use(.charset16)
+    XCTAssertEqual(random.charset.chars, CharSet.charset16.chars)
   }
   
   func testUseChars() {
     random = try! Entropy("abce")
-    XCTAssertEqual(random.charSet.chars, "abce")
+    XCTAssertEqual(random.charset.chars, "abce")
     try! random.use("ECBA")
-    XCTAssertEqual(random.charSet.chars, "ECBA")
+    XCTAssertEqual(random.charset.chars, "ECBA")
   }
 
   #if !os(Linux)
   func testSecRand() {
-    for charSet in charSets {
-      let random = Entropy(charSet)
+    for charset in charsets {
+      let random = Entropy(charset)
       var secRand = false
       _ = random.string(bits: 36, secRand: &secRand)
       XCTAssertFalse(secRand)
@@ -485,9 +485,9 @@ class EntropyTests: XCTestCase {
     }
   }
 
-  func entropyString(_ bits: Float, _ charSet: CharSet, _ bytes: [UInt8], _ expected: String) {
+  func entropyString(_ bits: Float, _ charset: CharSet, _ bytes: [UInt8], _ expected: String) {
     do {
-      let random = Entropy(charSet)
+      let random = Entropy(charset)
       let string = try random.string(bits: bits, using: bytes)
       XCTAssertEqual(string, expected)
     }
@@ -526,9 +526,9 @@ class EntropyTests: XCTestCase {
     }
   }
   
-  func invalidBytes(_ bits: Float, _ charSet: CharSet, _ bytes: [UInt8]) {
+  func invalidBytes(_ bits: Float, _ charset: CharSet, _ bytes: [UInt8]) {
     do {
-      let random = Entropy(charSet)
+      let random = Entropy(charset)
       _ = try random.string(bits: bits, using: bytes)
       XCTFail("Should have thrown")
     }

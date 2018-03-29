@@ -45,15 +45,15 @@ internal struct Bytes {
   /// The number of bytes returned is sufficient to generate a string with `bits` of entropy using `CharSet`
   ///
   /// - parameter bits: Entropy bits
-  /// - paramater charSet: The character set that will be used.
+  /// - paramater charset: The character set that will be used.
   /// - parameter secRand: On Apple OSes, if _secRand_ is `true`, attempt to use `SecRandomCopyBytes` to
   ///     generate random bytes; if `false` use `arc4random_buf`. This parameter is ignored on Linux OS.
   ///
   /// - return: Random bytes. On Apple OSes, if _secRand_ is passed as `true`, the value on return
   ///     indicates whether `SecRandomCopyBytes` (`true`) or `arc4random_buf` (`false`) was used.
   ///
-  static func random(_ bits: Float, _ charSet: CharSet, _ secRand: inout Bool) -> [UInt8] {
-    let bytesNeeded = charSet.bytesNeeded(bits: bits)
+  static func random(_ bits: Float, _ charset: CharSet, _ secRand: inout Bool) -> [UInt8] {
+    let bytesNeeded = charset.bytesNeeded(bits: bits)
     var bytes = [UInt8](repeating: 0, count: bytesNeeded)
     
     #if os(Linux)
