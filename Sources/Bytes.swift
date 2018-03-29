@@ -2,7 +2,7 @@
 //  Bytes.swift
 //  EntropyString
 //
-//  Copyright © 2017 Knoxen. All rights reserved.
+//  Copyright © 2017-2018 Knoxen. All rights reserved.
 //
 //  The MIT License (MIT)
 //

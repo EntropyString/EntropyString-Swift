@@ -1,8 +1,8 @@
 //
-//  Random.swift
+//  Entropy.swift
 //  EntropyString
 //
-//  Copyright © 2017 Knoxen. All rights reserved.
+//  Copyright © 2017-2018 Knoxen. All rights reserved.
 //
 //  The MIT License (MIT)
 //
@@ -26,7 +26,7 @@
 //
 import Foundation
 
-/// Errors thrown by Random
+/// Errors thrown by Entropy
 public enum EntropyStringError: Error {
   case tooFewBytes
   case negativeEntropy
@@ -34,27 +34,27 @@ public enum EntropyStringError: Error {
   case charsNotUnique
 }
 
-public class Random {
+public class Entropy {
   static let bitsPerByte: UInt8 = 8
 
   public private(set) var charSet: CharSet
 
   // MARK: - Public Initializers
   //
-  /// Create a `Random` instance
+  /// Create a `Entropy` instance
   ///
   /// - parameter charSet: The default `CharSet`
   public init(_ charSet: CharSet) {
     self.charSet = charSet
   }
   
-  /// Create a `Random` instance with default `CharSet` set to `.charSet32`
+  /// Create a `Entropy` instance with default `CharSet` set to `.charSet32`
   ///
   convenience public init() {
     self.init(CharSet.charSet32)
   }
   
-  /// Create a `Random` instance
+  /// Create a `Entropy` instance
   ///
   /// - paramter chars: String of characters for the `CharSet`
   ///
