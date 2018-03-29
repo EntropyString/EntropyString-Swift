@@ -57,7 +57,7 @@ print("Strings: \(strings)")
 //:
 //: Examining the above code,
 //: ```swift
-//: let bits = Entropy.bits(total: 10000, risk: 1.0e6)
+//: let bits = Entropy.bits(for: 10000, risk: 1.0e6)
 //: ```
 //: is used to determine how much entropy is needed to satisfy the probabilistic uniqueness of a **1 in a million** risk of repeat in a total of **10,000** strings. We didn't print the result, but if you did you'd see it's about **45.51** bits. Then
 //: ```swift
