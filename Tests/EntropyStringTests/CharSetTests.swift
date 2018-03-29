@@ -91,7 +91,7 @@ class CharSetTests: XCTestCase {
   func testBytesNeeded() {
     let doTest: (CharSet, Float) -> () = { (charSet: CharSet, bits: Float) -> () in
       let bytesNeeded = charSet.bytesNeeded(bits: bits)
-      let atLeast = Int(ceil(bits / Float(Entropy.bitsPerByte)))
+      let atLeast = Int(ceil(bits / Float(Random.bitsPerByte)))
       XCTAssertTrue(atLeast <= bytesNeeded)
       let atMost = atLeast + 1
       XCTAssertTrue(bytesNeeded <= atMost)

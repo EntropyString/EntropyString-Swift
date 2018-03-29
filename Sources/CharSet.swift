@@ -79,9 +79,9 @@ public struct CharSet {
     
     self.chars = chars
     bitsPerChar = UInt8(log2(Float(length)))
-    charsPerChunk = CharSet.lcm(bitsPerChar, Entropy.bitsPerByte) / bitsPerChar
+    charsPerChunk = CharSet.lcm(bitsPerChar, Random.bitsPerByte) / bitsPerChar
     
-    if CharSet.lcm(bitsPerChar, Entropy.bitsPerByte) == Entropy.bitsPerByte {
+    if CharSet.lcm(bitsPerChar, Random.bitsPerByte) == Random.bitsPerByte {
       ndxFn = CharSet.ndxFnForDivisor(bitsPerChar)
     }
     else {
@@ -93,7 +93,7 @@ public struct CharSet {
   ///
   public func bytesNeeded(bits: Float) -> Int {
     let count = ceil(bits / Float(bitsPerChar))
-    return Int(ceil(count * Float(bitsPerChar) / Float(Entropy.bitsPerByte)))
+    return Int(ceil(count * Float(bitsPerChar) / Float(Random.bitsPerByte)))
   }
   
   /// Determines index into `CharSet` characters when base is a multiple of 8.
@@ -111,7 +111,7 @@ public struct CharSet {
   private static func ndxFnForDivisor(_ bitsPerChar: UInt8) -> NdxFn {
     func ndxFn(bytes: [UInt8], chunk: Int, slice: UInt8) -> Ndx {
       let lShift = UInt8(bitsPerChar)
-      let rShift = Entropy.bitsPerByte - bitsPerChar
+      let rShift = Random.bitsPerByte - bitsPerChar
       return (bytes[chunk]<<UInt8(slice*lShift))>>rShift
     }
     return ndxFn
@@ -131,7 +131,7 @@ public struct CharSet {
   /// - return: The a function to index into the `CharSet` characters.
   private static func ndxFnForNonDivisor(_ bitsPerChar: UInt8) -> NdxFn {
     func ndxFn(bytes: [UInt8], chunk: Int, slice: UInt8) -> Ndx {
-      let bitsPerByte = Entropy.bitsPerByte
+      let bitsPerByte = Random.bitsPerByte
       let slicesPerChunk = lcm(bitsPerChar, bitsPerByte) / bitsPerByte
       let bNum = chunk * Int(slicesPerChunk)
       

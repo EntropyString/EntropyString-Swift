@@ -26,7 +26,16 @@
 //
 import Foundation
 
+/// Errors thrown by Random
+public enum EntropyStringError: Error {
+  case tooFewBytes
+  case negativeEntropy
+  case invalidCharCount
+  case charsNotUnique
+}
+
 public class Random {
+  static let bitsPerByte: UInt8 = 8
 
   public private(set) var charSet: CharSet
 
@@ -56,12 +65,21 @@ public class Random {
     self.init(charSet)
   }
 
-  /// The characters of the default `CharSet`
-  @available(*, deprecated, message: "use charSet.chars instead")
-  public var chars: String {
-    return charSet.chars
+  // MARK: - Public Static
+  /// Calculates required bits of entropy
+  ///
+  /// - parameter total: Number of total items expressed as *10^power*
+  /// - parameter risk: Accepted probability expressed as 1 in *10^risk* chance of repeat
+  ///
+  /// - return: Bits of entropy required to cover the *risk* of repeat in *total* items.
+  public static func bits(for numStrings: Float , risk: Float) -> Float {
+    guard 0 < numStrings else { return 0 }
+    let N = numStrings < 10001 ? log2(numStrings) + log2(numStrings-1) : 2 * log2(numStrings)
+    return N + log2(risk) - 1
   }
-
+  
+  // MARK: - Characters
+  //
   /// Sets the default `CharSet` for generating random strings
   ///
   /// - paramter charSet: The `CharSet` to use
@@ -79,9 +97,14 @@ public class Random {
     let charSet = try CharSet(chars)
     self.charSet = charSet
   }
+
+  /// The characters of the default `CharSet`
+  @available(*, deprecated, message: "use charSet.chars instead")
+  public var chars: String {
+    return charSet.chars
+  }
   
   // MARK: - Public API
-  
   /// Generates a small ID
   ///
   /// - return: A string with a one in a million chance of repeat in 30 strings.
