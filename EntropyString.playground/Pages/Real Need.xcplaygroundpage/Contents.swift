@@ -45,10 +45,10 @@
 import EntropyString
 
 let bits = Entropy.bits(for: 10000, risk: 1.0e6)
-let random = Random(.charSet16)
+let entropy = Entropy(.charset16)
 var strings = [String]()
 for i in 0 ..< 5 {
-  let string = random.string(bits: bits)
+  let string = entropy.string(bits: bits)
   strings.append(string)
 }
   
@@ -61,11 +61,11 @@ print("Strings: \(strings)")
 //: ```
 //: is used to determine how much entropy is needed to satisfy the probabilistic uniqueness of a **1 in a million** risk of repeat in a total of **10,000** strings. We didn't print the result, but if you did you'd see it's about **45.51** bits. Then
 //: ```swift
-//: let random = Random(.charSet16)
+//: let entropy = Entropy(.charset16)
 //: ```
-//: creates a `Random` instance configured to generated strings using the predefined hexadecimal characters provided by `.charSet16`. Finally
+//: creates a `Entropy` instance configured to generated strings using the predefined hexadecimal characters provided by `.charset16`. Finally
 //: ```swift
-//: let string = random.string(bits: bits)
+//: let string = entropy.string(bits: bits)
 //: ```
 //: is used to actually generate the random strings of the specified entropy.
 //:

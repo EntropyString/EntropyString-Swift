@@ -1,15 +1,15 @@
 //: [Previous](@previous)
 //: ## Character Sets
 //:
-//: As we\'ve seen in the previous sections, `EntropyString` provides default characters for each of the supported character sets. Let\'s see what\'s under the hood. The available `CharSet`s are *.charSet64*, *.charSet32*, *.charSet16*, *.charSet8*, *.charSet4* and *.charSet2*. The default characters for each were chosen as follows:
+//: As we\'ve seen in the previous sections, `EntropyString` provides default characters for each of the supported character sets. Let\'s see what\'s under the hood. The available `CharSet`s are *.charset64*, *.charset32*, *.charset16*, *.charset8*, *.charset4* and *.charset2*. The default characters for each were chosen as follows:
 import EntropyString
 
-print("Base 64 chars: \(CharSet.charSet64.chars)\n")
-print("Base 32 chars: \(CharSet.charSet32.chars)\n")
-print("Base 16 chars: \(CharSet.charSet16.chars)\n")
-print("Base  8 chars: \(CharSet.charSet8.chars)\n")
-print("Base  4 chars: \(CharSet.charSet4.chars)\n")
-print("Base  2 chars: \(CharSet.charSet2.chars)\n")
+print("Base 64 chars: \(CharSet.charset64.chars)\n")
+print("Base 32 chars: \(CharSet.charset32.chars)\n")
+print("Base 16 chars: \(CharSet.charset16.chars)\n")
+print("Base  8 chars: \(CharSet.charset8.chars)\n")
+print("Base  4 chars: \(CharSet.charset4.chars)\n")
+print("Base  2 chars: \(CharSet.charset2.chars)\n")
 //: The default character sets were chosen as follows:
 //:  - Base 64: **ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_**
 //:     - The file system and URL safe char set from

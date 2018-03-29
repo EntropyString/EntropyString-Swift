@@ -14,9 +14,9 @@
 //: ##### A million potential strings with a 1 billion chance of a repeat:
 import EntropyString
 
-let random = Random()
 let bits = Entropy.bits(for: 1.0e6, risk: 1.0e9)
-let string = random.string(bits: bits)
+let entropy = Entropy()
+let string = entropy.string(bits: bits)
 
 print("String: \(string)\n")
 //: * callout(string): DdHrT2NdrHf8tM
