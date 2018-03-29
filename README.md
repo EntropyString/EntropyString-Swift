@@ -16,6 +16,7 @@ Efficiently generate cryptographically strong random strings of specified entrop
  - [Secure Bytes](#SecureBytes)
  - [Custom Bytes](#CustomBytes)
  - [Entropy Bits](#EntropyBits)
+ - [Upgrading To Version 3](#Upgrade)
  - [TL;DR 2](#TLDR2)
 
 [TOC](#TOC)
@@ -256,9 +257,9 @@ We'll start with using 32 characters. What 32 characters, you ask? The [Characte
   ```swift
   import EntropyString
 
-  let entropy = Entropy()
+  let entropy = Entropy(.charset32)
   var bits = Entropy.bits(for: 10000, risk: 1.0e6)
-  var string = entropy.string(bits: bits, using: .charset32)
+  var string = entropy.string(bits: bits)
 
   print("String: \(string)\n")
   ```
@@ -547,6 +548,40 @@ Now we massage the equation to represent `N` as a function of `k` and `n`:
 
 The final line represents the number of entropy bits `N` as a function of the number of potential strings `k` and the risk of repeat of 1 in `n`, exactly what we want. Furthermore, the equation is in a form that avoids really large numbers in calculating `N` since we immediately take a logarithm of each large value `k` and `n`.
 
+[TOC](#TOC)
+
+### <a name="Upgrade"></a>Upgrading To Version 3
+
+EntropyString version 3 does not introduce any new functionality. The sole purpose of the version 3 release is to simplify and tighten the API. Backward incompatible changes made in this effort necessitated a semantic major release.
+
+The two major changes are:
+
+   - Replace class `EntropyString.Random` with class `EntropyString.Entropy`
+     <br/>
+     Change all occurrences of `new Random()` to `new Entropy()`
+   - Replace all camelCase `charSetNN` with `charsetNN` <br/>
+     Change all occurrences of `.charSetNN` to `.charsetNN`
+
+For example,
+
+  ```swift
+  import EntropyString
+
+  let bits = Entropy.bits(for: 10000, risk: 1.0e6)
+  let random = Random(.charSet16)
+  let string = random.sessionID()
+  ```
+
+becomes
+
+  ```swift
+  import EntropyString
+
+  let bits = Entropy.bits(for: 10000, risk: 1.0e6)
+  let entropy = Entropy(.charset16)
+  let string = entropy.sessionID()
+  ```
+  
 [TOC](#TOC)
 
 ### <a name="TLDR2"></a>TL;DR 2
