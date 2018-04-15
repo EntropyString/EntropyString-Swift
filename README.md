@@ -95,8 +95,8 @@ The remainder of this README is included in the project as a Swift playground.
 Generate up to a _1 million_ random strings with _1 in a billion_ chance of repeat:
 
   ```swift
-  var bits = Entropy.bits(for: 1.0e6, risk: 1.0e9)
-  var entropy = Entropy()
+  let bits = Entropy.bits(for: 1.0e6, risk: 1.0e9)
+  let entropy = Entropy()
   var string = entropy.string(bits: bits)
   ```
 
@@ -258,7 +258,7 @@ We'll start with using 32 characters. What 32 characters, you ask? The [Characte
   import EntropyString
 
   let entropy = Entropy(.charset32)
-  var bits = Entropy.bits(for: 10000, risk: 1.0e6)
+  let bits = Entropy.bits(for: 10000, risk: 1.0e6)
   var string = entropy.string(bits: bits)
 
   print("String: \(string)\n")
